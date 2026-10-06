@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 <Layout title="Pandora-Inspired Unreal Environment" description="A Pandora-inspired real-time environment built in Unreal Engine 5.4.">
   <article class="max-w-3xl mx-auto px-6 py-16">
@@ -33,12 +34,12 @@ import Layout from '../../layouts/Layout.astro';
       <h2 class="text-lg text-[var(--amber)]">Video showcase</h2>
       <p class="text-[var(--text-mid)] text-sm">Three finished cinematic passes from the project.</p>
       <div class="mt-5 space-y-6">
-        <video controls preload="metadata" class="w-full border border-[var(--line)]" aria-label="The Horizon cinematic pass"><source src="/media/projects/pandora/the-horizon.mp4" type="video/mp4" /></video>
-        <video controls preload="metadata" class="w-full border border-[var(--line)]" aria-label="Ancient Stillness cinematic pass"><source src="/media/projects/pandora/ancient-stillness.mp4" type="video/mp4" /></video>
-        <video controls preload="metadata" class="w-full border border-[var(--line)]" aria-label="Environment art reel"><source src="/media/projects/pandora/environment-art.mp4" type="video/mp4" /></video>
+        <video controls preload="metadata" class="w-full border border-[var(--line)]" aria-label="The Horizon cinematic pass"><source src={`${base}media/projects/pandora/the-horizon.mp4`} type="video/mp4" /></video>
+        <video controls preload="metadata" class="w-full border border-[var(--line)]" aria-label="Ancient Stillness cinematic pass"><source src={`${base}media/projects/pandora/ancient-stillness.mp4`} type="video/mp4" /></video>
+        <video controls preload="metadata" class="w-full border border-[var(--line)]" aria-label="Environment art reel"><source src={`${base}media/projects/pandora/environment-art.mp4`} type="video/mp4" /></video>
       </div>
     </section>
 
-    <a href="/#projects" class="tag inline-block mt-10">&larr; Back to projects</a>
+    <a href={`${base}#projects`} class="tag inline-block mt-10">&larr; Back to projects</a>
   </article>
 </Layout>
