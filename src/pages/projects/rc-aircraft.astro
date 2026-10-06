@@ -1,5 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
 ---
 <Layout title="RC Aircraft — Jet Aerospace" description="Design and development of a fully functional RC aircraft at Jet Aerospace.">
   <article class="max-w-3xl mx-auto px-6 py-16">
@@ -29,14 +30,14 @@ import Layout from '../../layouts/Layout.astro';
     </section>
 
     <section class="mb-10">
-      <img src="/media/rc-plane-1.jpeg" alt="RC aircraft component during assembly and testing" class="w-full border border-[var(--line)]" />
+      <img src={`${base}media/rc-plane-1.jpeg` alt="RC aircraft component during assembly and testing" class="w-full border border-[var(--line)]" />
       <p class="tag mt-2">On-site at Jet Aerospace, Palakkad, Kerala</p>
     </section>
 
     <section class="mb-10">
-      <img src="/media/rc-plane-7.jpeg" alt="RC aircraft assembly showing airframe and control surfaces" class="w-full border border-[var(--line)]" />
+      <img src={`${base}media/rc-plane-7.jpeg` alt="RC aircraft assembly showing airframe and control surfaces" class="w-full border border-[var(--line)]" />
     </section>
 
-    <a href="/#projects" class="tag inline-block mt-6">&larr; Back to projects</a>
+    <a href={`${base}#projects`} class="tag inline-block mt-6">&larr; Back to projects</a>
   </article>
 </Layout>
