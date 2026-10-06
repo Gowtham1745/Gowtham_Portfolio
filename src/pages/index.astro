@@ -30,13 +30,20 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   <div class="honors-popup-backdrop" id="honors-popup" role="presentation">
     <aside class="honors-popup" role="dialog" aria-modal="true" aria-labelledby="honors-popup-title">
       <button class="honors-popup-close" id="honors-popup-close" type="button" aria-label="Close athletic honors">×</button>
-      <div class="honors-popup-badge"><span class="honors-medal">★</span><span>ATHLETIC HONORS</span></div>
-      <p class="honors-popup-kicker">Record Holder</p>
-      <h2 id="honors-popup-title">Asian Record Holder</h2>
-      <p class="honors-popup-sport">Roller Skating</p>
-      <div class="honors-popup-line"></div>
-      <p class="honors-popup-copy">A lifetime milestone reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p>
-      <div class="honors-popup-footer"><span>ASIAN RECORD</span><span aria-hidden="true">✦</span><span>PROUD MILESTONE</span></div>
+      <div class="honors-popup-layout">
+        <div class="honors-popup-photo">
+          <img src={`${base}media/profile-professional.jpg`} alt="Gowtham A" />
+        </div>
+        <div class="honors-popup-content">
+          <div class="honors-popup-badge"><span class="honors-medal">★</span><span>ATHLETIC HONORS</span></div>
+          <p class="honors-popup-kicker">Record Holder</p>
+          <h2 id="honors-popup-title">Asian Record Holder</h2>
+          <p class="honors-popup-sport">Roller Skating</p>
+          <div class="honors-popup-line"></div>
+          <p class="honors-popup-copy">A lifetime milestone reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p>
+          <div class="honors-popup-footer"><span>ASIAN RECORD</span><span aria-hidden="true">✦</span><span>PROUD MILESTONE</span></div>
+        </div>
+      </div>
     </aside>
   </div>
 
@@ -82,7 +89,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 }
 .honors-popup {
   position: relative;
-  width: min(100%, 430px);
+  width: min(100%, 680px);
   padding: 2rem 2rem 1.45rem;
   overflow: hidden;
   border: 1px solid rgba(231, 184, 102, 0.62);
@@ -96,6 +103,32 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     0 0 0 1px rgba(255, 255, 255, 0.04) inset,
     0 0 45px rgba(231, 184, 102, 0.13);
   animation: honors-popup-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.honors-popup-layout {
+  position: relative;
+  display: grid;
+  grid-template-columns: 150px minmax(0, 1fr);
+  gap: 1.4rem;
+  align-items: center;
+}
+.honors-popup-photo {
+  width: 150px;
+  height: 185px;
+  overflow: hidden;
+  border: 2px solid rgba(255,255,255,0.92);
+  border-radius: 15px;
+  background: #07131d;
+  box-shadow: 0 14px 35px rgba(0,0,0,0.45), 0 0 24px rgba(98,203,189,0.16);
+}
+.honors-popup-photo img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: cover;
+  object-position: center 12%;
+}
+.honors-popup-content {
+  min-width: 0;
 }
 .honors-popup::before {
   content: '';
@@ -222,8 +255,17 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 
 @media (max-width: 520px) {
   .honors-popup {
-    padding: 1.65rem 1.35rem 1.2rem;
+    padding: 1.35rem 1.1rem 1.1rem;
     border-radius: 15px;
+  }
+  .honors-popup-layout {
+    grid-template-columns: 92px minmax(0, 1fr);
+    gap: 0.9rem;
+  }
+  .honors-popup-photo {
+    width: 92px;
+    height: 120px;
+    border-radius: 11px;
   }
   .honors-popup h2 {
     font-size: 1.8rem;
