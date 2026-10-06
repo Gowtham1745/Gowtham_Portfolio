@@ -4,7 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://gowtham1745.github.io/Gowtham_Portfolio',
+  site: 'https://gowtham1745.github.io',
   base: '/Gowtham_Portfolio',
   output: 'static',
   integrations: [sitemap()],
