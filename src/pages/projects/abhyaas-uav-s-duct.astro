@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="ABHYAAS UAV — S-Duct Intake" description="CFD-based design and optimization of an S-duct air intake for the ABHYAAS UAV.">
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <p class="tag mb-3">Aerospace · CFD · Kumaraguru College of Technology</p>
+    <h1 class="text-3xl sm:text-4xl font-semibold text-[var(--text-hi)]">ABHYAAS UAV — S-Duct Intake</h1>
+    <p class="mt-4 text-[var(--text-mid)]">Final-year project · 2025–2026</p>
+
+    <div class="rule my-10"></div>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Overview</h2>
+      <p class="text-[var(--text-mid)] leading-relaxed">
+        This final-year project designed and optimized an S-duct air intake for the ABHYAAS high-speed aerial target
+        aircraft, which feeds its micro gas turbine engine. The work moved from CAD design and CFD simulation to a
+        3D-printed prototype and wind tunnel validation.
+      </p>
+    </section>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Objective</h2>
+      <ul class="list-disc list-inside text-[var(--text-mid)] space-y-1.5">
+        <li>Meet tight airframe space constraints for the intake geometry</li>
+        <li>Maximize pressure recovery at the engine face</li>
+        <li>Minimize flow distortion through the S-bend</li>
+        <li>Improve engine inlet flow characteristics</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Workflow</h2>
+      <p class="text-[var(--text-mid)] leading-relaxed">
+        CAD design → CFD analysis → geometry optimization → 3D-printed prototype → wind tunnel testing →
+        experimental validation against CFD predictions.
+      </p>
+    </section>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Tools</h2>
+      <div class="flex flex-wrap gap-2">
+        {["ANSYS", "CFD", "SolidWorks", "3D Printing", "Wind Tunnel Testing"].map(t => (
+          <span class="text-xs px-2 py-0.5 border border-[var(--line)] text-[var(--text-low)]">{t}</span>
+        ))}
+      </div>
+    </section>
+
+    <a href="/#projects" class="tag inline-block mt-6">&larr; Back to projects</a>
+  </article>
+</Layout>

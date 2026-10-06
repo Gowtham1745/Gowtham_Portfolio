@@ -1,0 +1,116 @@
+---
+// MediaLightbox.astro - Accessible client-side modal for native in-site image viewing
+---
+
+<dialog id="media-lightbox" class="fixed inset-0 z-50 bg-[#040608]/95 backdrop-blur-md p-0 m-0 w-full h-full max-w-none max-h-none border-0 text-[var(--text-hi)]" aria-label="Media Preview">
+  <div class="relative w-full h-full flex flex-col justify-between p-4 sm:p-8">
+    <!-- Top Bar -->
+    <div class="flex items-center justify-between pb-4 border-b border-[var(--line)]">
+      <div class="flex items-center gap-3">
+        <span class="tag">VIEWER // 01</span>
+        <span id="lightbox-counter" class="text-xs text-[var(--text-low)] font-mono">1 / 1</span>
+      </div>
+      <div class="flex items-center gap-2">
+        <button id="lightbox-close" type="button" class="px-3 py-1 text-xs font-mono uppercase tracking-wider border border-[var(--line)] text-[var(--text-mid)] hover:border-[var(--amber)] hover:text-[var(--amber)] transition-colors cursor-pointer" aria-label="Close dialog (Esc)">
+          Close [ESC]
+        </button>
+      </div>
+    </div>
+
+    <!-- Main Image Display -->
+    <div class="relative flex-1 flex items-center justify-center overflow-hidden py-4">
+      <button id="lightbox-prev" type="button" class="absolute left-2 sm:left-6 z-10 p-3 rounded bg-[var(--ink-1)]/80 border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--amber)] hover:border-[var(--amber)] transition-all cursor-pointer" aria-label="Previous image">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+      </button>
+
+      <div class="max-w-5xl max-h-[75vh] flex items-center justify-center">
+        <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[75vh] object-contain rounded border border-[var(--line)] shadow-2xl transition-transform duration-200" />
+      </div>
+
+      <button id="lightbox-next" type="button" class="absolute right-2 sm:right-6 z-10 p-3 rounded bg-[var(--ink-1)]/80 border border-[var(--line)] text-[var(--text-mid)] hover:text-[var(--amber)] hover:border-[var(--amber)] transition-all cursor-pointer" aria-label="Next image">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+
+    <!-- Bottom Caption -->
+    <div class="pt-4 border-t border-[var(--line)] text-center max-w-3xl mx-auto">
+      <p id="lightbox-caption" class="text-sm text-[var(--text-mid)] font-sans"></p>
+      <p id="lightbox-tag" class="text-xs font-mono text-[var(--amber)] mt-1"></p>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  let currentIndex = 0;
+  let galleryItems: { url: string; caption: string; tag?: string }[] = [];
+
+  const dialog = document.getElementById('media-lightbox') as HTMLDialogElement | null;
+  const img = document.getElementById('lightbox-img') as HTMLImageElement | null;
+  const caption = document.getElementById('lightbox-caption');
+  const tag = document.getElementById('lightbox-tag');
+  const counter = document.getElementById('lightbox-counter');
+  const closeBtn = document.getElementById('lightbox-close');
+  const prevBtn = document.getElementById('lightbox-prev');
+  const nextBtn = document.getElementById('lightbox-next');
+
+  function updateLightbox(index: number) {
+    if (!galleryItems.length || !img) return;
+    currentIndex = (index + galleryItems.length) % galleryItems.length;
+    const item = galleryItems[currentIndex];
+    img.src = item.url;
+    img.alt = item.caption || "Image preview";
+    if (caption) caption.textContent = item.caption || "";
+    if (tag) tag.textContent = item.tag ? `TAG // ${item.tag}` : "";
+    if (counter) counter.textContent = `${currentIndex + 1} / ${galleryItems.length}`;
+  }
+
+  function openLightbox(items: { url: string; caption: string; tag?: string }[], startIndex = 0) {
+    if (!dialog || !items.length) return;
+    galleryItems = items;
+    updateLightbox(startIndex);
+    dialog.showModal();
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    if (!dialog) return;
+    dialog.close();
+    document.body.style.overflow = '';
+  }
+
+  closeBtn?.addEventListener('click', closeLightbox);
+  prevBtn?.addEventListener('click', () => updateLightbox(currentIndex - 1));
+  nextBtn?.addEventListener('click', () => updateLightbox(currentIndex + 1));
+
+  dialog?.addEventListener('click', (e) => {
+    if (e.target === dialog) closeLightbox();
+  });
+
+  window.addEventListener('keydown', (e) => {
+    if (!dialog || !dialog.open) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') updateLightbox(currentIndex - 1);
+    if (e.key === 'ArrowRight') updateLightbox(currentIndex + 1);
+  });
+
+  // Attach click handlers to any element with data-lightbox-src
+  function bindLightboxTriggers() {
+    const triggers = Array.from(document.querySelectorAll<HTMLElement>('[data-lightbox-src]'));
+    triggers.forEach((trigger, idx) => {
+      trigger.style.cursor = 'pointer';
+      trigger.addEventListener('click', (e) => {
+        e.preventDefault();
+        const items = triggers.map(t => ({
+          url: t.getAttribute('data-lightbox-src') || '',
+          caption: t.getAttribute('data-lightbox-caption') || t.getAttribute('alt') || '',
+          tag: t.getAttribute('data-lightbox-tag') || ''
+        }));
+        openLightbox(items, idx);
+      });
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', bindLightboxTriggers);
+  // Re-bind on view transitions or page swaps
+  bindLightboxTriggers();
+</script>

@@ -1,0 +1,748 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { projects } from '../data/projects.js';
+
+const experience = [
+  { date: 'Feb 2026 — Present', role: 'Graduate Engineer Trainee (GET) — Sourcing Department', org: 'AMPO Valves India', type: 'Full-time · Coimbatore, India', points: ['Manage sourcing documentation in SAP, including delivery invoices for sea and air shipments.', 'Coordinate with the Spain-based team to track shipments and support accurate documentation.', 'Generate and update Material Identification Numbers (MIN) and QR codes for shipment tracking and verification.', 'Handle quality and compliance documentation: Heat Numbers, Material Test Certificates (MTC), and Radiographic Testing records.', 'Support SolidWorks design work and ANSYS simulation tasks.'] },
+  { date: 'Jan 2024 — Apr 2026', role: 'Blender Animation · 3D Artist · Motion Graphics', org: 'Pixar Prince Animation Studio', type: 'Freelance · Coimbatore, India', points: ['Developed 3D animation and motion graphics in Blender.', 'Created CGI, visual effects, simulation, and cinematic visual work with a focus on timing, composition, and visual storytelling.'] },
+  { date: 'July 2025', role: 'Electric Vehicle Battery & Motor Design', org: 'Dassault Systèmes', type: 'Internship · Coimbatore, India', points: ['Worked on EV battery-pack and motor-assembly design.', 'Applied CAD modeling to layout, feasibility, structural reliability, safety considerations, and lightweight integration.'] },
+  { date: 'May 2025', role: 'RC Plane Design & Development', org: 'Jet Aerospace', type: 'Internship · Kerala, India', points: ['Contributed to aircraft concept development, aerodynamic design, CAD modeling, and lightweight structural design.', 'Worked on aircraft assembly, propulsion, ESC, servo, RC-control integration, and flight testing.'] },
+];
+const skillGroups = [
+  { number: '01', label: 'Engineering analysis', items: ['ANSYS', 'CFD', 'Structural analysis', 'Aeronautical systems'] },
+  { number: '02', label: 'Design & CAD', items: ['SolidWorks', 'CATIA', '3D printing', 'Design for additive manufacturing'] },
+  { number: '03', label: 'Visualization', items: ['Unreal Engine 5.4', 'Blender', 'Nuke', 'After Effects'] },
+  { number: '04', label: 'Operations', items: ['SAP', 'Shipment documentation', 'MTC / Heat Numbers / RT', 'International logistics'] },
+];
+const projectMedia: Record<string, { type: 'image' | 'video'; src: string }> = {
+  'abhyaas-uav-s-duct': { type: 'image', src: '/media/cover.jpeg' },
+  'rc-aircraft': { type: 'image', src: '/media/projects/rc-aircraft/1.jpeg' },
+  'pandora-unreal-environment': { type: 'video', src: '/media/projects/pandora/environment-art.mp4' },
+  'contra-rotating-vawt': { type: 'image', src: '/media/projects/vawt.jpeg' },
+  'drone-additive-manufacturing': { type: 'image', src: '/media/projects/drone/3.jpeg' },
+  'ev-battery-motor-design': { type: 'image', src: '/media/projects/ev-design/1.jpeg' },
+};
+const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computational fluid dynamics & aerodynamic analysis'], ['Drone Design & Structural Analysis', 'UAV structural evaluation, payload & airframe sizing'], ['Electric Vehicle Battery & Motor', 'Dassault Systèmes — EV powertrain & structural safety'], ['Blender Digital Sculpting', '3D CGI, photorealistic lighting & animation'], ['RC Plane Design & Development', 'Jet Aerospace — flight aerodynamics & RC integration']];
+---
+<Layout title="Portfolio" description="Gowtham A — Aeronautical Engineering graduate working across design, simulation, real-time visualization, and sourcing operations.">
+  <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>Engineering <em>systems</em>.<br />Visualizing what’s next.</h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src="/media/profile-professional.jpg" alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+  <section id="about" class="section about-section"><div class="shell about-grid"><div><p class="eyebrow">About</p><h2 class="section-title mt-5">A cross-disciplinary engineering practice.</h2></div><div class="about-copy"><p>I work at the intersection of design engineering, real-time visualization, and global operations. At AMPO Valves India, my day-to-day includes SAP-based shipment documentation, customs-clearance support, coordination with Spain-based teams, quality and compliance records, and CAD / simulation support.</p><p>My B.E. in Aeronautical Engineering at Kumaraguru College of Technology culminated in an ABHYAAS UAV S-duct intake project: CFD analysis, design optimization, 3D printing, and wind tunnel validation. Alongside engineering, I’ve developed a CGI and real-time visualization practice through Blender, Unreal Engine, and After Effects.</p><a href="#experience" class="text-link">Read the experience timeline <span>→</span></a></div></div></section>
+  <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">Every project image is matched to the work shown. Where supporting media is not yet available, the card uses a technical placeholder instead.</p></div><div class="project-grid">{projects.map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', { 'project-card-featured': index === 0 || index === 2 }]}><div class="project-image">{media?.type === 'video' ? <video src={media.src} muted autoplay loop playsinline preload="metadata" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading={index < 3 ? 'eager' : 'lazy'} /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}<span>{project.category}</span></div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={project.href} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></div></section>
+  <section id="experience" class="section timeline-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Experience</p><h2 class="section-title mt-5">Work shaped by detail.</h2></div></div><div class="timeline">{experience.map((job) => (<article class="timeline-item"><div class="timeline-date">{job.date}</div><div class="timeline-marker"></div><div class="timeline-content"><p class="timeline-type">{job.type}</p><h3>{job.role}</h3><p class="timeline-org">{job.org}</p><ul>{job.points.map((point) => <li>{point}</li>)}</ul></div></article>))}</div></div></section>
+  <section id="skills" class="section skills-section"><div class="shell"><p class="eyebrow">Capabilities</p><div class="skills-heading"><h2 class="section-title">Tools for thinking, making, and communicating.</h2><p class="section-note">A practical toolkit spanning engineering analysis, CAD, visualization, and operations. Technical languages: C, C++, and Python.</p></div><div class="skills-grid">{skillGroups.map((group) => (<div class="skill-group"><span>{group.number}</span><h3>{group.label}</h3><ul>{group.items.map((item) => <li>{item}</li>)}</ul></div>))}</div></div></section>
+  <section id="education" class="section credentials-section"><div class="shell credentials-grid"><div><p class="eyebrow">Education & Honors</p><h2 class="credential-title">Kumaraguru<br />College of Technology</h2><p class="credential-program">B.E. · Aeronautical Engineering · CGPA 7.9</p><p class="credential-date">October 2022 — April 2026</p><p class="muted mt-6">Focus areas include CFD, aerospace systems, design engineering, additive manufacturing, and technical visualization.</p><div class="school-history"><p><b>Class 12th, CBSE · 85%</b><span>June 2021 — March 2022 · Nava Bharath National School</span></p><p><b>Class 10th, CBSE · 80%</b><span>June 2019 — March 2020 · Nava Bharath National School</span></p></div><div class="achievement"><div class="flex items-center justify-between gap-2"><span>ATHLETIC HONORS</span><span class="tag">Record Holder</span></div><p class="font-semibold text-[var(--text-hi)] text-base mt-1">Asian Record Holder · Roller Skating</p><p class="text-xs text-[var(--text-mid)] mt-1">Reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p></div></div><div><p class="eyebrow">Training & certifications</p><ul class="cert-list">{certifications.map(([name, meta], index) => <li><span>0{index + 1}</span><div><h3>{name}</h3><p>{meta}</p></div></li>)}</ul></div></div></section>
+  <section id="contact" class="contact-section"><div class="shell contact-card"><div><p class="eyebrow">Contact</p><h2>Let’s build something that moves <em>forward.</em></h2><p>Open to roles and collaborations in design engineering, simulation, sourcing, and technical visualization.</p></div><div class="contact-links"><a href="mailto:gowthamgo1745@gmail.com">Email <span>↗</span></a><a href="https://www.linkedin.com/in/gowtham1745/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a><a href="https://github.com/Gowtham1745" target="_blank" rel="noreferrer">GitHub <span>↗</span></a><a href="https://wa.me/917539982255" target="_blank" rel="noreferrer">WhatsApp <span>↗</span></a></div></div></section>
+</Layout>
+
+<style>
+.hero {
+  min-height: min(840px, 100vh);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  position: relative;
+  border-bottom: 1px solid var(--line);
+  background: radial-gradient(circle at 75% 45%, rgba(56, 116, 122, 0.22), transparent 32rem),
+              linear-gradient(120deg, #07111a 10%, #0a1923 100%);
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.3;
+  background-image: linear-gradient(rgba(106, 155, 161, 0.14) 1px, transparent 1px),
+                    linear-gradient(90deg, rgba(106, 155, 161, 0.14) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, #000, transparent);
+}
+.hero-orbit {
+  position: absolute;
+  width: min(70vw, 800px);
+  aspect-ratio: 1;
+  border: 1px solid rgba(98, 203, 189, 0.2);
+  border-radius: 50%;
+  left: 54%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 5rem rgba(98, 203, 189, 0.025), 0 0 0 12rem rgba(98, 203, 189, 0.015);
+  pointer-events: none;
+}
+.hero-content {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  padding-block: clamp(4.5rem, 8vw, 8rem) 4rem;
+  position: relative;
+}
+.hero-copy h1 {
+  margin: 1.4rem 0 1.6rem;
+  font-size: clamp(2.8rem, 6vw, 5.5rem);
+  line-height: 0.95;
+  font-weight: 600;
+  max-width: 9.5ch;
+}
+h1 em, .contact-card em {
+  color: var(--amber);
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.hero-intro {
+  font-size: clamp(1rem, 1.4vw, 1.15rem);
+  line-height: 1.7;
+  color: var(--text-mid);
+  max-width: 53ch;
+}
+.hero-actions {
+  display: flex;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+.hero-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+  margin-top: 3rem;
+  color: var(--text-low);
+  font-size: 0.82rem;
+}
+.hero-meta b {
+  color: var(--text-hi);
+  font-weight: 500;
+  margin-right: 0.35rem;
+}
+
+/* Portrait with clean light white border outline */
+.portrait-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+.portrait-wrap {
+  position: relative;
+  width: min(100%, 340px);
+}
+.portrait-frame {
+  position: relative;
+  aspect-ratio: 0.78;
+  border-radius: 20px;
+  overflow: hidden;
+  /* Light white border outline requested by user */
+  border: 3.5px solid rgba(255, 255, 255, 0.95);
+  box-shadow: 
+    0 20px 45px -10px rgba(0, 0, 0, 0.75),
+    0 0 25px rgba(255, 255, 255, 0.2),
+    0 0 45px rgba(98, 203, 189, 0.18);
+  background: var(--ink-1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
+}
+.portrait-frame:hover {
+  transform: translateY(-4px);
+  box-shadow: 
+    0 25px 55px -10px rgba(0, 0, 0, 0.85),
+    0 0 35px rgba(255, 255, 255, 0.35),
+    0 0 55px rgba(98, 203, 189, 0.3);
+}
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 12%;
+  filter: contrast(1.04) brightness(1.02);
+  display: block;
+}
+.corner {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--amber);
+  pointer-events: none;
+  z-index: 2;
+}
+.corner-tl {
+  top: 6px;
+  left: 6px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.corner-br {
+  bottom: 6px;
+  right: 6px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+.portrait-caption {
+  margin-top: 1rem;
+  padding: 0.65rem 0.95rem;
+  background: rgba(7, 17, 26, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  font: 500 0.72rem 'IBM Plex Mono', monospace;
+  color: var(--text-hi);
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+.pulse {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  background: #10b981;
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2);
+  flex-shrink: 0;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(1.15); }
+}
+
+/* About Section */
+.about-section {
+  background: rgba(7, 17, 26, 0.7);
+}
+.about-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: clamp(2.5rem, 8vw, 8rem);
+}
+.about-copy {
+  color: var(--text-mid);
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+.about-copy p + p {
+  margin-top: 1.3rem;
+}
+.text-link {
+  display: inline-flex;
+  gap: 0.7rem;
+  margin-top: 2rem;
+  color: var(--amber);
+  font-size: 0.88rem;
+  font-weight: 500;
+  transition: transform 0.2s ease;
+}
+.text-link:hover {
+  transform: translateX(4px);
+}
+
+/* Projects Section */
+.projects-section {
+  background: #09151e;
+}
+.section-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+  margin-bottom: 3.2rem;
+}
+.section-note {
+  color: var(--text-low);
+  font-size: 0.88rem;
+  line-height: 1.65;
+  max-width: 36ch;
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 1.25rem;
+}
+.project-card {
+  grid-column: span 4;
+  overflow: hidden;
+  background: var(--ink-1);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.project-card-featured {
+  grid-column: span 6;
+}
+.project-card:hover {
+  transform: translateY(-5px);
+  border-color: var(--amber-dim);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+}
+.project-image {
+  height: 200px;
+  position: relative;
+  overflow: hidden;
+  background: var(--ink-2);
+}
+.project-card-featured .project-image {
+  height: 250px;
+}
+.project-image img,
+.project-image video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+.project-card:hover .project-image img,
+.project-card:hover .project-image video {
+  transform: scale(1.04);
+}
+.project-placeholder {
+  height: 100%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  background: radial-gradient(circle at 30% 30%, rgba(98, 203, 189, 0.17), transparent 26%),
+              linear-gradient(135deg, #102a37, #0a1822);
+}
+.project-image > span {
+  position: absolute;
+  z-index: 2;
+  top: 0.9rem;
+  left: 0.9rem;
+  background: rgba(7, 17, 26, 0.88);
+  color: var(--amber);
+  padding: 0.35rem 0.6rem;
+  border-radius: 4px;
+  font: 600 0.64rem 'IBM Plex Mono', monospace;
+  letter-spacing: 0.05em;
+  border: 1px solid rgba(231, 184, 102, 0.3);
+}
+.project-body {
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.project-number {
+  font: 600 0.66rem 'IBM Plex Mono', monospace;
+  color: var(--teal);
+}
+.project-body h3 {
+  margin-top: 0.6rem;
+  font-size: 1.28rem;
+  color: var(--text-hi);
+  line-height: 1.25;
+}
+.project-body > p {
+  margin-top: 0.75rem;
+  color: var(--text-mid);
+  font-size: 0.88rem;
+  line-height: 1.6;
+  flex-grow: 1;
+}
+.project-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-top: 1.4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-soft);
+}
+.project-tools {
+  display: flex;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.project-tools span {
+  font: 0.66rem 'IBM Plex Mono', monospace;
+  padding: 0.25rem 0.5rem;
+  color: var(--text-low);
+  background: rgba(7, 17, 26, 0.5);
+  border: 1px solid var(--line-soft);
+  border-radius: 3px;
+}
+.project-footer > a {
+  color: var(--amber);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.project-footer > a:hover {
+  text-decoration: underline;
+}
+.project-status {
+  color: var(--text-low);
+  font: 0.65rem 'IBM Plex Mono', monospace;
+}
+
+/* Timeline */
+.timeline-section {
+  background: linear-gradient(180deg, #07111a, #0a1822);
+}
+.timeline {
+  margin-top: 3.5rem;
+}
+.timeline-item {
+  display: grid;
+  grid-template-columns: 240px 32px 1fr;
+  padding-bottom: 3rem;
+  position: relative;
+}
+.timeline-date {
+  padding-top: 0.2rem;
+  color: var(--amber);
+  font: 600 0.75rem 'IBM Plex Mono', monospace;
+}
+.timeline-marker {
+  position: relative;
+}
+.timeline-marker::before {
+  content: '';
+  position: absolute;
+  top: 0.25rem;
+  left: 6px;
+  width: 0.85rem;
+  height: 0.85rem;
+  border: 2px solid var(--teal);
+  background: var(--ink-0);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(98, 203, 189, 0.15);
+}
+.timeline-marker::after {
+  content: '';
+  position: absolute;
+  top: 1.3rem;
+  left: 12px;
+  bottom: -1px;
+  width: 1px;
+  background: var(--line);
+}
+.timeline-item:last-child .timeline-marker::after {
+  display: none;
+}
+.timeline-type {
+  color: var(--text-low);
+  font: 0.68rem 'IBM Plex Mono', monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.timeline-content h3 {
+  margin-top: 0.4rem;
+  font-size: 1.25rem;
+  color: var(--text-hi);
+}
+.timeline-org {
+  margin-top: 0.2rem;
+  color: var(--amber);
+  font-size: 0.92rem;
+  font-weight: 500;
+}
+.timeline-content ul {
+  margin-top: 1rem;
+  display: grid;
+  gap: 0.5rem;
+  color: var(--text-mid);
+  font-size: 0.88rem;
+  line-height: 1.6;
+}
+.timeline-content li {
+  list-style: none;
+}
+.timeline-content li::before {
+  content: '—';
+  color: var(--teal);
+  margin-right: 0.55rem;
+  font-weight: 700;
+}
+
+/* Skills Grid */
+.skills-section {
+  background: rgba(11, 23, 34, 0.88);
+}
+.skills-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 2rem;
+  margin-top: 1.4rem;
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  margin-top: 3.5rem;
+  border-top: 1px solid var(--line);
+}
+.skill-group {
+  padding: 1.75rem 1.75rem 1.75rem 0;
+  min-height: 220px;
+  border-right: 1px solid var(--line);
+}
+.skill-group:not(:first-child) {
+  padding-left: 1.75rem;
+}
+.skill-group:last-child {
+  border-right: 0;
+}
+.skill-group > span {
+  color: var(--teal);
+  font: 600 0.72rem 'IBM Plex Mono', monospace;
+}
+.skill-group h3 {
+  margin: 0.9rem 0 1.1rem;
+  color: var(--text-hi);
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+.skill-group li {
+  color: var(--text-mid);
+  font-size: 0.88rem;
+  line-height: 1.9;
+  list-style: none;
+}
+
+/* Credentials & Achievements */
+.credentials-section {
+  background: #09151e;
+}
+.credentials-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(2.5rem, 8vw, 8rem);
+}
+.credential-title {
+  margin-top: 1.3rem;
+  font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+  line-height: 1.08;
+}
+.credential-program {
+  color: var(--amber);
+  margin-top: 1.1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+}
+.credential-date {
+  color: var(--text-low);
+  font: 0.72rem 'IBM Plex Mono', monospace;
+  margin-top: 0.45rem;
+}
+.school-history {
+  margin-top: 2rem;
+  border-top: 1px solid var(--line);
+}
+.school-history p {
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  display: grid;
+  gap: 0.35rem;
+}
+.school-history b {
+  color: var(--text-hi);
+  font-size: 0.88rem;
+}
+.school-history span {
+  color: var(--text-low);
+  font-size: 0.75rem;
+}
+.achievement {
+  margin-top: 1.8rem;
+  padding: 1.25rem;
+  border-left: 3px solid var(--teal);
+  background: rgba(98, 203, 189, 0.06);
+  border-radius: 0 8px 8px 0;
+}
+.achievement span {
+  color: var(--teal);
+  font: 600 0.65rem 'IBM Plex Mono', monospace;
+  letter-spacing: 0.1em;
+}
+.cert-list {
+  margin-top: 1.6rem;
+  border-top: 1px solid var(--line);
+}
+.cert-list li {
+  padding: 1.2rem 0;
+  display: grid;
+  grid-template-columns: 2.2rem 1fr;
+  gap: 0.85rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+.cert-list span {
+  color: var(--teal);
+  font: 600 0.72rem 'IBM Plex Mono', monospace;
+}
+.cert-list h3 {
+  color: var(--text-hi);
+  font-size: 0.96rem;
+  font-weight: 600;
+}
+.cert-list p {
+  color: var(--text-low);
+  font-size: 0.82rem;
+  margin-top: 0.35rem;
+}
+
+/* Contact */
+.contact-section {
+  padding: 0 0 clamp(4rem, 8vw, 7rem);
+  background: #09151e;
+}
+.contact-card {
+  background: linear-gradient(120deg, #13313a, #102331);
+  padding: clamp(2rem, 5vw, 4rem);
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 3rem;
+  border: 1px solid #315765;
+  border-radius: 12px;
+}
+.contact-card h2 {
+  margin-top: 1.4rem;
+  max-width: 12ch;
+  font-size: clamp(2.3rem, 4vw, 4.1rem);
+  line-height: 0.98;
+}
+.contact-card > div > p:not(.eyebrow) {
+  margin-top: 1.3rem;
+  max-width: 50ch;
+  color: var(--text-mid);
+  line-height: 1.65;
+  font-size: 1rem;
+}
+.contact-links {
+  display: grid;
+  align-content: center;
+}
+.contact-links a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  border-bottom: 1px solid rgba(242, 246, 246, 0.17);
+  color: var(--text-hi);
+  font-size: 0.98rem;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.contact-links a:hover {
+  color: var(--amber);
+  border-color: var(--amber);
+}
+.contact-links span {
+  color: var(--amber);
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.82rem;
+}
+
+/* RESPONSIVE DESIGN FOR TABLETS AND MOBILES */
+@media (max-width: 960px) {
+  .hero-content {
+    grid-template-columns: 1fr;
+    gap: 3.5rem;
+    padding-top: 6rem;
+  }
+  .portrait-container {
+    justify-content: center;
+  }
+  .portrait-wrap {
+    width: min(80vw, 320px);
+  }
+  .about-grid,
+  .credentials-grid,
+  .contact-card {
+    grid-template-columns: 1fr;
+  }
+  .project-card,
+  .project-card-featured {
+    grid-column: span 6;
+  }
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .skill-group:nth-child(2) {
+    border-right: 0;
+  }
+  .skill-group:nth-child(n+3) {
+    border-top: 1px solid var(--line);
+  }
+  .skill-group:nth-child(3) {
+    padding-left: 0;
+  }
+  .section-head {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 680px) {
+  .hero-copy h1 {
+    font-size: clamp(2.5rem, 12vw, 3.8rem);
+  }
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .hero-actions .button {
+    width: 100%;
+    justify-content: center;
+  }
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-card,
+  .project-card-featured {
+    grid-column: 1;
+  }
+  .project-card-featured .project-image {
+    height: 210px;
+  }
+  /* Fixed timeline bug on mobile: no text squeezing */
+  .timeline-item {
+    grid-template-columns: 24px 1fr;
+    gap: 0.75rem 1rem;
+    padding-bottom: 2.2rem;
+  }
+  .timeline-date {
+    grid-column: 2;
+    padding-top: 0;
+    font-size: 0.72rem;
+  }
+  .timeline-marker {
+    grid-column: 1;
+    grid-row: 1 / span 3;
+  }
+  .timeline-marker::after {
+    left: 10px;
+  }
+  .timeline-marker::before {
+    left: 4px;
+  }
+  .timeline-content {
+    grid-column: 2;
+  }
+  .timeline-content h3 {
+    font-size: 1.1rem;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .skill-group,
+  .skill-group:not(:first-child) {
+    padding: 1.5rem 0;
+    border-right: 0;
+    border-top: 1px solid var(--line);
+  }
+  .skill-group:first-child {
+    border-top: 0;
+  }
+  .contact-card {
+    gap: 2rem;
+    padding: 1.75rem 1.25rem;
+  }
+  .contact-card h2 {
+    font-size: 2.4rem;
+  }
+  .contact-links a {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .contact-links span {
+    font-size: 0.75rem;
+  }
+}
+</style>
