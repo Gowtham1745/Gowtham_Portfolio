@@ -2,6 +2,8 @@
 import Layout from '../layouts/Layout.astro';
 import { projects } from '../data/projects.js';
 
+const base = import.meta.env.BASE_URL;
+
 const experience = [
   { date: 'Feb 2026 — Present', role: 'Graduate Engineer Trainee (GET) — Sourcing Department', org: 'AMPO Valves India', type: 'Full-time · Coimbatore, India', points: ['Manage sourcing documentation in SAP, including delivery invoices for sea and air shipments.', 'Coordinate with the Spain-based team to track shipments and support accurate documentation.', 'Generate and update Material Identification Numbers (MIN) and QR codes for shipment tracking and verification.', 'Handle quality and compliance documentation: Heat Numbers, Material Test Certificates (MTC), and Radiographic Testing records.', 'Support SolidWorks design work and ANSYS simulation tasks.'] },
   { date: 'Jan 2024 — Apr 2026', role: 'Blender Animation · 3D Artist · Motion Graphics', org: 'Pixar Prince Animation Studio', type: 'Freelance · Coimbatore, India', points: ['Developed 3D animation and motion graphics in Blender.', 'Created CGI, visual effects, simulation, and cinematic visual work with a focus on timing, composition, and visual storytelling.'] },
@@ -15,12 +17,12 @@ const skillGroups = [
   { number: '04', label: 'Operations', items: ['SAP', 'Shipment documentation', 'MTC / Heat Numbers / RT', 'International logistics'] },
 ];
 const projectMedia: Record<string, { type: 'image' | 'video'; src: string }> = {
-  'abhyaas-uav-s-duct': { type: 'image', src: '/media/cover.jpeg' },
-  'rc-aircraft': { type: 'image', src: '/media/projects/rc-aircraft/1.jpeg' },
-  'pandora-unreal-environment': { type: 'video', src: '/media/projects/pandora/environment-art.mp4' },
-  'contra-rotating-vawt': { type: 'image', src: '/media/projects/vawt.jpeg' },
-  'drone-additive-manufacturing': { type: 'image', src: '/media/projects/drone/3.jpeg' },
-  'ev-battery-motor-design': { type: 'image', src: '/media/projects/ev-design/1.jpeg' },
+  'abhyaas-uav-s-duct': { type: 'image', src: `${base}media/cover.jpeg` },
+  'rc-aircraft': { type: 'image', src: `${base}media/projects/rc-aircraft/1.jpeg` },
+  'pandora-unreal-environment': { type: 'video', src: `${base}media/projects/pandora/environment-art.mp4` },
+  'contra-rotating-vawt': { type: 'image', src: `${base}media/projects/vawt.jpeg` },
+  'drone-additive-manufacturing': { type: 'image', src: `${base}media/projects/drone/3.jpeg` },
+  'ev-battery-motor-design': { type: 'image', src: `${base}media/projects/ev-design/1.jpeg` },
 };
 const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computational fluid dynamics & aerodynamic analysis'], ['Drone Design & Structural Analysis', 'UAV structural evaluation, payload & airframe sizing'], ['Electric Vehicle Battery & Motor', 'Dassault Systèmes — EV powertrain & structural safety'], ['Blender Digital Sculpting', '3D CGI, photorealistic lighting & animation'], ['RC Plane Design & Development', 'Jet Aerospace — flight aerodynamics & RC integration']];
 ---
