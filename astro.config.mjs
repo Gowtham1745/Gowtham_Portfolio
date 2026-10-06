@@ -6,6 +6,7 @@ import tailwindcss from '@tailwindcss/vite';
 export default defineConfig({
   site: 'https://gowtham1745.github.io',
   base: '/Gowtham_Portfolio',
+  trailingSlash: 'always',
   output: 'static',
   integrations: [sitemap()],
   vite: {
