@@ -1,8 +1,8 @@
-﻿name: Deploy to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -18,10 +18,11 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout your repository
-        uses: actions/checkout@v4
-      - name: Install, build, and upload site
-        uses: withastro/action@v3
+      - name: Checkout repository
+        uses: actions/checkout@v7
+
+      - name: Build and upload Astro site
+        uses: withastro/action@v6
 
   deploy:
     needs: build
@@ -32,4 +33,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
