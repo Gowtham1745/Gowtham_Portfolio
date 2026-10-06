@@ -5,13 +5,14 @@ interface Props {
   description?: string;
 }
 const { title, description = "Gowtham A — Aeronautical engineering, technical visualization, and sourcing operations." } = Astro.props;
+const base = import.meta.env.BASE_URL;
 const nav = [
-  { href: '/#about', label: 'About' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#education', label: 'Education' },
-  { href: '/#contact', label: 'Contact' },
+  { href: `${base}#about`, label: 'About' },
+  { href: `${base}#experience`, label: 'Experience' },
+  { href: `${base}#projects`, label: 'Projects' },
+  { href: `${base}#skills`, label: 'Skills' },
+  { href: `${base}#education`, label: 'Education' },
+  { href: `${base}#contact`, label: 'Contact' },
 ];
 ---
 <!doctype html>
@@ -24,7 +25,7 @@ const nav = [
     <meta property="og:title" content={`${title} · Gowtham A`} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content="/media/profile-professional.jpg" />
+    <meta property="og:image" content={`${base}media/profile-professional.jpg`} />
     <meta name="theme-color" content="#07111a" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -33,14 +34,14 @@ const nav = [
   <body>
     <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-[#07111a]/90 border-b border-[var(--line)]">
       <div class="shell flex items-center justify-between py-3">
-        <a href="/" class="brand" aria-label="Gowtham A home"><span>GA</span><i></i><strong>GOWTHAM A</strong><small>PORTFOLIO</small></a>
+        <a href={base} class="brand" aria-label="Gowtham A home"><span>GA</span><i></i><strong>GOWTHAM A</strong><small>PORTFOLIO</small></a>
         <nav class="hidden md:flex gap-6 text-sm text-[var(--text-mid)]">
           {nav.map(item => (
             <a href={item.href} class="hover:text-[var(--text-hi)] transition-colors">{item.label}</a>
           ))}
         </nav>
         <div class="flex items-center gap-2">
-          <a href="/#contact" class="hidden sm:inline-flex button button-small">Let's connect <span aria-hidden="true">↗</span></a>
+          <a href={`${base}#contact`} class="hidden sm:inline-flex button button-small">Let's connect <span aria-hidden="true">↗</span></a>
           <button id="mobile-menu-toggle" type="button" class="md:hidden p-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] border border-[var(--line)] bg-[var(--ink-1)] rounded cursor-pointer" aria-label="Toggle navigation menu" aria-expanded="false">
             <svg id="menu-icon-open" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -55,7 +56,7 @@ const nav = [
             <span class="text-xs text-[var(--teal)] opacity-70">→</span>
           </a>
         ))}
-        <a href="/#contact" class="mobile-nav-link button button-small justify-center mt-3 text-center">Let's connect <span>↗</span></a>
+        <a href={`${base}#contact`} class="mobile-nav-link button button-small justify-center mt-3 text-center">Let's connect <span>↗</span></a>
       </nav>
     </header>
     <main class="pt-14">
