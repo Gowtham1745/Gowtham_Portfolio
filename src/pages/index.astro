@@ -32,7 +32,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       <button class="honors-popup-close" id="honors-popup-close" type="button" aria-label="Close athletic honors">×</button>
       <div class="honors-popup-layout">
         <div class="honors-popup-photo">
-          <img src={`${base}media/profile-professional.jpg`} alt="Gowtham A" />
+          <img src={`${base}media/profile.png`} alt="Gowtham A" />
         </div>
         <div class="honors-popup-content">
           <div class="honors-popup-badge"><span class="honors-medal">★</span><span>ATHLETIC HONORS</span></div>
@@ -47,7 +47,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </aside>
   </div>
 
-  <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>Engineering <em>systems</em>.<br />Visualizing what’s next.</h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+  <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>Engineering <em>systems</em>.<br />Visualizing what’s next.</h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile.png`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   <section id="about" class="section about-section"><div class="shell about-grid"><div><p class="eyebrow">About</p><h2 class="section-title mt-5">A cross-disciplinary engineering practice.</h2></div><div class="about-copy"><p>I work at the intersection of design engineering, real-time visualization, and global operations. At AMPO Valves India, my day-to-day includes SAP-based shipment documentation, customs-clearance support, coordination with Spain-based teams, quality and compliance records, and CAD / simulation support.</p><p>My B.E. in Aeronautical Engineering at Kumaraguru College of Technology culminated in an ABHYAAS UAV S-duct intake project: CFD analysis, design optimization, 3D printing, and wind tunnel validation. Alongside engineering, I’ve developed a CGI and real-time visualization practice through Blender, Unreal Engine, and After Effects.</p><a href="#experience" class="text-link">Read the experience timeline <span>→</span></a></div></div></section>
   <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">Every project image is matched to the work shown. Where supporting media is not yet available, the card uses a technical placeholder instead.</p></div><div class="project-grid">{projects.map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', { 'project-card-featured': index === 0 || index === 2 }]}><div class="project-image">{media?.type === 'video' ? <video src={media.src} muted autoplay loop playsinline preload="metadata" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading={index < 3 ? 'eager' : 'lazy'} /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}<span>{project.category}</span></div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></div></section>
   <section id="experience" class="section timeline-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Experience</p><h2 class="section-title mt-5">Work shaped by detail.</h2></div></div><div class="timeline">{experience.map((job) => (<article class="timeline-item"><div class="timeline-date">{job.date}</div><div class="timeline-marker"></div><div class="timeline-content"><p class="timeline-type">{job.type}</p><h3>{job.role}</h3><p class="timeline-org">{job.org}</p><ul>{job.points.map((point) => <li>{point}</li>)}</ul></div></article>))}</div></div></section>
@@ -254,27 +254,53 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 }
 
 @media (max-width: 520px) {
+  .honors-popup-backdrop {
+    padding: 0.75rem;
+  }
   .honors-popup {
-    padding: 1.35rem 1.1rem 1.1rem;
+    width: 100%;
+    max-height: calc(100svh - 1.5rem);
+    overflow-y: auto;
+    padding: 1.15rem 1rem 1rem;
     border-radius: 15px;
   }
   .honors-popup-layout {
-    grid-template-columns: 92px minmax(0, 1fr);
-    gap: 0.9rem;
+    grid-template-columns: 86px minmax(0, 1fr);
+    gap: 0.8rem;
+    align-items: center;
   }
   .honors-popup-photo {
-    width: 92px;
-    height: 120px;
+    width: 86px;
+    height: 112px;
     border-radius: 11px;
   }
   .honors-popup h2 {
-    font-size: 1.8rem;
+    font-size: clamp(1.35rem, 7vw, 1.8rem);
+    line-height: 1.05;
+  }
+  .honors-popup-kicker {
+    margin-top: 1rem;
+    font-size: 0.6rem;
+  }
+  .honors-popup-sport {
+    font-size: 0.88rem;
+  }
+  .honors-popup-line {
+    margin: 0.85rem 0 0.7rem;
   }
   .honors-popup-copy {
-    font-size: 0.8rem;
+    font-size: 0.74rem;
+    line-height: 1.5;
   }
   .honors-popup-footer {
-    font-size: 0.5rem;
+    font-size: 0.48rem;
+    margin-top: 0.9rem;
+    padding-top: 0.7rem;
+  }
+}
+@media (min-width: 521px) and (max-width: 900px) {
+  .honors-popup {
+    width: min(92vw, 680px);
   }
 }
 
