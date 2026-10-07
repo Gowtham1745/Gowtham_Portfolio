@@ -27,8 +27,8 @@ const nav = [
     <meta property="og:type" content="website" />
     <meta property="og:image" content={`${base}media/profile-professional.jpg`} />
     <meta name="theme-color" content="#07111a" />
-    <link rel="icon" type="image/jpeg" href={`${base}media/profile-professional.jpg?v=3`} />
-    <link rel="shortcut icon" type="image/jpeg" href={`${base}media/profile-professional.jpg?v=3`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg?v=4`} />
+    <link rel="shortcut icon" type="image/svg+xml" href={`${base}favicon.svg?v=4`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -36,7 +36,7 @@ const nav = [
   <body>
     <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-[#07111a]/90 border-b border-[var(--line)]">
       <div class="shell flex items-center justify-between py-3">
-        <a href={base} class="brand" aria-label="Gowtham A home"><span>GA</span><i></i><strong>GOWTHAM A</strong><small>PORTFOLIO</small></a>
+        <a href={base} class="brand" aria-label="Gowtham A home"><img class="brand-logo" src={`${base}media/profile-professional.jpg?v=4`} alt="Gowtham A" /><i></i><strong>GOWTHAM A</strong><small>PORTFOLIO</small></a>
         <nav class="hidden md:flex gap-6 text-sm text-[var(--text-mid)]">
           {nav.map(item => (
             <a href={item.href} class="hover:text-[var(--text-hi)] transition-colors">{item.label}</a>
