@@ -44,6 +44,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
           <div class="honors-popup-line"></div>
           <p class="honors-popup-copy">A lifetime milestone reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p>
           <div class="honors-popup-footer"><span>ASIAN RECORD</span><span aria-hidden="true">✦</span><span>PROUD MILESTONE</span></div>
+          <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="honors-resume-button" download aria-label="Download Gowtham A's latest resume"><span class="honors-resume-icon" aria-hidden="true">↓</span><span>Download Gowtham's Latest Resume</span></a>
         </div>
       </div>
     </aside>
@@ -252,6 +253,57 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 .honors-popup-footer span:nth-child(2) {
   color: var(--amber);
 }
+.honors-resume-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.78rem 1rem;
+  border: 1px solid rgba(231,184,102,.65);
+  border-radius: 7px;
+  color: #07131a;
+  background: #f0bd64;
+  font: 700 0.72rem 'IBM Plex Mono', monospace;
+  letter-spacing: 0.045em;
+  text-decoration: none;
+  box-shadow: 0 0 16px rgba(240,189,100,.25), 0 7px 18px rgba(0,0,0,.2);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  animation: honors-resume-glow 2.6s ease-in-out infinite;
+  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
+}
+.honors-resume-button::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(105deg, transparent 25%, rgba(255,255,255,.52) 50%, transparent 75%);
+  transform: translateX(-125%);
+  animation: honors-resume-shine 3.4s ease-in-out infinite;
+  z-index: -1;
+}
+.honors-resume-button:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.04);
+  box-shadow: 0 0 26px rgba(240,189,100,.5), 0 10px 24px rgba(0,0,0,.25);
+}
+.honors-resume-icon {
+  font-size: 1rem;
+  line-height: 1;
+  transition: transform .25s ease;
+}
+.honors-resume-button:hover .honors-resume-icon { transform: translateY(3px); }
+@keyframes honors-resume-glow {
+  0%, 100% { box-shadow: 0 0 14px rgba(240,189,100,.22), 0 7px 18px rgba(0,0,0,.2); }
+  50% { box-shadow: 0 0 25px rgba(240,189,100,.48), 0 9px 22px rgba(0,0,0,.23); }
+}
+@keyframes honors-resume-shine {
+  0%, 55% { transform: translateX(-125%); }
+  75%, 100% { transform: translateX(125%); }
+}
+
 .honors-popup-hidden {
   opacity: 0;
   pointer-events: none;
