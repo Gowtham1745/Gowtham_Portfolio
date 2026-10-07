@@ -89,3 +89,120 @@ h1, h2, h3, h4 {
 :focus-visible { outline: 2px solid var(--amber); outline-offset: 2px; }
 
 @media (max-width: 640px) { .shell { width: min(100% - 2rem, 1120px); } .brand small { display: none; } }
+
+
+/* Mobile polish — spacing, touch targets, overflow and compact navigation */
+html { overflow-x: hidden; }
+body { overflow-x: hidden; }
+img, video { max-width: 100%; }
+
+@media (max-width: 680px) {
+  html { scroll-padding-top: 4.4rem; }
+  .shell { width: min(100% - 2rem, 1120px); }
+  .section { padding-block: 4rem; }
+  .section-head { margin-bottom: 2.2rem; gap: .8rem; }
+  .section-title { font-size: clamp(1.9rem, 9vw, 2.65rem); max-width: 14ch; }
+  .section-note { font-size: .78rem; line-height: 1.6; max-width: 100%; }
+
+  /* Header */
+  header .shell { min-height: 3.65rem; padding-block: .65rem; }
+  .brand { gap: .35rem; min-width: 0; }
+  .brand-logo { width: 30px; height: 30px; flex-basis: 30px; }
+  .brand strong { font-size: .62rem; letter-spacing: .075em; white-space: nowrap; }
+  .brand i { width: 3px; height: 3px; flex: 0 0 3px; }
+  #mobile-menu-toggle { width: 42px; height: 42px; display: grid; place-items: center; padding: .5rem; flex: 0 0 42px; }
+  #mobile-menu { padding-inline: 1rem; padding-bottom: 1rem; }
+  .mobile-nav-link { min-height: 44px; }
+
+  /* Hero */
+  .hero { min-height: auto; }
+  .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 2.2rem;
+    padding-block: 3rem 3.75rem;
+  }
+  .hero-copy { order: 1; }
+  .portrait-container { order: 2; justify-content: center; }
+  .hero-copy h1 {
+    margin: 1rem 0 1.15rem;
+    font-size: clamp(2.55rem, 12vw, 3.45rem);
+    line-height: .96;
+    max-width: 10ch;
+  }
+  .hero-intro { font-size: .96rem; line-height: 1.65; }
+  .hero-actions {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .65rem;
+    margin-top: 1.45rem;
+  }
+  .hero-actions .button,
+  .hero-actions .social-button {
+    width: 100%;
+    min-height: 48px;
+    justify-content: center;
+  }
+  .hero-actions .social-arrow { margin-left: auto; }
+  .hero-meta {
+    display: grid;
+    gap: .7rem;
+    margin-top: 1.6rem;
+    font-size: .72rem;
+  }
+  .hero-meta span { display: block; }
+  .portrait-wrap { width: min(100%, 190px); }
+  .portrait-frame { width: 190px; height: 190px; }
+  .portrait-caption {
+    width: min(100%, 190px);
+    margin-inline: auto;
+    padding: .6rem .7rem;
+    font-size: .61rem;
+    line-height: 1.45;
+  }
+  .hero-orbit { width: 120vw; left: 50%; top: 55%; }
+
+  /* Project and achievement media */
+  .project-image { min-height: 210px; }
+  .project-card-featured .project-image { height: 230px; }
+  .project-card-rc-aircraft .project-image { height: 230px; }
+  .achievement-hero-copy { padding: 1.35rem; }
+  .achievement-hero-copy h3 { font-size: clamp(1.8rem, 9vw, 2.5rem); }
+  .achievement-description { font-size: .8rem; }
+  .achievement-footer { padding: 1rem 1.15rem; }
+
+  /* Experience */
+  .timeline-content ul { font-size: .78rem; line-height: 1.55; }
+  .timeline-focus { font-size: .76rem; }
+  .timeline-item-featured .timeline-content { border-radius: 8px; }
+
+  /* Skills */
+  .skills-summary-item { padding-inline: 1rem; }
+  .skill-detail-card { padding: 1.1rem; }
+  .skill-item { padding: .72rem; }
+  .skill-item-top { align-items: flex-start; }
+  .skill-item h4 { font-size: .78rem; }
+  .skill-item p { font-size: .66rem; }
+
+  /* Contact/footer */
+  .contact-card { padding: 1.5rem 1.1rem; border-radius: 9px; }
+  .contact-card h2 { font-size: clamp(2.1rem, 10vw, 2.7rem); }
+  .contact-card > div > p:not(.eyebrow) { font-size: .88rem; }
+  footer .shell { padding-block: 1.5rem; text-align: center; }
+}
+
+@media (max-width: 380px) {
+  .shell { width: min(100% - 1.5rem, 1120px); }
+  .brand strong { font-size: .58rem; }
+  .hero-content { padding-top: 2.5rem; }
+  .hero-copy h1 { font-size: 2.35rem; }
+  .portrait-wrap, .portrait-frame { width: 170px; }
+  .portrait-frame { height: 170px; }
+  .portrait-caption { width: 170px; }
+  .button, .social-button { font-size: .72rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resume-button { animation: none !important; }
+}
