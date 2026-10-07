@@ -23,13 +23,35 @@ const nav = [
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title} · Gowtham A</title>
     <meta name="description" content={description} />
-    <meta property="og:title" content={`${title} · Gowtham A`} />
+    <meta name="author" content="Gowtham A" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#07111a" />
+    <meta property="og:site_name" content="Gowtham A · Portfolio" />
+    <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
-    <meta property="og:image" content={`${base}media/profile-professional.jpg`} />
-    <meta name="theme-color" content="#07111a" />
+    <meta property="og:url" content={Astro.url.href} />
+    <meta property="og:image" content={new URL(`${base}media/profile-professional.jpg`, Astro.site).href} />
+    <meta property="og:image:alt" content="Gowtham A — professional profile portrait" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={new URL(`${base}media/profile-professional.jpg`, Astro.site).href} />
+    <meta name="twitter:image:alt" content="Gowtham A — professional profile portrait" />
+    <link rel="canonical" href={Astro.url.href} />
     <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg?v=6`} />
     <link rel="shortcut icon" type="image/svg+xml" href={`${base}favicon.svg?v=6`} />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: "Gowtham A",
+      url: "https://gowtham1745.github.io/Gowtham_Portfolio/",
+      image: "https://gowtham1745.github.io/Gowtham_Portfolio/media/profile-professional.jpg",
+      jobTitle: "Graduate Engineer Trainee",
+      worksFor: { "@type": "Organization", name: "AMPO Valves India" },
+      sameAs: ["https://www.linkedin.com/in/gowtham1745/","https://github.com/Gowtham1745"],
+      knowsAbout: ["Design Engineering","CFD","CAD","Simulation","Real-Time Visualization","Sourcing Operations"]
+    })}></script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
