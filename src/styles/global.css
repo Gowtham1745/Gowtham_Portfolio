@@ -37,7 +37,7 @@ body {
 .eyebrow { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: .69rem; letter-spacing: .13em; text-transform: uppercase; color: var(--amber); display: flex; align-items: center; gap: .65rem; }
 .eyebrow::before { content: ''; width: 1.75rem; height: 1px; background: var(--amber); opacity: .75; }
 .brand { display: inline-flex; align-items: center; gap: .45rem; font: 500 .68rem 'IBM Plex Mono', monospace; letter-spacing: .12em; color: var(--text-mid); }
-.brand span { color: var(--amber); font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: .95rem; letter-spacing: -.05em; }
+.brand-logo { width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; object-fit: cover; object-position: center top; border: 1.5px solid var(--amber); box-shadow: 0 0 0 2px rgba(7, 17, 26, .9), 0 0 12px rgba(231, 184, 102, .18); }
 .brand i { width: 3px; height: 3px; background: var(--teal); border-radius: 999px; }
 .brand strong { color: var(--text-hi); font: 600 .67rem 'IBM Plex Mono', monospace; letter-spacing: .09em; }
 .brand small { color: var(--text-low); font: 500 .6rem 'IBM Plex Mono', monospace; letter-spacing: .1em; }
