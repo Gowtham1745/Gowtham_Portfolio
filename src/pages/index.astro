@@ -27,6 +27,12 @@ const projectMedia: Record<string, { type: 'image' | 'video'; src: string }> = {
   'drone-additive-manufacturing': { type: 'image', src: `${base}media/projects/drone/3.jpeg` },
   'ev-battery-motor-design': { type: 'image', src: `${base}media/projects/ev-design/1.jpeg` },
 };
+const featuredHighlights = [
+  { title: 'NVIDIA AI PC Day — Overall Champion', category: 'Achievement · NVIDIA RTX', year: '2026', image: \`\${base}media/Nvidia%20Award/1.jpeg\`, alt: 'NVIDIA AI PC Day Overall Champion achievement', blurb: 'Industry-grade CGI and simulation powered by NVIDIA RTX, recognised through an end-to-end production pipeline, cinema-quality visuals, and professional-level rendering workflow.', href: '#achievements', action: 'View achievement', featured: true },
+  { title: 'Asian Record Holder · Roller Skating', category: 'Achievement · Athletic Honor', year: 'Lifetime milestone', image: \`\${base}media/sports-record.jpeg\`, alt: 'Asian Record Holder achievement in roller skating', blurb: 'A defining athletic achievement representing dedication, discipline, endurance, and competitive resilience at the Asian continental level.', href: '#education', action: 'View achievement', featured: false },
+  { title: 'RC Aircraft — Jet Aerospace', category: 'Project · Aerospace Systems', year: '2025', image: \`\${base}media/projects/rc-aircraft/1.jpeg\`, alt: 'RC aircraft design and development project', blurb: 'A fully functional RC aircraft developed from aerodynamic concept and CAD through propulsion, control integration, assembly, and flight testing.', href: '/projects/rc-aircraft', action: 'View project', featured: false },
+];
+const secondaryProjects = projects.filter((project) => project.slug !== 'rc-aircraft');
 const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computational fluid dynamics & aerodynamic analysis'], ['Drone Design & Structural Analysis', 'UAV structural evaluation, payload & airframe sizing'], ['Electric Vehicle Battery & Motor', 'Dassault Systèmes — EV powertrain & structural safety'], ['Blender Digital Sculpting', '3D CGI, photorealistic lighting & animation'], ['RC Plane Design & Development', 'Jet Aerospace — flight aerodynamics & RC integration']];
 ---
 <Layout title="Gowtham A — Aeronautical Engineer | Design, Simulation & Sourcing" description="Gowtham A is an Aeronautical Engineering graduate and Graduate Engineer Trainee working across design engineering, simulation, real-time visualization, and global sourcing operations.">
@@ -53,7 +59,72 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 
   <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>Engineering <em>systems</em>.<br />Visualizing what’s next.</h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a><a href="https://www.linkedin.com/in/gowtham1745/" class="social-button" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on LinkedIn"><span class="social-icon">in</span><span>LinkedIn</span><span class="social-arrow">↗</span></a><a href="https://github.com/Gowtham1745" class="social-button social-button-github" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on GitHub"><span class="social-icon">◉</span><span>GitHub</span><span class="social-arrow">↗</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   <section id="about" class="section about-section"><div class="shell about-grid"><div><p class="eyebrow">About</p><h2 class="section-title mt-5">A cross-disciplinary engineering practice.</h2></div><div class="about-copy"><p>I work at the intersection of design engineering, real-time visualization, and global operations. At AMPO Valves India, my day-to-day includes SAP-based shipment documentation, customs-clearance support, coordination with Spain-based teams, quality and compliance records, and CAD / simulation support.</p><p>My B.E. in Aeronautical Engineering at Kumaraguru College of Technology culminated in an ABHYAAS UAV S-duct intake project: CFD analysis, design optimization, 3D printing, and wind tunnel validation. Alongside engineering, I’ve developed a CGI and real-time visualization practice through Blender, Unreal Engine, and After Effects.</p><a href="#experience" class="text-link">Read the experience timeline <span>→</span></a></div></div></section>
-  <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">Every project image is matched to the work shown. Where supporting media is not yet available, the card uses a technical placeholder instead.</p></div><div class="project-grid">{projects.map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', `project-card-${project.slug}`, { 'project-card-featured': index === 0 || index === 2 }]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted autoplay loop playsinline preload="none" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading={index < 3 ? 'eager' : 'lazy'} decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></div></section>
+    <section id="featured" class="section featured-section">
+    <div class="shell">
+      <div class="section-head featured-head">
+        <div>
+          <p class="eyebrow">Featured</p>
+          <h2 class="section-title mt-5">Three highlights worth remembering.</h2>
+        </div>
+        <p class="section-note">The three strongest portfolio highlights — one major team achievement, one defining personal record, and one hands-on aerospace project.</p>
+      </div>
+      <div class="featured-grid">
+        {featuredHighlights.map((item, index) => (
+          <article class:list={['featured-card', { 'featured-card-primary': item.featured }]}>
+            <a href={item.href.startsWith('#') ? item.href : \`\${base}\${item.href.replace(/^\\//, '')}\`} class="featured-media-link" aria-label={item.action + ': ' + item.title}>
+              <div class="featured-media">
+                <img src={item.image} alt={item.alt} loading={index === 0 ? 'eager' : 'lazy'} decoding="async" />
+                <div class="featured-media-overlay"><span>0{index + 1} / 03</span><span>{item.year}</span></div>
+              </div>
+            </a>
+            <div class="featured-body">
+              <div class="featured-meta"><span>{item.category}</span><span class="featured-index">0{index + 1}</span></div>
+              <h3>{item.title}</h3>
+              <p>{item.blurb}</p>
+              <a class="featured-action" href={item.href.startsWith('#') ? item.href : \`\${base}\${item.href.replace(/^\\//, '')}\`}>{item.action} <span>↗</span></a>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <style>
+    .featured-section{background:linear-gradient(180deg,#07111a,#091720)}
+    .featured-head{align-items:end}
+    .featured-grid{display:grid;grid-template-columns:1.35fr .825fr .825fr;gap:1rem}
+    .featured-card{display:flex;flex-direction:column;min-width:0;border:1px solid var(--line);background:linear-gradient(145deg,rgba(16,35,49,.74),rgba(7,17,26,.96));overflow:hidden;transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease}
+    .featured-card:hover{transform:translateY(-5px);border-color:rgba(98,203,189,.36);box-shadow:0 20px 45px rgba(0,0,0,.25)}
+    .featured-card-primary{border-color:rgba(231,184,102,.34);box-shadow:0 12px 34px rgba(0,0,0,.18)}
+    .featured-card-primary:hover{border-color:rgba(231,184,102,.58);box-shadow:0 22px 52px rgba(0,0,0,.3),0 0 26px rgba(231,184,102,.07)}
+    .featured-media-link{display:block}
+    .featured-media{position:relative;height:250px;overflow:hidden;background:#08151e}
+    .featured-card-primary .featured-media{height:330px}
+    .featured-media::after{content:'';position:absolute;inset:0;background:linear-gradient(0deg,rgba(7,17,26,.72),transparent 55%);pointer-events:none}
+    .featured-media img{width:100%;height:100%;display:block;object-fit:cover;transition:transform .7s cubic-bezier(.16,1,.3,1),filter .5s ease}
+    .featured-card:hover .featured-media img{transform:scale(1.04);filter:saturate(1.05)}
+    .featured-media-overlay{position:absolute;z-index:1;left:.9rem;right:.9rem;bottom:.85rem;display:flex;justify-content:space-between;color:rgba(242,246,246,.88);font:500 .56rem 'IBM Plex Mono',monospace;letter-spacing:.09em;text-transform:uppercase}
+    .featured-body{padding:1.15rem 1.2rem 1.25rem;display:flex;flex-direction:column;flex:1}
+    .featured-meta{display:flex;align-items:center;justify-content:space-between;gap:1rem;color:var(--amber);font:500 .56rem 'IBM Plex Mono',monospace;letter-spacing:.07em;text-transform:uppercase}
+    .featured-index{opacity:.55}
+    .featured-body h3{margin-top:.7rem;color:var(--text-hi);font-size:clamp(1.18rem,2vw,1.55rem);line-height:1.08}
+    .featured-card-primary .featured-body h3{font-size:clamp(1.45rem,2.5vw,2rem)}
+    .featured-body p{margin-top:.7rem;color:var(--text-mid);font-size:.76rem;line-height:1.62}
+    .featured-action{display:inline-flex;align-items:center;gap:.55rem;margin-top:1rem;color:var(--teal);font:600 .65rem 'IBM Plex Mono',monospace;text-decoration:none}
+    .featured-action span{color:var(--amber);transition:transform .2s ease}
+    .featured-action:hover span{transform:translate(2px,-2px)}
+    .projects-more{margin-top:1.15rem;border:1px solid var(--line);background:rgba(7,17,26,.52)}
+    .projects-more summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:.7rem;min-height:52px;padding:.8rem 1rem;color:var(--text-hi);font:600 .7rem 'IBM Plex Mono',monospace;letter-spacing:.05em}
+    .projects-more summary::-webkit-details-marker{display:none}
+    .projects-more summary::after{content:'↓';color:var(--amber);transition:transform .25s ease}
+    .projects-more[open] summary::after{transform:rotate(180deg)}
+    .projects-more summary:hover{color:var(--amber)}
+    @media(max-width:900px){.featured-grid{grid-template-columns:1fr 1fr}.featured-card-primary{grid-column:1 / -1}.featured-card-primary .featured-media{height:280px}}
+    @media(max-width:680px){.featured-grid{grid-template-columns:1fr}.featured-card-primary{grid-column:auto}.featured-card-primary .featured-media,.featured-media{height:235px}.featured-body{padding:1rem}.featured-body p{font-size:.74rem}}
+    @media(prefers-reduced-motion:reduce){.featured-card,.featured-media img{transition:none}.featured-action span{transition:none}}
+  </style>
+
+  <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">A focused selection of project work, with additional case studies available below.</p></div><div class="project-grid">{secondaryProjects.slice(0, 3).map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', \`project-card-\${project.slug}\`, { 'project-card-featured': index === 0 }]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted autoplay loop playsinline preload="none" aria-label={\`\${project.title} video preview\`}></video> : media ? <img src={media.src} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={\`\${base}\${project.href.replace(/^\\//, "")}\`} aria-label={\`Read \${project.title} project\`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div><details class="projects-more"><summary>Show more projects</summary><div class="project-grid project-grid-more">{secondaryProjects.slice(3).map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', \`project-card-\${project.slug}\`]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted autoplay loop playsinline preload="none" aria-label={\`\${project.title} video preview\`}></video> : media ? <img src={media.src} alt="" loading="lazy" decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">MORE · 0{index + 1}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={\`\${base}\${project.href.replace(/^\\//, "")}\`} aria-label={\`Read \${project.title} project\`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></details></div></section>
   <section id="experience" class="section timeline-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Experience</p><h2 class="section-title mt-5">Work shaped by detail.</h2></div><p class="section-note">A clear view of the roles, responsibilities, and engineering support behind my current work.</p></div><div class="timeline">{experience.map((job) => (<article class:list={['timeline-item', { 'timeline-item-featured': job.featured }]}><div class="timeline-date">{job.date}</div><div class="timeline-marker"></div><div class="timeline-content">{job.featured && <div class="timeline-current-badge"><span class="timeline-status-dot"></span> CURRENT ROLE</div>}<p class="timeline-type">{job.type}</p><h3>{job.role}</h3><p class="timeline-org">{job.org}</p>{job.featured && <div class="timeline-tags">{job.tags.map((tag) => <span>{tag}</span>)}</div>}{job.featured && <p class="timeline-focus">Working across sourcing operations, international coordination, quality documentation, and engineering support.</p>}<ul>{job.points.map((point) => <li>{point}</li>)}</ul></div></article>))}</div></div></section>
   <section id="skills" class="section skills-section">
     <div class="shell">
