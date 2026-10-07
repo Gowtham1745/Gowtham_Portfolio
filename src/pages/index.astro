@@ -131,23 +131,41 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       <article class="achievement-feature">
         <div class="achievement-hero">
           <div class="achievement-hero-image">
-            <img src={`${base}media/Nvidia%20Award/1.jpeg`} alt="NVIDIA AI PC Day Award — Gowtham A and team" loading="lazy" />
-            <div class="achievement-image-overlay"><span>FEATURED ACHIEVEMENT</span><span>01 / 05</span></div>
+            <img src={`${base}media/Nvidia%20Award/1.jpeg`} alt="NVIDIA AI PC Day — Overall Champion achievement" loading="lazy" />
+            <div class="achievement-image-overlay"><span>OVERALL CHAMPION</span><span>01 / 05</span></div>
           </div>
           <div class="achievement-hero-copy">
             <div class="achievement-kicker"><span class="achievement-star">★</span><span>NVIDIA · AI PC DAY</span></div>
-            <h3>NVIDIA AI PC Day Award</h3>
-            <p class="achievement-lead">Team Award Winner</p>
-            <p class="achievement-description">Recognised with my team for CGI and VFX excellence. This achievement represents a strong moment in my creative-technical journey and the value of combining visual craft, engineering thinking, and teamwork.</p>
+            <h3>NVIDIA AI PC Day — Overall Champion</h3>
+            <p class="achievement-lead">Industry-Grade CGI &amp; Simulation powered by NVIDIA RTX</p>
+            <p class="achievement-description">A top-tier team achievement recognising an end-to-end production pipeline accelerated by NVIDIA RTX, with cinema-quality visuals and a professional-level rendering workflow.</p>
             <div class="achievement-tags">
-              <span>TEAM RECOGNITION</span>
-              <span>CGI &amp; VFX EXCELLENCE</span>
-              <span>NVIDIA AI PC DAY</span>
+              <span>OVERALL CHAMPION</span>
+              <span>NVIDIA RTX</span>
+              <span>TEAM ACHIEVEMENT</span>
             </div>
           </div>
         </div>
 
-        <div class="achievement-gallery" aria-label="NVIDIA AI PC Day Award photo gallery">
+        <div class="achievement-highlights">
+          <div class="achievement-highlight-card">
+            <span class="achievement-highlight-label">TOP-TIER ACHIEVEMENT</span>
+            <strong>End-to-End Production Pipeline</strong>
+            <p>Accelerated by NVIDIA RTX.</p>
+          </div>
+          <div class="achievement-highlight-card">
+            <span class="achievement-highlight-label">SIGNATURE ACHIEVEMENT</span>
+            <strong>Cinema-Quality Visuals</strong>
+            <p>Delivered using NVIDIA RTX AI.</p>
+          </div>
+          <div class="achievement-highlight-card">
+            <span class="achievement-highlight-label">ELITE ACHIEVEMENT</span>
+            <strong>Professional-Level Rendering Workflow</strong>
+            <p>Validated on NVIDIA RTX.</p>
+          </div>
+        </div>
+
+        <div class="achievement-gallery" aria-label="NVIDIA AI PC Day achievement photo gallery">
           {[
             ['2.jpeg', 'Award moment · 02 / 05'],
             ['3.jpeg', 'Team / event moment · 03 / 05'],
@@ -155,14 +173,14 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
             ['5.jpeg', 'Award memory · 05 / 05'],
           ].map(([file, label]) => (
             <a class="achievement-gallery-item" href={`${base}media/Nvidia%20Award/${file}`} target="_blank" rel="noreferrer" aria-label={`Open ${label}`}>
-              <img src={`${base}media/Nvidia%20Award/${file}`} alt={`NVIDIA AI PC Day Award — ${label}`} loading="lazy" />
+              <img src={`${base}media/Nvidia%20Award/${file}`} alt={`NVIDIA AI PC Day — ${label}`} loading="lazy" />
               <span>{label} ↗</span>
             </a>
           ))}
         </div>
 
         <div class="achievement-footer">
-          <div><span class="achievement-footer-label">WHY IT MATTERS</span><strong>Creative excellence backed by teamwork.</strong></div>
+          <div><span class="achievement-footer-label">SIGNATURE IMPACT</span><strong>Creative excellence, technical capability, and team execution.</strong></div>
           <a href="#projects" class="text-link">See the work behind the craft <span>→</span></a>
         </div>
       </article>
@@ -187,6 +205,12 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     .achievement-description{margin-top:1.1rem;max-width:48ch;color:var(--text-mid);font-size:.86rem;line-height:1.7}
     .achievement-tags{display:flex;flex-wrap:wrap;gap:.45rem;margin-top:1.4rem}
     .achievement-tags span{padding:.38rem .5rem;border:1px solid var(--line);color:var(--text-low);font:500 .55rem 'IBM Plex Mono',monospace;letter-spacing:.06em}
+    .achievement-highlights{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}
+    .achievement-highlight-card{padding:1.25rem 1.35rem;background:rgba(7,17,26,.72);min-height:128px;display:flex;flex-direction:column;justify-content:center;transition:background .25s ease,transform .25s ease}
+    .achievement-highlight-card:hover{background:rgba(16,35,49,.92);transform:translateY(-2px)}
+    .achievement-highlight-label{color:var(--amber);font:600 .55rem 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
+    .achievement-highlight-card strong{margin-top:.45rem;color:var(--text-hi);font:600 .92rem 'Space Grotesk',sans-serif;line-height:1.25}
+    .achievement-highlight-card p{margin-top:.35rem;color:var(--text-low);font-size:.72rem;line-height:1.45}
     .achievement-gallery{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--line);border-top:1px solid var(--line)}
     .achievement-gallery-item{position:relative;display:block;min-height:145px;overflow:hidden;background:var(--ink-1)}
     .achievement-gallery-item img{width:100%;height:100%;min-height:145px;display:block;object-fit:cover;transition:transform .5s ease,filter .5s ease}
@@ -196,7 +220,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     .achievement-footer{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;padding:1.15rem 1.35rem;border-top:1px solid var(--line)}
     .achievement-footer-label{display:block;color:var(--amber);font:500 .57rem 'IBM Plex Mono',monospace;letter-spacing:.12em;text-transform:uppercase}
     .achievement-footer strong{display:block;margin-top:.25rem;color:var(--text-hi);font:600 .88rem 'Space Grotesk',sans-serif}
-    @media(max-width:820px){.achievement-hero{grid-template-columns:1fr}.achievement-hero-image{min-height:320px}.achievement-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    @media(max-width:820px){.achievement-hero{grid-template-columns:1fr}.achievement-hero-image{min-height:320px}.achievement-highlights{grid-template-columns:1fr}.achievement-gallery{grid-template-columns:repeat(2,minmax(0,1fr))}}
     @media(max-width:560px){.achievement-hero-image{min-height:260px}.achievement-gallery{grid-template-columns:1fr 1fr}.achievement-gallery-item,.achievement-gallery-item img{min-height:125px}.achievement-footer{align-items:flex-start;flex-direction:column}.achievement-hero-copy h3{max-width:11ch}}
     @media(prefers-reduced-motion:reduce){.achievement-hero-image img,.achievement-gallery-item img{transition:none}}
   </style>
