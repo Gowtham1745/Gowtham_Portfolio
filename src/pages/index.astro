@@ -61,6 +61,19 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 <script>
   const popup = document.getElementById('honors-popup');
   const closeButton = document.getElementById('honors-popup-close');
+  const honorsShownKey = 'gowtham-honors-popup-shown-at';
+  const honorsCooldown = 24 * 60 * 60 * 1000;
+
+  const now = Date.now();
+  const lastShown = Number.parseInt(localStorage.getItem(honorsShownKey) || '0', 10);
+  const shouldShow = !Number.isFinite(lastShown) || now - lastShown >= honorsCooldown;
+
+  if (shouldShow) {
+    localStorage.setItem(honorsShownKey, String(now));
+    popup?.classList.remove('honors-popup-pending');
+  } else {
+    popup?.remove();
+  }
 
   const closeHonorsPopup = () => {
     popup?.classList.add('honors-popup-hidden');
@@ -89,6 +102,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   -webkit-backdrop-filter: blur(3px);
   animation: honors-backdrop-in 0.45s ease both;
 }
+.honors-popup-pending { display: none !important; }
 .honors-popup {
   position: relative;
   width: min(100%, 680px);
