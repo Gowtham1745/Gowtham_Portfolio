@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { projects } from '../data/projects.js';
+import { skillCategories } from '../data/skills';
 
 const base = import.meta.env.BASE_URL;
 
@@ -54,7 +55,69 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   <section id="about" class="section about-section"><div class="shell about-grid"><div><p class="eyebrow">About</p><h2 class="section-title mt-5">A cross-disciplinary engineering practice.</h2></div><div class="about-copy"><p>I work at the intersection of design engineering, real-time visualization, and global operations. At AMPO Valves India, my day-to-day includes SAP-based shipment documentation, customs-clearance support, coordination with Spain-based teams, quality and compliance records, and CAD / simulation support.</p><p>My B.E. in Aeronautical Engineering at Kumaraguru College of Technology culminated in an ABHYAAS UAV S-duct intake project: CFD analysis, design optimization, 3D printing, and wind tunnel validation. Alongside engineering, I’ve developed a CGI and real-time visualization practice through Blender, Unreal Engine, and After Effects.</p><a href="#experience" class="text-link">Read the experience timeline <span>→</span></a></div></div></section>
   <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">Every project image is matched to the work shown. Where supporting media is not yet available, the card uses a technical placeholder instead.</p></div><div class="project-grid">{projects.map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', `project-card-${project.slug}`, { 'project-card-featured': index === 0 || index === 2 }]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video src={media.src} muted autoplay loop playsinline preload="metadata" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading={index < 3 ? 'eager' : 'lazy'} /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></div></section>
   <section id="experience" class="section timeline-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Experience</p><h2 class="section-title mt-5">Work shaped by detail.</h2></div><p class="section-note">A clear view of the roles, responsibilities, and engineering support behind my current work.</p></div><div class="timeline">{experience.map((job) => (<article class:list={['timeline-item', { 'timeline-item-featured': job.featured }]}><div class="timeline-date">{job.date}</div><div class="timeline-marker"></div><div class="timeline-content">{job.featured && <div class="timeline-current-badge"><span class="timeline-status-dot"></span> CURRENT ROLE</div>}<p class="timeline-type">{job.type}</p><h3>{job.role}</h3><p class="timeline-org">{job.org}</p>{job.featured && <div class="timeline-tags">{job.tags.map((tag) => <span>{tag}</span>)}</div>}{job.featured && <p class="timeline-focus">Working across sourcing operations, international coordination, quality documentation, and engineering support.</p>}<ul>{job.points.map((point) => <li>{point}</li>)}</ul></div></article>))}</div></div></section>
-  <section id="skills" class="section skills-section"><div class="shell"><p class="eyebrow">Capabilities</p><div class="skills-heading"><h2 class="section-title">Tools for thinking, making, and communicating.</h2><p class="section-note">A practical toolkit spanning engineering analysis, CAD, visualization, and operations. Technical languages: C, C++, and Python.</p></div><div class="skills-grid">{skillGroups.map((group) => (<div class="skill-group"><span>{group.number}</span><h3>{group.label}</h3><ul>{group.items.map((item) => <li>{item}</li>)}</ul></div>))}</div></div></section>
+  <section id="skills" class="section skills-section">
+    <div class="shell">
+      <div class="section-head skills-section-head">
+        <div>
+          <p class="eyebrow">Skills</p>
+          <h2 class="section-title mt-5">What I use — and how I use it.</h2>
+        </div>
+        <p class="section-note">A practical view of the tools and technical capabilities behind my engineering, simulation, visualization, and sourcing work. The descriptions are grounded in my LinkedIn skills and project experience.</p>
+      </div>
+      <div class="skills-summary">
+        <div class="skills-summary-item"><span class="skills-summary-number">25+</span><span>LinkedIn-listed skills</span></div>
+        <div class="skills-summary-item"><span class="skills-summary-number">05</span><span>Core capability areas</span></div>
+        <div class="skills-summary-item"><span class="skills-summary-number">01</span><span>Cross-disciplinary toolkit</span></div>
+      </div>
+      <div class="skills-detail-grid">
+        {skillCategories.map((group, groupIndex) => (
+          <article class="skill-detail-card" style={`--skill-delay: ${groupIndex * 70}ms`}>
+            <div class="skill-detail-header">
+              <div>
+                <span class="skill-detail-number">0{groupIndex + 1}</span>
+                <h3>{group.category}</h3>
+              </div>
+              <span class="skill-detail-arrow" aria-hidden="true">↗</span>
+            </div>
+            <p class="skill-detail-tagline">{group.tagline}</p>
+            <div class="skill-items">
+              {group.skills.map((skill) => (
+                <div class="skill-item">
+                  <div class="skill-item-top">
+                    <h4>{skill.name}</h4>
+                    <span class:list={['skill-level', `skill-level-${skill.level.toLowerCase()}`]}>{skill.level}</span>
+                  </div>
+                  {skill.note && <p>{skill.note}</p>}
+                </div>
+              ))}
+            </div>
+          </article>
+        ))}
+      </div>
+      <div class="skills-language-strip">
+        <span class="skills-language-label">Programming</span>
+        <span>C</span><span>C++</span><span>Python</span>
+        <span class="skills-language-label skills-language-label-spaced">Technical focus</span>
+        <span>CAD / CAE</span><span>CFD</span><span>Additive Manufacturing</span><span>Supply Chain &amp; Sourcing</span>
+      </div>
+    </div>
+  </section>
+<style>
+.skills-section-head{align-items:end}.skills-section-head .section-title{max-width:14ch}
+.skills-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;margin-top:2.5rem;border:1px solid var(--line);background:var(--line)}
+.skills-summary-item{min-height:92px;display:flex;flex-direction:column;justify-content:center;gap:.25rem;padding:1.1rem 1.25rem;background:linear-gradient(145deg,rgba(16,35,49,.82),rgba(7,17,26,.94));color:var(--text-low);font:500 .66rem 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase}
+.skills-summary-number{color:var(--amber);font:600 1.55rem 'Space Grotesk',sans-serif;letter-spacing:-.03em}
+.skills-detail-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:1rem;margin-top:1rem}
+.skill-detail-card{position:relative;overflow:hidden;padding:1.45rem;border:1px solid var(--line);background:radial-gradient(circle at 100% 0%,rgba(98,203,189,.08),transparent 32%),linear-gradient(145deg,rgba(16,35,49,.72),rgba(7,17,26,.95));transition:transform .3s ease,border-color .3s ease,box-shadow .3s ease;animation:skill-card-in .65s cubic-bezier(.16,1,.3,1) both;animation-delay:var(--skill-delay)}
+.skill-detail-card::after{content:'';position:absolute;inset:0;pointer-events:none;background:linear-gradient(120deg,transparent 20%,rgba(255,255,255,.035) 48%,transparent 72%);transform:translateX(-120%);transition:transform .8s ease}
+.skill-detail-card:hover{transform:translateY(-4px);border-color:rgba(231,184,102,.48);box-shadow:0 18px 42px rgba(0,0,0,.24),0 0 26px rgba(98,203,189,.05)}
+.skill-detail-card:hover::after{transform:translateX(120%)}
+.skill-detail-header{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem}.skill-detail-number{display:block;margin-bottom:.45rem;color:var(--amber);font:500 .62rem 'IBM Plex Mono',monospace;letter-spacing:.12em}.skill-detail-header h3{color:var(--text-hi);font-size:1.18rem;line-height:1.15}.skill-detail-arrow{width:2rem;height:2rem;flex:0 0 2rem;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;color:var(--teal);font-size:.82rem;transition:transform .3s ease,border-color .3s ease}.skill-detail-card:hover .skill-detail-arrow{transform:rotate(45deg);border-color:var(--teal)}
+.skill-detail-tagline{margin-top:.8rem;max-width:58ch;color:var(--text-low);font-size:.78rem;line-height:1.55}.skill-items{display:grid;gap:.55rem;margin-top:1.15rem}.skill-item{padding:.82rem .85rem;border:1px solid rgba(39,65,80,.78);background:rgba(7,17,26,.44);transition:background .25s ease,border-color .25s ease,transform .25s ease}.skill-item:hover{background:rgba(16,35,49,.72);border-color:rgba(98,203,189,.28);transform:translateX(3px)}.skill-item-top{display:flex;align-items:center;justify-content:space-between;gap:.75rem}.skill-item h4{color:var(--text-hi);font-size:.83rem;line-height:1.3;font-weight:600}.skill-item p{margin-top:.35rem;color:var(--text-low);font-size:.69rem;line-height:1.55}.skill-level{flex:0 0 auto;padding:.22rem .42rem;border:1px solid rgba(231,184,102,.28);color:var(--amber);font:500 .54rem 'IBM Plex Mono',monospace;letter-spacing:.04em;text-transform:uppercase}.skill-level-advanced{color:var(--teal);border-color:rgba(98,203,189,.3)}.skill-level-proficient{color:var(--text-mid);border-color:rgba(175,193,201,.24)}
+.skills-language-strip{display:flex;flex-wrap:wrap;align-items:center;gap:.45rem;margin-top:1rem;padding:1rem 1.15rem;border:1px solid var(--line);background:rgba(7,17,26,.6);color:var(--text-mid);font:500 .63rem 'IBM Plex Mono',monospace}.skills-language-strip>span:not(.skills-language-label){padding:.3rem .48rem;border:1px solid var(--line);color:var(--text-hi)}.skills-language-label{margin-right:.25rem;color:var(--amber);text-transform:uppercase;letter-spacing:.1em}.skills-language-label-spaced{margin-left:.75rem}
+@keyframes skill-card-in{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}@media(max-width:760px){.skills-summary{grid-template-columns:1fr}.skills-summary-item{min-height:72px}.skills-detail-grid{grid-template-columns:1fr}.skills-section-head{align-items:start}.skills-language-label-spaced{margin-left:0;flex-basis:100%;margin-top:.35rem}}@media(prefers-reduced-motion:reduce){.skill-detail-card{animation:none}.skill-detail-card,.skill-item,.skill-detail-arrow{transition:none}}
+</style>
+
   <section id="education" class="section credentials-section"><div class="shell credentials-grid"><div><p class="eyebrow">Education & Honors</p><h2 class="credential-title">Kumaraguru<br />College of Technology</h2><p class="credential-program">B.E. · Aeronautical Engineering · CGPA 7.9</p><p class="credential-date">October 2022 — April 2026</p><p class="muted mt-6">Focus areas include CFD, aerospace systems, design engineering, additive manufacturing, and technical visualization.</p><div class="school-history"><p><b>Class 12th, CBSE · 85%</b><span>June 2021 — March 2022 · Nava Bharath National School</span></p><p><b>Class 10th, CBSE · 80%</b><span>June 2019 — March 2020 · Nava Bharath National School</span></p></div><div class="achievement"><div class="flex items-center justify-between gap-2"><span>ATHLETIC HONORS</span><span class="tag">Record Holder</span></div><p class="font-semibold text-[var(--text-hi)] text-base mt-1">Asian Record Holder · Roller Skating</p><p class="text-xs text-[var(--text-mid)] mt-1">Reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p></div></div><div><p class="eyebrow">Training & certifications</p><ul class="cert-list">{certifications.map(([name, meta], index) => <li><span>0{index + 1}</span><div><h3>{name}</h3><p>{meta}</p></div></li>)}</ul></div></div></section>
   <section id="contact" class="contact-section"><div class="shell contact-card"><div><p class="eyebrow">Contact</p><h2>Let’s build something that moves <em>forward.</em></h2><p>Open to roles and collaborations in design engineering, simulation, sourcing, and technical visualization.</p></div><div class="contact-links"><a href="mailto:gowthamgo1745@gmail.com">Email <span>↗</span></a><a href="https://www.linkedin.com/in/gowtham1745/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a><a href="https://github.com/Gowtham1745" target="_blank" rel="noreferrer">GitHub <span>↗</span></a><a href="https://wa.me/917539982255" target="_blank" rel="noreferrer">WhatsApp <span>↗</span></a></div></div></section>
 </Layout>
