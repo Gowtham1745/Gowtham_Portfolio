@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<Layout title="Ancient Stillness — Timeless Realm" description="Ancient Stillness — a timeless cinematic environment created with Unreal Engine.">
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <p class="tag mb-3">Real-Time · Cinematic Environment · Unreal Engine</p>
+    <h1 class="text-3xl sm:text-4xl font-semibold text-[var(--text-hi)]">Ancient Stillness — Timeless Realm</h1>
+    <p class="mt-4 text-[var(--text-mid)]">Personal project · Unreal Engine · Pixar Prince Animation Studio</p>
+
+    <div class="rule my-10"></div>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Concept</h2>
+      <p class="text-[var(--text-mid)] leading-relaxed">
+        A realm untouched by time. “Ancient Stillness” explores a quiet world where every stone holds a whisper
+        and every shadow carries a secret, blending a sense of tradition with modern real-time creation.
+      </p>
+    </section>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Creation</h2>
+      <ul class="list-disc list-inside text-[var(--text-mid)] space-y-1.5">
+        <li>Environment crafted with precision in Unreal Engine</li>
+        <li>Atmospheric scene design focused on silence, depth, and mood</li>
+        <li>Cinematic composition and digital environment creation</li>
+        <li>Created for Pixar Prince Animation Studio</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-lg text-[var(--amber)]">Video showcase</h2>
+      <p class="text-[var(--text-mid)] text-sm">A finished cinematic pass from Ancient Stillness.</p>
+      <div class="mt-5 overflow-hidden rounded-lg border border-[var(--line)] bg-black">
+        <video controls preload="metadata" class="w-full" aria-label="Ancient Stillness cinematic video">
+          <source src={`${base}media/projects/pandora/ancient-stillness.mp4`} type="video/mp4" />
+        </video>
+      </div>
+    </section>
+
+    <div class="mt-8 grid gap-2 text-sm text-[var(--text-low)]">
+      <p><span class="text-[var(--amber)]">Engine:</span> Unreal Engine</p>
+      <p><span class="text-[var(--amber)]">Studio:</span> Pixar Prince Animation Studio</p>
+      <p><span class="text-[var(--amber)]">Artist:</span> Gowtham</p>
+    </div>
+
+    <a href={`${base}#projects`} class="tag inline-block mt-10">&larr; Back to projects</a>
+  </article>
+</Layout>
