@@ -1,0 +1,49 @@
+---
+import Layout from '../../layouts/Layout.astro';
+const base = import.meta.env.BASE_URL;
+---
+<Layout title="The Horizon — Cinematic World" description="The Horizon — a cinematic world crafted with Unreal Engine and created by Gowtham.">
+  <article class="max-w-3xl mx-auto px-6 py-16">
+    <p class="tag mb-3">Real-Time · Cinematic Environment · Unreal Engine</p>
+    <h1 class="text-3xl sm:text-4xl font-semibold text-[var(--text-hi)]">The Horizon — Cinematic World</h1>
+    <p class="mt-4 text-[var(--text-mid)]">Personal project · Unreal Engine · Pixar Prince Animation Studio</p>
+
+    <div class="rule my-10"></div>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Concept</h2>
+      <p class="text-[var(--text-mid)] leading-relaxed">
+        Step beyond the edge of reality. “The Horizon” is a cinematic world built from imagination,
+        passion, and pixels — where every rock, ripple, and ray of light contributes to the story.
+      </p>
+    </section>
+
+    <section class="space-y-3 mb-10">
+      <h2 class="text-lg text-[var(--amber)]">Creation</h2>
+      <ul class="list-disc list-inside text-[var(--text-mid)] space-y-1.5">
+        <li>World crafted and rendered with Unreal Engine</li>
+        <li>Cinematic environment design and visual storytelling</li>
+        <li>Atmospheric landscape composition and lighting</li>
+        <li>Created by Gowtham for Pixar Prince Animation Studio</li>
+      </ul>
+    </section>
+
+    <section class="space-y-3">
+      <h2 class="text-lg text-[var(--amber)]">Video showcase</h2>
+      <p class="text-[var(--text-mid)] text-sm">A finished cinematic pass from The Horizon.</p>
+      <div class="mt-5 overflow-hidden rounded-lg border border-[var(--line)] bg-black">
+        <video controls preload="metadata" class="w-full" aria-label="The Horizon cinematic video">
+          <source src={`${base}media/projects/pandora/the-horizon.mp4`} type="video/mp4" />
+        </video>
+      </div>
+    </section>
+
+    <div class="mt-8 grid gap-2 text-sm text-[var(--text-low)]">
+      <p><span class="text-[var(--amber)]">Engine:</span> Unreal Engine</p>
+      <p><span class="text-[var(--amber)]">Studio:</span> Pixar Prince Animation Studio</p>
+      <p><span class="text-[var(--amber)]">Artist:</span> Gowtham</p>
+    </div>
+
+    <a href={`${base}#projects`} class="tag inline-block mt-10">&larr; Back to projects</a>
+  </article>
+</Layout>
