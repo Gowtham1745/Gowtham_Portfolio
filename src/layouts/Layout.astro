@@ -27,8 +27,8 @@ const nav = [
     <meta property="og:type" content="website" />
     <meta property="og:image" content={`${base}media/profile-professional.jpg`} />
     <meta name="theme-color" content="#07111a" />
-    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg?v=5`} />
-    <link rel="shortcut icon" type="image/svg+xml" href={`${base}favicon.svg?v=5`} />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg?v=6`} />
+    <link rel="shortcut icon" type="image/svg+xml" href={`${base}favicon.svg?v=6`} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -74,6 +74,58 @@ const nav = [
       </div>
     </footer>
     <script>
+      // Build a true round profile-photo favicon from the same profile image used in the header.
+      // This avoids browsers dropping the external image inside an SVG favicon.
+      (() => {
+        const profile = document.querySelector('.brand-logo');
+        const faviconLinks = document.querySelectorAll('link[rel~="icon"]');
+        if (!profile || !faviconLinks.length) return;
+
+        const setProfileFavicon = () => {
+          const size = 64;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          ctx.clearRect(0, 0, size, size);
+          ctx.beginPath();
+          ctx.arc(size / 2, size / 2, 30, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.clip();
+
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.max(size / img.naturalWidth, size / img.naturalHeight);
+            const w = img.naturalWidth * scale;
+            const h = img.naturalHeight * scale;
+            ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = '#07111a';
+            ctx.fillRect(0, 0, size, size);
+            ctx.globalCompositeOperation = 'source-over';
+
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, 30.5, 0, Math.PI * 2);
+            ctx.strokeStyle = '#e7b866';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            const favicon = canvas.toDataURL('image/png');
+            faviconLinks.forEach((link) => {
+              link.setAttribute('type', 'image/png');
+              link.setAttribute('href', favicon);
+            });
+          };
+          img.src = profile.getAttribute('src') || '';
+        };
+
+        if (profile.complete) setProfileFavicon();
+        else profile.addEventListener('load', setProfileFavicon, { once: true });
+      })();
+
       const toggle = document.getElementById('mobile-menu-toggle');
       const menu = document.getElementById('mobile-menu');
       const iconOpen = document.getElementById('menu-icon-open');
