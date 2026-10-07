@@ -196,6 +196,24 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   </section>
 
   <style>
+    .contact-card-enhanced{position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);gap:2rem;align-items:stretch}
+    .contact-card-enhanced::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 8% 20%,rgba(98,203,189,.09),transparent 34%),radial-gradient(circle at 100% 100%,rgba(231,184,102,.07),transparent 30%);pointer-events:none}
+    .contact-copy,.contact-links-enhanced{position:relative;z-index:1}
+    .contact-copy h2{max-width:13ch}
+    .contact-cta-row{display:flex;align-items:center;flex-wrap:wrap;gap:.85rem;margin-top:1.5rem}
+    .contact-primary-cta{display:inline-flex;align-items:center;justify-content:center;gap:.75rem;min-height:48px;padding:.75rem 1rem;border:1px solid rgba(98,203,189,.5);background:rgba(98,203,189,.07);color:var(--text-hi);font:600 .72rem 'IBM Plex Mono',monospace;letter-spacing:.03em;transition:transform .25s ease,border-color .25s ease,background .25s ease,box-shadow .25s ease}
+    .contact-primary-cta span{color:var(--amber)}
+    .contact-primary-cta:hover{transform:translateY(-2px);border-color:var(--teal);background:rgba(98,203,189,.12);box-shadow:0 12px 28px rgba(0,0,0,.22)}
+    .contact-response-note{color:var(--text-low);font:500 .58rem 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.08em}
+    .contact-links-enhanced{gap:.35rem}
+    .contact-links-enhanced a{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding:.85rem .95rem;border:1px solid var(--line);background:rgba(7,17,26,.45);transition:transform .25s ease,border-color .25s ease,background .25s ease}
+    .contact-links-enhanced a:hover{transform:translateX(4px);border-color:rgba(98,203,189,.35);background:rgba(16,35,49,.72)}
+    .contact-link-label{display:flex;align-items:center;gap:.7rem;color:var(--text-hi);font:600 .73rem 'IBM Plex Mono',monospace}
+    .contact-link-label small{color:var(--amber);font-size:.54rem}
+    @media(max-width:760px){.contact-card-enhanced{grid-template-columns:1fr;gap:1.25rem}.contact-copy h2{max-width:12ch}.contact-cta-row{align-items:stretch;flex-direction:column}.contact-primary-cta{width:100%}.contact-response-note{text-align:center}.contact-links-enhanced a{min-height:46px}}
+    @media(prefers-reduced-motion:reduce){.contact-primary-cta,.contact-links-enhanced a{transition:none}}
+  </style>
+  <style>
     .achievements-section{overflow:hidden}
     .achievements-head{align-items:end}
     .achievement-feature{margin-top:2.5rem;border:1px solid var(--line);background:linear-gradient(145deg,rgba(16,35,49,.9),rgba(7,17,26,.98));box-shadow:0 28px 70px rgba(0,0,0,.22)}
@@ -234,7 +252,25 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   </style>
 
   <section id="education" class="section credentials-section"><div class="shell credentials-grid"><div><p class="eyebrow">Education & Honors</p><h2 class="credential-title">Kumaraguru<br />College of Technology</h2><p class="credential-program">B.E. · Aeronautical Engineering · CGPA 7.9</p><p class="credential-date">October 2022 — April 2026</p><p class="muted mt-6">Focus areas include CFD, aerospace systems, design engineering, additive manufacturing, and technical visualization.</p><div class="school-history"><p><b>Class 12th, CBSE · 85%</b><span>June 2021 — March 2022 · Nava Bharath National School</span></p><p><b>Class 10th, CBSE · 80%</b><span>June 2019 — March 2020 · Nava Bharath National School</span></p></div><div class="achievement"><div class="flex items-center justify-between gap-2"><span>ATHLETIC HONORS</span><span class="tag">Record Holder</span></div><p class="font-semibold text-[var(--text-hi)] text-base mt-1">Asian Record Holder · Roller Skating</p><p class="text-xs text-[var(--text-mid)] mt-1">Reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p></div></div><div><p class="eyebrow">Training & certifications</p><ul class="cert-list">{certifications.map(([name, meta], index) => <li><span>0{index + 1}</span><div><h3>{name}</h3><p>{meta}</p></div></li>)}</ul></div></div></section>
-  <section id="contact" class="contact-section"><div class="shell contact-card"><div><p class="eyebrow">Contact</p><h2>Let’s build something that moves <em>forward.</em></h2><p>Open to roles and collaborations in design engineering, simulation, sourcing, and technical visualization.</p></div><div class="contact-links"><a href="mailto:gowthamgo1745@gmail.com">Email <span>↗</span></a><a href="https://www.linkedin.com/in/gowtham1745/" target="_blank" rel="noreferrer">LinkedIn <span>↗</span></a><a href="https://github.com/Gowtham1745" target="_blank" rel="noreferrer">GitHub <span>↗</span></a><a href="https://wa.me/917539982255" target="_blank" rel="noreferrer">WhatsApp <span>↗</span></a></div></div></section>
+  <section id="contact" class="contact-section">
+    <div class="shell contact-card contact-card-enhanced">
+      <div class="contact-copy">
+        <p class="eyebrow">Open to opportunities</p>
+        <h2>Have a project or opportunity? <em>Let’s talk.</em></h2>
+        <p>Whether it’s a design engineering role, simulation work, sourcing collaboration, technical visualization, or a new project — I’d be happy to connect.</p>
+        <div class="contact-cta-row">
+          <a class="contact-primary-cta" href="mailto:gowthamgo1745@gmail.com">Start a conversation <span>↗</span></a>
+          <span class="contact-response-note">Usually best by email</span>
+        </div>
+      </div>
+      <div class="contact-links contact-links-enhanced">
+        <a href="mailto:gowthamgo1745@gmail.com"><span class="contact-link-label"><small>01</small>Email</span><span>↗</span></a>
+        <a href="https://www.linkedin.com/in/gowtham1745/" target="_blank" rel="noreferrer"><span class="contact-link-label"><small>02</small>LinkedIn</span><span>↗</span></a>
+        <a href="https://github.com/Gowtham1745" target="_blank" rel="noreferrer"><span class="contact-link-label"><small>03</small>GitHub</span><span>↗</span></a>
+        <a href="https://wa.me/917539982255" target="_blank" rel="noreferrer"><span class="contact-link-label"><small>04</small>WhatsApp</span><span>↗</span></a>
+      </div>
+    </div>
+  </section>
 </Layout>
 <script>
   const lazyProjectVideos = document.querySelectorAll('video[data-src]');
