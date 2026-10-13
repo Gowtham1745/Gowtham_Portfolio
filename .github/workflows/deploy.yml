@@ -21,8 +21,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Build and upload Astro site
+      - name: Type-check, build, and upload Astro site
         uses: withastro/action@v6
+        with:
+          build-cmd: npm run check && npm run build
 
   deploy:
     needs: build
