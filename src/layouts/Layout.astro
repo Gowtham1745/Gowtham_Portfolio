@@ -56,6 +56,7 @@ const nav = [
     <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   </head>
   <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-[#07111a]/90 border-b border-[var(--line)]">
       <div class="shell flex items-center justify-between py-3">
         <a href={base} class="brand" aria-label="Gowtham A home"><img class="brand-logo" src={`${base}media/profile-professional.jpg?v=4`} alt="Gowtham A" /><i></i><strong>GOWTHAM A</strong><small>PORTFOLIO</small></a>
@@ -66,7 +67,7 @@ const nav = [
         </nav>
         <div class="flex items-center gap-2">
           <a href={`${base}#contact`} class="hidden sm:inline-flex button button-small">Let's connect <span aria-hidden="true">↗</span></a>
-          <button id="mobile-menu-toggle" type="button" class="md:hidden p-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] border border-[var(--line)] bg-[var(--ink-1)] rounded cursor-pointer" aria-label="Toggle navigation menu" aria-expanded="false">
+          <button id="mobile-menu-toggle" type="button" class="md:hidden p-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] border border-[var(--line)] bg-[var(--ink-1)] rounded cursor-pointer" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
             <svg id="menu-icon-open" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             <svg id="menu-icon-close" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
           </button>
@@ -83,7 +84,7 @@ const nav = [
         <a href={`${base}#contact`} class="mobile-nav-link button button-small justify-center mt-3 text-center">Let's connect <span>↗</span></a>
       </nav>
     </header>
-    <main class="pt-14">
+    <main id="main-content" tabindex="-1" class="pt-14">
       <slot />
     </main>
     <footer class="border-t border-[var(--line)] mt-24">
@@ -154,7 +155,7 @@ const nav = [
       const iconClose = document.getElementById('menu-icon-close');
       const links = document.querySelectorAll('.mobile-nav-link');
 
-      function closeMenu() {
+      function closeMenu({ restoreFocus = false } = {}) {
         menu?.classList.add('hidden');
         menu?.classList.remove('flex');
         iconOpen?.classList.remove('hidden');
@@ -162,6 +163,8 @@ const nav = [
         iconClose?.classList.remove('block');
         iconClose?.classList.add('hidden');
         toggle?.setAttribute('aria-expanded', 'false');
+
+        if (restoreFocus) toggle?.focus();
       }
 
       function openMenu() {
@@ -184,8 +187,52 @@ const nav = [
       });
 
       links.forEach((link) => {
-        link.addEventListener('click', closeMenu);
+        link.addEventListener('click', () => closeMenu());
+      });
+
+      // Escape closes the drawer and returns keyboard focus to its trigger.
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+          closeMenu({ restoreFocus: true });
+        }
+      });
+
+      // If a device is rotated or resized to desktop width, leave the drawer closed.
+      const desktopViewport = window.matchMedia('(min-width: 768px)');
+      desktopViewport.addEventListener('change', (event) => {
+        if (event.matches) closeMenu();
       });
     </script>
+    <style>
+      .skip-link {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 100;
+        transform: translateY(calc(-100% - 1rem));
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        background: var(--amber);
+        color: var(--ink-0);
+        font-weight: 600;
+        box-shadow: 0 4px 18px rgb(0 0 0 / 25%);
+        transition: transform 150ms ease;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+        outline: 2px solid var(--text-hi);
+        outline-offset: 2px;
+      }
+
+      #main-content:focus {
+        outline: 2px solid var(--amber);
+        outline-offset: -2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .skip-link { transition: none; }
+      }
+    </style>
   </body>
 </html>
