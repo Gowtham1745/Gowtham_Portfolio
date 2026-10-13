@@ -7,13 +7,11 @@ interface Props {
 const { title, description = "Gowtham A — Aeronautical engineering, technical visualization, and sourcing operations." } = Astro.props;
 const base = import.meta.env.BASE_URL;
 const nav = [
-  { href: `${base}#about`, label: 'About' },
-  { href: `${base}#experience`, label: 'Experience' },
-  { href: `${base}#projects`, label: 'Projects' },
   { href: `${base}#featured`, label: 'Featured' },
+  { href: `${base}#projects`, label: 'Projects' },
+  { href: `${base}#experience`, label: 'Experience' },
   { href: `${base}#skills`, label: 'Skills' },
   { href: `${base}#achievements`, label: 'Achievements' },
-  { href: `${base}#education`, label: 'Education' },
   { href: `${base}#contact`, label: 'Contact' },
 ];
 ---
@@ -61,7 +59,7 @@ const nav = [
     <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-[#07111a]/90 border-b border-[var(--line)]">
       <div class="shell flex items-center justify-between py-3">
         <a href={base} class="brand" aria-label="Gowtham A home"><img class="brand-logo" src={`${base}media/profile-professional.jpg?v=4`} alt="Gowtham A" /><i></i><strong>GOWTHAM A</strong><small>PORTFOLIO</small></a>
-        <nav class="hidden md:flex gap-6 text-sm text-[var(--text-mid)]">
+        <nav class="hidden md:flex gap-4 text-xs text-[var(--text-mid)]">
           {nav.map(item => (
             <a href={item.href} class="hover:text-[var(--text-hi)] transition-colors">{item.label}</a>
           ))}
