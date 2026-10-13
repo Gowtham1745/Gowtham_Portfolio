@@ -384,7 +384,12 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
         const video = entry.target;
         if (!(video instanceof HTMLVideoElement)) return;
         if (!video.src) {
-          video.src = video.dataset.src;
+          const source = video.dataset.src;
+          if (!source) {
+            observer.unobserve(video);
+            return;
+          }
+          video.src = source;
           video.load();
           video.play().catch(() => {});
         }
@@ -394,7 +399,9 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     lazyProjectVideos.forEach((video) => videoObserver.observe(video));
   } else {
     lazyProjectVideos.forEach((video) => {
-      video.src = video.dataset.src;
+      const source = video.dataset.src;
+      if (!source) return;
+      video.src = source;
       video.load();
     });
   }
