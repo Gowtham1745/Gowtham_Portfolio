@@ -89,7 +89,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </div>
   </section>
 
-  <section id="about" class="section about-section"><div class="shell about-grid"><div><p class="eyebrow">About</p><h2 class="section-title mt-5">A cross-disciplinary engineering practice.</h2></div><div class="about-copy"><p>I work across design engineering, real-time visualization, and global operations. At AMPO Valves India, I support SAP shipment documentation, international coordination, quality records, and CAD/simulation work.</p><details class="section-more about-more"><summary><span class="more-label-closed">Explore my engineering background</span><span class="more-label-open">Hide background details</span></summary><div class="section-more-content"><p>My B.E. in Aeronautical Engineering at Kumaraguru College of Technology culminated in an ABHYAAS UAV S-duct intake project: CFD analysis, design optimization, 3D printing, and wind tunnel validation. Alongside engineering, I’ve developed a CGI and real-time visualization practice through Blender, Unreal Engine, and After Effects.</p></div></details><a href="#experience" class="text-link">Read the experience timeline <span>→</span></a></div></div></section>
+  <section id="about" class="section about-section"><div class="shell about-grid"><div><p class="eyebrow">About</p><h2 class="section-title mt-5">A cross-disciplinary engineering practice.</h2></div><div class="about-copy"><p>I work across design engineering, real-time visualization, and global operations. At AMPO Valves India, I support SAP shipment documentation, international coordination, quality records, and CAD/simulation work.</p><details class="section-more about-more"><summary><span class="more-label-closed">Explore my engineering background</span><span class="more-label-open">Hide background details</span></summary><div class="section-more-content"><p>My B.E. in Aeronautical Engineering at Kumaraguru College of Technology culminated in an ABHYAAS UAV S-duct intake project: CFD analysis, design optimization, 3D printing, and wind tunnel validation. Alongside engineering, I’ve developed a CGI and real-time visualization practice through Blender, Unreal Engine, and After Effects.</p><a href="#experience" class="text-link">Read the experience timeline <span>→</span></a></div></details></div></div></section>
 
   <style>
     .featured-section{background:linear-gradient(180deg,#07111a,#091720)}
@@ -143,7 +143,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
         <div class="skills-summary-item"><span class="skills-summary-number">01</span><span>Cross-disciplinary toolkit</span></div>
       </div>
       <div class="skills-detail-grid">
-        {skillCategories.map((group, groupIndex) => (
+        {skillCategories.slice(0, 2).map((group, groupIndex) => (
           <article class="skill-detail-card" style={`--skill-delay: ${groupIndex * 70}ms`}>
             <div class="skill-detail-header">
               <div>
@@ -167,12 +167,40 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
           </article>
         ))}
       </div>
+      <details class="section-more skills-more">
+        <summary><span class="more-label-closed">See all 5 skill areas</span><span class="more-label-open">Hide expanded skills</span></summary>
+        <div class="skills-detail-grid skills-detail-grid-expanded">
+          {skillCategories.slice(2).map((group, index) => (
+            <article class="skill-detail-card">
+              <div class="skill-detail-header">
+                <div>
+                  <span class="skill-detail-number">0{index + 3}</span>
+                  <h3>{group.category}</h3>
+                </div>
+                <span class="skill-detail-arrow" aria-hidden="true">↗</span>
+              </div>
+              <p class="skill-detail-tagline">{group.tagline}</p>
+              <div class="skill-items">
+                {group.skills.map((skill) => (
+                  <div class="skill-item">
+                    <div class="skill-item-top">
+                      <h4>{skill.name}</h4>
+                      <span class:list={['skill-level', 'skill-level-' + skill.level.toLowerCase()]}>{skill.level}</span>
+                    </div>
+                    {skill.note && <p>{skill.note}</p>}
+                  </div>
+                ))}
+              </div>
+            </article>
+          ))}
+        </div>
       <div class="skills-language-strip">
         <span class="skills-language-label">Programming</span>
         <span>C</span><span>C++</span><span>Python</span>
         <span class="skills-language-label skills-language-label-spaced">Technical focus</span>
         <span>CAD / CAE</span><span>CFD</span><span>Additive Manufacturing</span><span>Supply Chain &amp; Sourcing</span>
       </div>
+      </details>
     </div>
   </section>
 <style>
@@ -324,7 +352,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     @media(prefers-reduced-motion:reduce){.achievement-hero-image img,.achievement-gallery-item img{transition:none}}
   </style>
 
-  <section id="education" class="section credentials-section"><div class="shell credentials-grid"><div><p class="eyebrow">Education & Honors</p><h2 class="credential-title">Kumaraguru<br />College of Technology</h2><p class="credential-program">B.E. · Aeronautical Engineering · CGPA 7.9</p><p class="credential-date">October 2022 — April 2026</p><p class="muted mt-6">Focus areas include CFD, aerospace systems, design engineering, additive manufacturing, and technical visualization.</p><details class="section-more education-more"><summary><span class="more-label-closed">View school history</span><span class="more-label-open">Hide school history</span></summary><div class="school-history"><p><b>Class 12th, CBSE · 85%</b><span>June 2021 — March 2022 · Nava Bharath National School</span></p><p><b>Class 10th, CBSE · 80%</b><span>June 2019 — March 2020 · Nava Bharath National School</span></p></div></details><div class="achievement"><div class="flex items-center justify-between gap-2"><span>ATHLETIC HONORS</span><span class="tag">Record Holder</span></div><p class="font-semibold text-[var(--text-hi)] text-base mt-1">Asian Record Holder · Roller Skating</p><p class="text-xs text-[var(--text-mid)] mt-1">Reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p></div></div><div><details class="section-more education-more"><summary><span class="more-label-closed">View training &amp; certifications (5)</span><span class="more-label-open">Hide certifications</span></summary><p class="eyebrow">Training & certifications</p><ul class="cert-list">{certifications.map(([name, meta], index) => <li><span>0{index + 1}</span><div><h3>{name}</h3><p>{meta}</p></div></li>)}</ul><</details></div></div></section>
+  <section id="education" class="section credentials-section"><div class="shell credentials-grid"><div><p class="eyebrow">Education & Honors</p><h2 class="credential-title">Kumaraguru<br />College of Technology</h2><p class="credential-program">B.E. · Aeronautical Engineering · CGPA 7.9</p><p class="credential-date">October 2022 — April 2026</p><p class="muted mt-6">Focus areas include CFD, aerospace systems, design engineering, additive manufacturing, and technical visualization.</p><details class="section-more education-more"><summary><span class="more-label-closed">View school history</span><span class="more-label-open">Hide school history</span></summary><div class="school-history"><p><b>Class 12th, CBSE · 85%</b><span>June 2021 — March 2022 · Nava Bharath National School</span></p><p><b>Class 10th, CBSE · 80%</b><span>June 2019 — March 2020 · Nava Bharath National School</span></p></div></details><div class="achievement"><div class="flex items-center justify-between gap-2"><span>ATHLETIC HONORS</span><span class="tag">Record Holder</span></div><p class="font-semibold text-[var(--text-hi)] text-base mt-1">Asian Record Holder · Roller Skating</p><p class="text-xs text-[var(--text-mid)] mt-1">Reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p></div></div><div><details class="section-more education-more"><summary><span class="more-label-closed">View training &amp; certifications (5)</span><span class="more-label-open">Hide certifications</span></summary><p class="eyebrow">Training & certifications</p><ul class="cert-list">{certifications.map(([name, meta], index) => <li><span>0{index + 1}</span><div><h3>{name}</h3><p>{meta}</p></div></li>)}</ul></details></div></div></section>
   <section id="contact" class="contact-section">
     <div class="shell contact-card contact-card-enhanced">
       <div class="contact-copy">
