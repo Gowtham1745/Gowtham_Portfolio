@@ -100,8 +100,8 @@ const nav = [
       // Build a true round profile-photo favicon from the same profile image used in the header.
       // This avoids browsers dropping the external image inside an SVG favicon.
       (() => {
-        const profile = document.querySelector('.brand-logo');
-        const faviconLinks = document.querySelectorAll('link[rel~="icon"]');
+        const profile = document.querySelector<HTMLImageElement>('.brand-logo');
+        const faviconLinks = document.querySelectorAll<HTMLLinkElement>('link[rel~="icon"]');
         if (!profile || !faviconLinks.length) return;
 
         const setProfileFavicon = () => {
