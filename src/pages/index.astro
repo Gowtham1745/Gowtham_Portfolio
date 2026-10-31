@@ -522,7 +522,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   popup?.addEventListener('mouseleave', startAchievementTimer);
   popup?.addEventListener('focusin', stopAchievementTimer);
   popup?.addEventListener('focusout', (event) => {
-    if (!popup.contains(event.relatedTarget)) startAchievementTimer();
+    if (!(event.relatedTarget instanceof Node) || !popup.contains(event.relatedTarget)) startAchievementTimer();
   });
   document.addEventListener('visibilitychange', () => {
     if (document.hidden) stopAchievementTimer();
