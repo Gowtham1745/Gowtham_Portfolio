@@ -347,3 +347,19 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
 .follow-button { min-height: 44px; border: 0; cursor: pointer; border-radius: 8px; }
 .follow-button.is-following { background: transparent; color: var(--teal); border: 1px solid var(--teal); cursor: default; }
 @media (max-width: 680px) { .follow-card { display: flex; justify-content: space-between; width: 100%; } }
+
+
+/* Performance safeguards for mobile devices and long project pages */
+@media (max-width: 680px) {
+  body { background-attachment: scroll; }
+  .honors-popup-backdrop { backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); }
+  .hero-orbit { opacity: .55; }
+}
+@media (hover: none) {
+  .featured-card:hover,
+  .skill-detail-card:hover,
+  .achievement-feature:hover .achievement-hero-image img,
+  .contact-links-enhanced a:hover { transform: none; box-shadow: none; }
+  .featured-card:hover .featured-media img,
+  .achievement-gallery-item:hover img { transform: none; filter: none; }
+}
