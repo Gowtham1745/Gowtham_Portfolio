@@ -386,38 +386,42 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 </style>
 
 <script>
-  // Keep project previews lazy and allow only an on-screen video to consume playback resources.
+  // Load previews near the viewport, but never start playback automatically.
   const lazyProjectVideos = Array.from(document.querySelectorAll<HTMLVideoElement>('video[data-src]'));
-  const visibleProjectVideos = new Set<HTMLVideoElement>();
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let activeProjectVideo: HTMLVideoElement | null = null;
+
+  const loadProjectVideo = (video: HTMLVideoElement) => {
+    if (video.dataset.loaded || !video.dataset.src) return;
+    video.src = video.dataset.src;
+    video.dataset.loaded = 'true';
+    video.load();
+  };
 
   const pauseProjectVideo = (video: HTMLVideoElement) => {
     video.pause();
     if (activeProjectVideo === video) activeProjectVideo = null;
   };
 
-  const activateProjectVideo = (video: HTMLVideoElement) => {
-    if (document.hidden || reducedMotion || !visibleProjectVideos.has(video)) return;
-    if (activeProjectVideo && activeProjectVideo !== video) pauseProjectVideo(activeProjectVideo);
-    activeProjectVideo = video;
-
-    if (!video.dataset.loaded) {
-      const source = video.dataset.src;
-      if (!source) return;
-      video.src = source;
-      video.dataset.loaded = 'true';
-      video.load();
-    }
-
-    const playback = video.play();
-    if (playback && typeof playback.catch === 'function') {
-      playback.catch(() => {
-        // Autoplay can be restricted by the browser; the page remains usable.
-        if (activeProjectVideo === video) activeProjectVideo = null;
-      });
-    }
-  };
+  // Playback is user-initiated through the native video controls only.
+  lazyProjectVideos.forEach((video) => {
+    video.addEventListener('play', () => {
+      if (document.hidden) {
+        video.pause();
+        return;
+      }
+      if (activeProjectVideo && activeProjectVideo !== video) {
+        pauseProjectVideo(activeProjectVideo);
+      }
+      activeProjectVideo = video;
+    });
+    video.addEventListener('pause', () => {
+      if (activeProjectVideo === video) activeProjectVideo = null;
+    });
+    video.addEventListener('error', () => {
+      video.dataset.mediaError = 'true';
+      video.setAttribute('aria-label', 'This preview could not be loaded. Use the project details or try again later.');
+    });
+  });
 
   if ('IntersectionObserver' in window) {
     const videoObserver = new IntersectionObserver((entries) => {
@@ -425,10 +429,9 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
         const video = entry.target;
         if (!(video instanceof HTMLVideoElement)) return;
         if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
-          visibleProjectVideos.add(video);
-          activateProjectVideo(video);
+          // Prepare the source while visible; do not call play() here.
+          loadProjectVideo(video);
         } else {
-          visibleProjectVideos.delete(video);
           pauseProjectVideo(video);
         }
       });
@@ -436,35 +439,12 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 
     lazyProjectVideos.forEach((video) => videoObserver.observe(video));
   } else {
-    // Older browsers still get a usable player; loading remains on demand via controls.
-    lazyProjectVideos.forEach((video) => {
-      video.addEventListener('play', () => {
-        if (!video.dataset.loaded && video.dataset.src) {
-          video.src = video.dataset.src;
-          video.dataset.loaded = 'true';
-          video.load();
-          video.play().catch(() => {});
-        }
-      }, { once: true });
-    });
+    // Without IntersectionObserver, load the source so native controls work normally.
+    lazyProjectVideos.forEach(loadProjectVideo);
   }
 
-  lazyProjectVideos.forEach((video) => {
-    video.addEventListener('error', () => {
-      video.dataset.mediaError = 'true';
-      video.setAttribute('aria-label', 'This preview could not be loaded. Use the project details or try again later.');
-    });
-  });
-
   document.addEventListener('visibilitychange', () => {
-    if (document.hidden) {
-      lazyProjectVideos.forEach(pauseProjectVideo);
-    } else if (activeProjectVideo && visibleProjectVideos.has(activeProjectVideo)) {
-      activateProjectVideo(activeProjectVideo);
-    } else {
-      const nextVisible = visibleProjectVideos.values().next().value;
-      if (nextVisible) activateProjectVideo(nextVisible);
-    }
+    if (document.hidden) lazyProjectVideos.forEach(pauseProjectVideo);
   });
 
   window.addEventListener('pagehide', () => {
