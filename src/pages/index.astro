@@ -63,7 +63,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </section>
   </div>
 
-<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I turn ideas into <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I turn ideas into <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div><div class="follow-card" id="follow-card" data-base="517"><div class="follow-count"><strong id="follow-count" aria-live="polite">517</strong><span>followers</span></div><button type="button" class="button follow-button" id="follow-button" aria-pressed="false"><span id="follow-label">Follow</span></button></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -483,6 +483,39 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !popupClosed) closeHonorsPopup();
   });
+</script>
+
+<script>
+  // Follow button: starts at 517 and grows by one for every visitor who follows (one per browser).
+  const followCard = document.getElementById('follow-card');
+  const followBtn = document.getElementById('follow-button') as HTMLButtonElement | null;
+  const followLabel = document.getElementById('follow-label');
+  const followCountEl = document.getElementById('follow-count');
+  if (followCard && followBtn && followLabel && followCountEl) {
+    const BASE = Number(followCard.dataset.base || '517');
+    const API = 'https://api.counterapi.dev/v1/gowtham1745-portfolio/followers';
+    const KEY = 'gowtham-portfolio-followed';
+    let extra = 0;
+    const render = () => { followCountEl.textContent = (BASE + extra).toLocaleString('en-IN'); };
+    const setFollowed = () => { followBtn.classList.add('is-following'); followBtn.setAttribute('aria-pressed', 'true'); followLabel.textContent = 'Following ✓'; followBtn.disabled = true; };
+    const fetchJson = async (url: string) => {
+      const ctl = new AbortController();
+      const t = window.setTimeout(() => ctl.abort(), 5000);
+      try { const r = await fetch(url, { signal: ctl.signal }); if (!r.ok) throw new Error(String(r.status)); return await r.json(); }
+      finally { window.clearTimeout(t); }
+    };
+    let followed = false;
+    try { followed = localStorage.getItem(KEY) === '1'; } catch { followed = false; }
+    if (followed) setFollowed();
+    render();
+    fetchJson(API + '/').then((d) => { const n = Number(d && d.count); if (Number.isFinite(n) && n >= 0) { extra = Math.max(extra, n); render(); } }).catch(() => { /* keep base count */ });
+    followBtn.addEventListener('click', () => {
+      if (followBtn.disabled) return;
+      extra += 1; render(); setFollowed();
+      try { localStorage.setItem(KEY, '1'); } catch { /* storage unavailable */ }
+      fetchJson(API + '/up').then((d) => { const n = Number(d && d.count); if (Number.isFinite(n) && n >= extra) { extra = n; render(); } }).catch(() => { /* count stays local */ });
+    });
+  }
 </script>
 
 <style>
