@@ -58,19 +58,12 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
           </div>
         </article>
       </div>
-      <div class="honors-popup-controls">
-        <button class="honors-slide-arrow" id="honors-slide-prev" type="button" aria-label="Previous achievement">←</button>
-        <div class="honors-slide-dots" role="group" aria-label="Choose an achievement">
-          <button class="honors-slide-dot is-active" type="button" data-go-to="0" aria-label="Show Asian Record achievement" aria-current="true"></button>
-          <button class="honors-slide-dot" type="button" data-go-to="1" aria-label="Show NVIDIA achievement" aria-current="false"></button>
-        </div>
-        <button class="honors-slide-arrow" id="honors-slide-next" type="button" aria-label="Next achievement">→</button>
-      </div>
+      
       <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="honors-resume-button" download aria-label="Download Gowtham A's latest resume"><span class="honors-resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a>
     </section>
   </div>
 
-<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I build <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a><a href="https://www.linkedin.com/in/gowtham1745/" class="social-button" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on LinkedIn"><span class="social-icon">in</span><span>LinkedIn</span><span class="social-arrow">↗</span></a><a href="https://github.com/Gowtham1745" class="social-button social-button-github" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on GitHub"><span class="social-icon">◉</span><span>GitHub</span><span class="social-arrow">↗</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I turn ideas into <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -426,14 +419,10 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   const popup = document.getElementById('honors-popup');
   const closeButton = document.getElementById('honors-popup-close');
   const slides = Array.from(document.querySelectorAll<HTMLElement>('.honors-slide'));
-  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.honors-slide-dot'));
   const counter = document.getElementById('honors-popup-count');
-  const previousButton = document.getElementById('honors-slide-prev');
-  const nextButton = document.getElementById('honors-slide-next');
   const honorsShownKey = 'gowtham-honors-popup-shown-at';
   const honorsCooldown = 24 * 60 * 60 * 1000;
-  const slideDuration = 5200;
-  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const slideDuration = 2000;
   let activeSlide = 0;
   let slideTimer: number | undefined;
   let popupClosed = false;
@@ -448,22 +437,22 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       if (isActive) slide.removeAttribute('inert');
       else slide.setAttribute('inert', '');
     });
-    dots.forEach((dot, index) => {
-      const isActive = index === activeSlide;
-      dot.classList.toggle('is-active', isActive);
-      dot.setAttribute('aria-current', String(isActive));
-    });
     if (counter) counter.textContent = `${String(activeSlide + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   };
-  const stopSlideshow = () => { if (slideTimer) window.clearInterval(slideTimer); slideTimer = undefined; };
+
+  const stopSlideshow = () => {
+    if (slideTimer !== undefined) window.clearInterval(slideTimer);
+    slideTimer = undefined;
+  };
   const startSlideshow = () => {
     stopSlideshow();
-    if (prefersReducedMotion || popupClosed || document.hidden || slides.length < 2) return;
+    if (popupClosed || document.hidden || slides.length < 2) return;
     slideTimer = window.setInterval(() => showSlide(activeSlide + 1), slideDuration);
   };
   const closeHonorsPopup = () => {
     if (popupClosed) return;
-    popupClosed = true; stopSlideshow();
+    popupClosed = true;
+    stopSlideshow();
     popup?.classList.add('honors-popup-hidden');
     window.setTimeout(() => popup?.remove(), 320);
   };
@@ -478,25 +467,21 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     showSlide(0);
     window.setTimeout(() => closeButton?.focus(), 80);
     startSlideshow();
-  } else { popup?.remove(); popupClosed = true; }
+  } else {
+    popup?.remove();
+    popupClosed = true;
+  }
 
-  previousButton?.addEventListener('click', () => { showSlide(activeSlide - 1); startSlideshow(); });
-  nextButton?.addEventListener('click', () => { showSlide(activeSlide + 1); startSlideshow(); });
-  dots.forEach((dot) => dot.addEventListener('click', () => {
-    const target = Number.parseInt(dot.dataset.goTo || '', 10);
-    if (Number.isInteger(target)) { showSlide(target); startSlideshow(); }
-  }));
   closeButton?.addEventListener('click', closeHonorsPopup);
-  popup?.addEventListener('click', (event) => { if (event.target === popup) closeHonorsPopup(); });
-  popup?.addEventListener('mouseenter', stopSlideshow);
-  popup?.addEventListener('mouseleave', startSlideshow);
-  popup?.addEventListener('focusin', stopSlideshow);
-  popup?.addEventListener('focusout', (event) => { if (!(event.relatedTarget instanceof Node) || !popup?.contains(event.relatedTarget)) startSlideshow(); });
-  document.addEventListener('visibilitychange', () => { if (document.hidden) stopSlideshow(); else startSlideshow(); });
+  popup?.addEventListener('click', (event) => {
+    if (event.target === popup) closeHonorsPopup();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopSlideshow();
+    else startSlideshow();
+  });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !popupClosed) closeHonorsPopup();
-    if (event.key === 'ArrowRight' && !popupClosed) { showSlide(activeSlide + 1); startSlideshow(); }
-    if (event.key === 'ArrowLeft' && !popupClosed) { showSlide(activeSlide - 1); startSlideshow(); }
   });
 </script>
 
