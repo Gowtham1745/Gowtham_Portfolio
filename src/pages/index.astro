@@ -99,7 +99,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 
   
 
-  <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">A focused selection of project work, with additional case studies available below.</p></div><div class="project-grid">{secondaryProjects.slice(0, 2).map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', `project-card-${project.slug}`, { 'project-card-featured': index === 0 }]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted autoplay loop playsinline preload="none" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div><details class="section-more projects-more"><summary><span class="more-label-closed">See more projects</span><span class="more-label-open">Show fewer projects</span></summary><div class="project-grid project-grid-more">{secondaryProjects.slice(2).map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', `project-card-${project.slug}`]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted autoplay loop playsinline preload="none" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading="lazy" decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">MORE · 0{index + 1}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></details></div></section>
+  <section id="projects" class="section projects-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Selected work</p><h2 class="section-title mt-5">Projects built across physical and digital systems.</h2></div><p class="section-note">A focused selection of project work, with additional case studies available below.</p></div><div class="project-grid">{secondaryProjects.slice(0, 2).map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', `project-card-${project.slug}`, { 'project-card-featured': index === 0 }]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted loop playsinline preload="none" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading={index === 0 ? 'eager' : 'lazy'} decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">0{index + 1} / {project.year}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div><details class="section-more projects-more"><summary><span class="more-label-closed">See more projects</span><span class="more-label-open">Show fewer projects</span></summary><div class="project-grid project-grid-more">{secondaryProjects.slice(2).map((project, index) => { const media = projectMedia[project.slug]; return (<article class:list={['project-card', `project-card-${project.slug}`]}><div class="project-category">{project.category}</div><div class="project-image">{media?.type === 'video' ? <video data-src={media.src} muted loop playsinline preload="none" aria-label={`${project.title} video preview`}></video> : media ? <img src={media.src} alt="" loading="lazy" decoding="async" /> : <div class="project-placeholder"><span>PROJECT<br />MEDIA</span><i></i></div>}</div><div class="project-body"><div class="project-number">MORE · 0{index + 1}</div><h3>{project.title}</h3><p>{project.blurb}</p><div class="project-footer"><div class="project-tools">{project.tools.slice(0, 3).map((tool) => <span>{tool}</span>)}</div>{project.href ? <a href={`${base}${project.href.replace(/^\//, "")}`} aria-label={`Read ${project.title} project`}>View <span>↗</span></a> : <span class="project-status">Project overview</span>}</div></div></article>); })}</div></details></div></section>
   <section id="experience" class="section timeline-section"><div class="shell"><div class="section-head"><div><p class="eyebrow">Experience</p><h2 class="section-title mt-5">Work shaped by detail.</h2></div><p class="section-note">A clear view of the roles, responsibilities, and engineering support behind my current work.</p></div><div class="timeline">{experience.filter((job) => job.featured).map((job) => (<article class:list={["timeline-item", { "timeline-item-featured": job.featured }]}><div class="timeline-date">{job.date}</div><div class="timeline-marker"></div><div class="timeline-content">{job.featured && <div class="timeline-current-badge"><span class="timeline-status-dot"></span> CURRENT ROLE</div>}<p class="timeline-type">{job.type}</p><h3>{job.role}</h3><p class="timeline-org">{job.org}</p>{job.featured && <div class="timeline-tags">{job.tags.map((tag) => <span>{tag}</span>)}</div>}{job.featured && <p class="timeline-focus">Working across sourcing operations, international coordination, quality documentation, and engineering support.</p>}<ul>{job.points.map((point) => <li>{point}</li>)}</ul></div></article>))}</div><details class="section-more experience-more"><summary><span class="more-label-closed">See previous experience (3)</span><span class="more-label-open">Hide previous roles</span></summary><div class="timeline timeline-previous">{experience.filter((job) => !job.featured).map((job) => (<article class:list={["timeline-item", { "timeline-item-featured": job.featured }]}><div class="timeline-date">{job.date}</div><div class="timeline-marker"></div><div class="timeline-content">{job.featured && <div class="timeline-current-badge"><span class="timeline-status-dot"></span> CURRENT ROLE</div>}<p class="timeline-type">{job.type}</p><h3>{job.role}</h3><p class="timeline-org">{job.org}</p>{job.featured && <div class="timeline-tags">{job.tags.map((tag) => <span>{tag}</span>)}</div>}{job.featured && <p class="timeline-focus">Working across sourcing operations, international coordination, quality documentation, and engineering support.</p>}<ul>{job.points.map((point) => <li>{point}</li>)}</ul></div></article>))}</div></details></div></section>
   <section id="skills" class="section skills-section">
     <div class="shell">
@@ -382,35 +382,71 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 </style>
 
 <script>
-  const lazyProjectVideos = document.querySelectorAll<HTMLVideoElement>('video[data-src]');
-  if ('IntersectionObserver' in window) {
-    const videoObserver = new IntersectionObserver((entries, observer) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        const video = entry.target;
-        if (!(video instanceof HTMLVideoElement)) return;
-        if (!video.src) {
-          const source = video.dataset.src;
-          if (!source) {
-            observer.unobserve(video);
-            return;
-          }
-          video.src = source;
-          video.load();
-          video.play().catch(() => {});
-        }
-        observer.unobserve(video);
-      });
-    }, { rootMargin: '300px 0px' });
-    lazyProjectVideos.forEach((video) => videoObserver.observe(video));
-  } else {
-    lazyProjectVideos.forEach((video) => {
+  // Keep project previews lazy and allow only an on-screen video to consume playback resources.
+  const lazyProjectVideos = Array.from(document.querySelectorAll<HTMLVideoElement>('video[data-src]'));
+  const visibleProjectVideos = new Set<HTMLVideoElement>();
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let activeProjectVideo: HTMLVideoElement | null = null;
+
+  const pauseProjectVideo = (video: HTMLVideoElement) => {
+    video.pause();
+    if (activeProjectVideo === video) activeProjectVideo = null;
+  };
+
+  const activateProjectVideo = (video: HTMLVideoElement) => {
+    if (document.hidden || reducedMotion || !visibleProjectVideos.has(video)) return;
+    if (activeProjectVideo && activeProjectVideo !== video) pauseProjectVideo(activeProjectVideo);
+    activeProjectVideo = video;
+
+    if (!video.dataset.loaded) {
       const source = video.dataset.src;
       if (!source) return;
       video.src = source;
+      video.dataset.loaded = 'true';
       video.load();
-    });
+    }
+
+    const playback = video.play();
+    if (playback && typeof playback.catch === 'function') {
+      playback.catch(() => {
+        // Autoplay can be restricted by the browser; the page remains usable.
+        if (activeProjectVideo === video) activeProjectVideo = null;
+      });
+    }
+  };
+
+  if ('IntersectionObserver' in window) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        const video = entry.target;
+        if (!(video instanceof HTMLVideoElement)) return;
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.2) {
+          visibleProjectVideos.add(video);
+          activateProjectVideo(video);
+        } else {
+          visibleProjectVideos.delete(video);
+          pauseProjectVideo(video);
+        }
+      });
+    }, { rootMargin: '100px 0px', threshold: [0, 0.2, 0.5] });
+
+    lazyProjectVideos.forEach((video) => videoObserver.observe(video));
   }
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      lazyProjectVideos.forEach(pauseProjectVideo);
+    } else if (activeProjectVideo && visibleProjectVideos.has(activeProjectVideo)) {
+      activateProjectVideo(activeProjectVideo);
+    } else {
+      const nextVisible = visibleProjectVideos.values().next().value;
+      if (nextVisible) activateProjectVideo(nextVisible);
+    }
+  });
+
+  window.addEventListener('pagehide', () => {
+    lazyProjectVideos.forEach(pauseProjectVideo);
+  });
 </script>
 
 
