@@ -36,28 +36,37 @@ const secondaryProjects = projects.filter((project) => project.slug !== 'rc-airc
 const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computational fluid dynamics & aerodynamic analysis'], ['Drone Design & Structural Analysis', 'UAV structural evaluation, payload & airframe sizing'], ['Electric Vehicle Battery & Motor', 'Dassault Systèmes — EV powertrain & structural safety'], ['Blender Digital Sculpting', '3D CGI, photorealistic lighting & animation'], ['RC Plane Design & Development', 'Jet Aerospace — flight aerodynamics & RC integration']];
 ---
 <Layout title="Gowtham A — Aeronautical Engineer | Design, Simulation & Sourcing" description="Gowtham A is an Aeronautical Engineering graduate and Graduate Engineer Trainee working across design engineering, simulation, real-time visualization, and global sourcing operations.">
-  <div class="honors-popup-backdrop" id="honors-popup" role="presentation">
-    <aside class="honors-popup" role="dialog" aria-modal="true" aria-labelledby="honors-popup-title">
-      <button class="honors-popup-close" id="honors-popup-close" type="button" aria-label="Close athletic honors">×</button>
+  <div class="honors-popup-backdrop honors-popup-pending" id="honors-popup" role="presentation">
+    <aside class="honors-popup" role="dialog" aria-modal="true" aria-labelledby="honors-popup-title" aria-describedby="honors-popup-copy">
+      <button class="honors-popup-close" id="honors-popup-close" type="button" aria-label="Close achievement showcase">×</button>
       <div class="honors-popup-layout">
         <div class="honors-popup-photo">
-          <img src={`${base}media/profile-professional.jpg`} alt="Gowtham A" />
+          <img id="honors-slide-image" src={`${base}media/sports-record.jpeg`} alt="Asian Record Holder achievement in roller skating" />
+          <span class="honors-slide-counter" id="honors-slide-counter">01 / 02</span>
         </div>
         <div class="honors-popup-content">
-          <div class="honors-popup-badge"><span class="honors-medal">★</span><span>ATHLETIC HONORS</span></div>
-          <p class="honors-popup-kicker">Record Holder</p>
+          <div class="honors-popup-badge"><span class="honors-medal" aria-hidden="true">★</span><span id="honors-slide-category">ATHLETIC HONOR</span></div>
+          <p class="honors-popup-kicker" id="honors-slide-kicker">A personal milestone</p>
           <h2 id="honors-popup-title">Asian Record Holder</h2>
-          <p class="honors-popup-sport">Roller Skating</p>
+          <p class="honors-popup-sport" id="honors-slide-subtitle">Roller Skating</p>
           <div class="honors-popup-line"></div>
-          <p class="honors-popup-copy">A lifetime milestone reflecting dedication, discipline, endurance, and competitive resilience at the Asian continental level.</p>
-          <div class="honors-popup-footer"><span>ASIAN RECORD</span><span aria-hidden="true">✦</span><span>PROUD MILESTONE</span></div>
-          <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="honors-resume-button" download aria-label="Download Gowtham A's latest resume"><span class="honors-resume-icon" aria-hidden="true">↓</span><span>Download Gowtham's Latest Resume</span></a>
+          <p class="honors-popup-copy" id="honors-popup-copy">A milestone built on years of dedication, discipline, and persistence.</p>
+          <div class="honors-popup-footer"><span id="honors-slide-footer">ASIAN RECORD</span><span aria-hidden="true">✦</span><span>PROUD MILESTONE</span></div>
+          <div class="honors-slide-controls" aria-label="Achievement slides">
+            <button class="honors-slide-arrow" id="honors-slide-prev" type="button" aria-label="Show previous achievement">←</button>
+            <div class="honors-slide-dots" id="honors-slide-dots">
+              <button class="honors-slide-dot is-active" type="button" data-slide="0" aria-label="Show Asian Record achievement" aria-current="true"></button>
+              <button class="honors-slide-dot" type="button" data-slide="1" aria-label="Show NVIDIA award" aria-current="false"></button>
+            </div>
+            <button class="honors-slide-arrow" id="honors-slide-next" type="button" aria-label="Show next achievement">→</button>
+          </div>
+          <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="honors-resume-button" download aria-label="Download Gowtham A's latest resume"><span class="honors-resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a>
         </div>
       </div>
     </aside>
   </div>
 
-  <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>Engineering <em>systems</em>.<br />Visualizing what’s next.</h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a><a href="https://www.linkedin.com/in/gowtham1745/" class="social-button" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on LinkedIn"><span class="social-icon">in</span><span>LinkedIn</span><span class="social-arrow">↗</span></a><a href="https://github.com/Gowtham1745" class="social-button social-button-github" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on GitHub"><span class="social-icon">◉</span><span>GitHub</span><span class="social-arrow">↗</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+  <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I design, analyze, and build <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a><a href="https://www.linkedin.com/in/gowtham1745/" class="social-button" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on LinkedIn"><span class="social-icon">in</span><span>LinkedIn</span><span class="social-arrow">↗</span></a><a href="https://github.com/Gowtham1745" class="social-button social-button-github" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on GitHub"><span class="social-icon">◉</span><span>GitHub</span><span class="social-arrow">↗</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -412,31 +421,138 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 <script>
   const popup = document.getElementById('honors-popup');
   const closeButton = document.getElementById('honors-popup-close');
+  const slideImage = document.getElementById('honors-slide-image');
+  const slideCategory = document.getElementById('honors-slide-category');
+  const slideKicker = document.getElementById('honors-slide-kicker');
+  const slideTitle = document.getElementById('honors-popup-title');
+  const slideSubtitle = document.getElementById('honors-slide-subtitle');
+  const slideCopy = document.getElementById('honors-popup-copy');
+  const slideFooter = document.getElementById('honors-slide-footer');
+  const slideCounter = document.getElementById('honors-slide-counter');
+  const slideDots = Array.from(document.querySelectorAll('.honors-slide-dot'));
+  const previousSlide = document.getElementById('honors-slide-prev');
+  const nextSlide = document.getElementById('honors-slide-next');
+
+  const achievementSlides = [
+    {
+      image: `${import.meta.env.BASE_URL}media/sports-record.jpeg`,
+      alt: 'Asian Record Holder achievement in roller skating',
+      category: 'ATHLETIC HONOR',
+      kicker: 'A personal milestone',
+      title: 'Asian Record Holder',
+      subtitle: 'Roller Skating',
+      copy: 'A milestone built on years of dedication, discipline, and persistence.',
+      footer: 'ASIAN RECORD'
+    },
+    {
+      image: `${import.meta.env.BASE_URL}media/Nvidia%20Award/1.jpeg`,
+      alt: 'NVIDIA AI PC Day Overall Champion award',
+      category: 'TEAM ACHIEVEMENT',
+      kicker: 'Recognised for our work',
+      title: 'NVIDIA AI PC Day',
+      subtitle: 'Overall Champion',
+      copy: 'Proud to be part of the team recognised for our work at NVIDIA AI PC Day.',
+      footer: 'NVIDIA · OVERALL CHAMPION'
+    }
+  ];
+
+  let activeAchievement = 0;
+  let slideTimer;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const honorsShownKey = 'gowtham-honors-popup-shown-at';
   const honorsCooldown = 24 * 60 * 60 * 1000;
 
-  const now = Date.now();
-  const lastShown = Number.parseInt(localStorage.getItem(honorsShownKey) || '0', 10);
-  const shouldShow = !Number.isFinite(lastShown) || now - lastShown >= honorsCooldown;
+  const renderAchievement = (index) => {
+    activeAchievement = (index + achievementSlides.length) % achievementSlides.length;
+    const slide = achievementSlides[activeAchievement];
+    if (!slide || !slideImage) return;
 
-  if (shouldShow) {
-    localStorage.setItem(honorsShownKey, String(now));
-    popup?.classList.remove('honors-popup-pending');
-  } else {
-    popup?.remove();
-  }
+    const photo = slideImage.closest('.honors-popup-photo');
+    photo?.classList.add('is-changing');
+    window.setTimeout(() => {
+      slideImage.setAttribute('src', slide.image);
+      slideImage.setAttribute('alt', slide.alt);
+      slideCategory?.replaceChildren(document.createTextNode(slide.category));
+      slideKicker?.replaceChildren(document.createTextNode(slide.kicker));
+      slideTitle?.replaceChildren(document.createTextNode(slide.title));
+      slideSubtitle?.replaceChildren(document.createTextNode(slide.subtitle));
+      slideCopy?.replaceChildren(document.createTextNode(slide.copy));
+      slideFooter?.replaceChildren(document.createTextNode(slide.footer));
+      if (slideCounter) slideCounter.textContent = `0${activeAchievement + 1} / 0${achievementSlides.length}`;
+      slideDots.forEach((dot, dotIndex) => {
+        const isActive = dotIndex === activeAchievement;
+        dot.classList.toggle('is-active', isActive);
+        dot.setAttribute('aria-current', String(isActive));
+      });
+      photo?.classList.remove('is-changing');
+    }, reducedMotion.matches ? 0 : 180);
+  };
+
+  const stopAchievementTimer = () => {
+    if (slideTimer) window.clearInterval(slideTimer);
+    slideTimer = undefined;
+  };
+
+  const startAchievementTimer = () => {
+    stopAchievementTimer();
+    if (reducedMotion.matches || document.hidden || popup?.classList.contains('honors-popup-hidden')) return;
+    slideTimer = window.setInterval(() => renderAchievement(activeAchievement + 1), 5200);
+  };
 
   const closeHonorsPopup = () => {
+    stopAchievementTimer();
     popup?.classList.add('honors-popup-hidden');
     window.setTimeout(() => popup?.remove(), 320);
   };
+
+  previousSlide?.addEventListener('click', () => {
+    renderAchievement(activeAchievement - 1);
+    startAchievementTimer();
+  });
+  nextSlide?.addEventListener('click', () => {
+    renderAchievement(activeAchievement + 1);
+    startAchievementTimer();
+  });
+  slideDots.forEach((dot) => dot.addEventListener('click', () => {
+    renderAchievement(Number(dot.getAttribute('data-slide')));
+    startAchievementTimer();
+  }));
+
+  popup?.addEventListener('mouseenter', stopAchievementTimer);
+  popup?.addEventListener('mouseleave', startAchievementTimer);
+  popup?.addEventListener('focusin', stopAchievementTimer);
+  popup?.addEventListener('focusout', (event) => {
+    if (!popup.contains(event.relatedTarget)) startAchievementTimer();
+  });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) stopAchievementTimer();
+    else startAchievementTimer();
+  });
+  reducedMotion.addEventListener('change', startAchievementTimer);
+
+  const now = Date.now();
+  let lastShown = 0;
+  try {
+    lastShown = Number.parseInt(localStorage.getItem(honorsShownKey) || '0', 10) || 0;
+  } catch {
+    lastShown = 0;
+  }
+  const shouldShow = !Number.isFinite(lastShown) || now - lastShown >= honorsCooldown;
+
+  if (shouldShow) {
+    try { localStorage.setItem(honorsShownKey, String(now)); } catch { /* Storage may be disabled. */ }
+    popup?.classList.remove('honors-popup-pending');
+    startAchievementTimer();
+  } else {
+    popup?.remove();
+  }
 
   closeButton?.addEventListener('click', closeHonorsPopup);
   popup?.addEventListener('click', (event) => {
     if (event.target === popup) closeHonorsPopup();
   });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape') closeHonorsPopup();
+    if (event.key === 'Escape' && popup && !popup.classList.contains('honors-popup-pending')) closeHonorsPopup();
   });
 </script>
 
@@ -1071,4 +1187,18 @@ h1 em, .contact-card em {
   .education-more .school-history,.education-more .cert-list{margin-top:1rem}
   @media(max-width:680px){.section-more>summary{min-height:44px;padding:.68rem .9rem;font-size:.61rem;gap:.5rem}.section-more{margin-top:.85rem}.experience-more .timeline-previous{margin-top:1rem}}
   @media(prefers-reduced-motion:reduce){.section-more>summary,.section-more>summary::before,.section-more>summary::after{transition:none}}
+
+/* Two-slide achievement showcase */
+.honors-popup-photo{position:relative;transition:opacity .22s ease,transform .22s ease}
+.honors-popup-photo.is-changing{opacity:.25;transform:translateX(8px)}
+.honors-slide-counter{position:absolute;left:.55rem;bottom:.55rem;padding:.28rem .45rem;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:rgba(7,17,26,.78);color:#fff;font:600 .55rem 'IBM Plex Mono',monospace;letter-spacing:.08em}
+.honors-slide-controls{position:relative;display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:1rem}
+.honors-slide-arrow{width:2rem;height:2rem;display:grid;place-items:center;border:1px solid rgba(231,184,102,.35);border-radius:50%;background:rgba(255,255,255,.035);color:var(--text-hi);font-size:1rem;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.honors-slide-arrow:hover{background:rgba(231,184,102,.12);border-color:var(--amber);transform:translateY(-2px)}
+.honors-slide-dots{display:flex;align-items:center;justify-content:center;gap:.55rem}
+.honors-slide-dot{width:.48rem;height:.48rem;padding:0;border:1px solid var(--amber);border-radius:99px;background:transparent;cursor:pointer;transition:width .25s ease,background .25s ease}
+.honors-slide-dot.is-active{width:1.35rem;background:var(--amber)}
+.honors-slide-arrow:focus-visible,.honors-slide-dot:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
+@media(max-width:520px){.honors-slide-controls{margin-top:.7rem}.honors-slide-arrow{width:1.8rem;height:1.8rem}.honors-slide-dot{width:.42rem;height:.42rem}.honors-slide-dot.is-active{width:1.15rem}}
+@media(prefers-reduced-motion:reduce){.honors-popup-photo,.honors-slide-arrow,.honors-slide-dot{transition:none}}
 </style>
