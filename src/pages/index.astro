@@ -36,37 +36,41 @@ const secondaryProjects = projects.filter((project) => project.slug !== 'rc-airc
 const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computational fluid dynamics & aerodynamic analysis'], ['Drone Design & Structural Analysis', 'UAV structural evaluation, payload & airframe sizing'], ['Electric Vehicle Battery & Motor', 'Dassault Systèmes — EV powertrain & structural safety'], ['Blender Digital Sculpting', '3D CGI, photorealistic lighting & animation'], ['RC Plane Design & Development', 'Jet Aerospace — flight aerodynamics & RC integration']];
 ---
 <Layout title="Gowtham A — Aeronautical Engineer | Design, Simulation & Sourcing" description="Gowtham A is an Aeronautical Engineering graduate and Graduate Engineer Trainee working across design engineering, simulation, real-time visualization, and global sourcing operations.">
-  <div class="honors-popup-backdrop honors-popup-pending" id="honors-popup" role="presentation">
-    <aside class="honors-popup" role="dialog" aria-modal="true" aria-labelledby="honors-popup-title" aria-describedby="honors-popup-copy">
-      <button class="honors-popup-close" id="honors-popup-close" type="button" aria-label="Close achievement showcase">×</button>
-      <div class="honors-popup-layout">
-        <div class="honors-popup-photo">
-          <img id="honors-slide-image" src={`${base}media/sports-record.jpeg`} alt="Asian Record Holder achievement in roller skating" />
-          <span class="honors-slide-counter" id="honors-slide-counter">01 / 02</span>
-        </div>
-        <div class="honors-popup-content">
-          <div class="honors-popup-badge"><span class="honors-medal" aria-hidden="true">★</span><span id="honors-slide-category">ATHLETIC HONOR</span></div>
-          <p class="honors-popup-kicker" id="honors-slide-kicker">A personal milestone</p>
-          <h2 id="honors-popup-title">Asian Record Holder</h2>
-          <p class="honors-popup-sport" id="honors-slide-subtitle">Roller Skating</p>
-          <div class="honors-popup-line"></div>
-          <p class="honors-popup-copy" id="honors-popup-copy">A milestone built on years of dedication, discipline, and persistence.</p>
-          <div class="honors-popup-footer"><span id="honors-slide-footer">ASIAN RECORD</span><span aria-hidden="true">✦</span><span>PROUD MILESTONE</span></div>
-          <div class="honors-slide-controls" aria-label="Achievement slides">
-            <button class="honors-slide-arrow" id="honors-slide-prev" type="button" aria-label="Show previous achievement">←</button>
-            <div class="honors-slide-dots" id="honors-slide-dots">
-              <button class="honors-slide-dot is-active" type="button" data-slide="0" aria-label="Show Asian Record achievement" aria-current="true"></button>
-              <button class="honors-slide-dot" type="button" data-slide="1" aria-label="Show NVIDIA award" aria-current="false"></button>
-            </div>
-            <button class="honors-slide-arrow" id="honors-slide-next" type="button" aria-label="Show next achievement">→</button>
+    <div class="honors-popup-backdrop honors-popup-pending" id="honors-popup" role="presentation">
+    <section class="honors-popup" role="dialog" aria-modal="true" aria-roledescription="carousel" aria-label="Gowtham's featured achievements">
+      <button class="honors-popup-close" id="honors-popup-close" type="button" aria-label="Close achievements">×</button>
+      <div class="honors-popup-topline"><span class="honors-popup-badge"><span class="honors-medal">★</span><span>SELECTED ACHIEVEMENTS</span></span><span class="honors-popup-count" id="honors-popup-count">01 / 02</span></div>
+      <div class="honors-slides">
+        <article class="honors-slide is-active" data-slide="0" aria-hidden="false">
+          <div class="honors-slide-image"><img src={`${base}media/sports-record.jpeg`} alt="Gowtham's Asian Record Holder roller skating achievement" fetchpriority="high" /></div>
+          <div class="honors-slide-content">
+            <p class="honors-popup-kicker">Athletic achievement</p><h2 id="honors-popup-title">Asian Record Holder</h2><p class="honors-popup-sport">Roller Skating</p>
+            <p class="honors-popup-copy">A proud milestone built through years of discipline, training, endurance, and determination.</p>
+            <div class="honors-popup-footer"><span>ASIAN RECORD</span><span aria-hidden="true">✦</span><span>ATHLETIC HONOR</span></div>
           </div>
-          <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="honors-resume-button" download aria-label="Download Gowtham A's latest resume"><span class="honors-resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a>
-        </div>
+        </article>
+        <article class="honors-slide" data-slide="1" aria-hidden="true" inert>
+          <div class="honors-slide-image"><img src={`${base}media/Nvidia%20Award/1.jpeg`} alt="NVIDIA AI PC Day Overall Champion award" loading="lazy" decoding="async" /></div>
+          <div class="honors-slide-content">
+            <p class="honors-popup-kicker">Team achievement · 2026</p><h2>NVIDIA AI PC Day</h2><p class="honors-popup-sport">Overall Champion</p>
+            <p class="honors-popup-copy">Recognised with my team for creative technical work and an outstanding AI PC experience.</p>
+            <div class="honors-popup-footer"><span>NVIDIA</span><span aria-hidden="true">✦</span><span>OVERALL CHAMPION</span></div>
+          </div>
+        </article>
       </div>
-    </aside>
+      <div class="honors-popup-controls">
+        <button class="honors-slide-arrow" id="honors-slide-prev" type="button" aria-label="Previous achievement">←</button>
+        <div class="honors-slide-dots" role="group" aria-label="Choose an achievement">
+          <button class="honors-slide-dot is-active" type="button" data-go-to="0" aria-label="Show Asian Record achievement" aria-current="true"></button>
+          <button class="honors-slide-dot" type="button" data-go-to="1" aria-label="Show NVIDIA achievement" aria-current="false"></button>
+        </div>
+        <button class="honors-slide-arrow" id="honors-slide-next" type="button" aria-label="Next achievement">→</button>
+      </div>
+      <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="honors-resume-button" download aria-label="Download Gowtham A's latest resume"><span class="honors-resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a>
+    </section>
   </div>
 
-  <section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I design, analyze, and build <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a><a href="https://www.linkedin.com/in/gowtham1745/" class="social-button" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on LinkedIn"><span class="social-icon">in</span><span>LinkedIn</span><span class="social-arrow">↗</span></a><a href="https://github.com/Gowtham1745" class="social-button social-button-github" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on GitHub"><span class="social-icon">◉</span><span>GitHub</span><span class="social-arrow">↗</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I build <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate and Graduate Engineer Trainee in Sourcing. I work across design engineering, simulation, real-time visualization, and global operations.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a><a href="https://www.linkedin.com/in/gowtham1745/" class="social-button" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on LinkedIn"><span class="social-icon">in</span><span>LinkedIn</span><span class="social-arrow">↗</span></a><a href="https://github.com/Gowtham1745" class="social-button social-button-github" target="_blank" rel="noreferrer" aria-label="Open Gowtham A on GitHub"><span class="social-icon">◉</span><span>GitHub</span><span class="social-arrow">↗</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -421,784 +425,121 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 <script>
   const popup = document.getElementById('honors-popup');
   const closeButton = document.getElementById('honors-popup-close');
-  const slideImage = document.getElementById('honors-slide-image');
-  const slideCategory = document.getElementById('honors-slide-category');
-  const slideKicker = document.getElementById('honors-slide-kicker');
-  const slideTitle = document.getElementById('honors-popup-title');
-  const slideSubtitle = document.getElementById('honors-slide-subtitle');
-  const slideCopy = document.getElementById('honors-popup-copy');
-  const slideFooter = document.getElementById('honors-slide-footer');
-  const slideCounter = document.getElementById('honors-slide-counter');
-  const slideDots = Array.from(document.querySelectorAll('.honors-slide-dot'));
-  const previousSlide = document.getElementById('honors-slide-prev');
-  const nextSlide = document.getElementById('honors-slide-next');
-
-  const achievementSlides = [
-    {
-      image: `${import.meta.env.BASE_URL}media/sports-record.jpeg`,
-      alt: 'Asian Record Holder achievement in roller skating',
-      category: 'ATHLETIC HONOR',
-      kicker: 'A personal milestone',
-      title: 'Asian Record Holder',
-      subtitle: 'Roller Skating',
-      copy: 'A milestone built on years of dedication, discipline, and persistence.',
-      footer: 'ASIAN RECORD'
-    },
-    {
-      image: `${import.meta.env.BASE_URL}media/Nvidia%20Award/1.jpeg`,
-      alt: 'NVIDIA AI PC Day Overall Champion award',
-      category: 'TEAM ACHIEVEMENT',
-      kicker: 'Recognised for our work',
-      title: 'NVIDIA AI PC Day',
-      subtitle: 'Overall Champion',
-      copy: 'Proud to be part of the team recognised for our work at NVIDIA AI PC Day.',
-      footer: 'NVIDIA · OVERALL CHAMPION'
-    }
-  ];
-
-  let activeAchievement = 0;
-  let slideTimer: number | undefined;
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  const slides = Array.from(document.querySelectorAll('.honors-slide'));
+  const dots = Array.from(document.querySelectorAll('.honors-slide-dot'));
+  const counter = document.getElementById('honors-popup-count');
+  const previousButton = document.getElementById('honors-slide-prev');
+  const nextButton = document.getElementById('honors-slide-next');
   const honorsShownKey = 'gowtham-honors-popup-shown-at';
   const honorsCooldown = 24 * 60 * 60 * 1000;
+  const slideDuration = 5200;
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  let activeSlide = 0;
+  let slideTimer;
+  let popupClosed = false;
 
-  const renderAchievement = (index: number) => {
-    activeAchievement = (index + achievementSlides.length) % achievementSlides.length;
-    const slide = achievementSlides[activeAchievement];
-    if (!slide || !slideImage) return;
-
-    const photo = slideImage.closest('.honors-popup-photo');
-    photo?.classList.add('is-changing');
-    window.setTimeout(() => {
-      slideImage.setAttribute('src', slide.image);
-      slideImage.setAttribute('alt', slide.alt);
-      slideCategory?.replaceChildren(document.createTextNode(slide.category));
-      slideKicker?.replaceChildren(document.createTextNode(slide.kicker));
-      slideTitle?.replaceChildren(document.createTextNode(slide.title));
-      slideSubtitle?.replaceChildren(document.createTextNode(slide.subtitle));
-      slideCopy?.replaceChildren(document.createTextNode(slide.copy));
-      slideFooter?.replaceChildren(document.createTextNode(slide.footer));
-      if (slideCounter) slideCounter.textContent = `0${activeAchievement + 1} / 0${achievementSlides.length}`;
-      slideDots.forEach((dot, dotIndex) => {
-        const isActive = dotIndex === activeAchievement;
-        dot.classList.toggle('is-active', isActive);
-        dot.setAttribute('aria-current', String(isActive));
-      });
-      photo?.classList.remove('is-changing');
-    }, reducedMotion.matches ? 0 : 180);
+  const showSlide = (nextIndex) => {
+    if (!slides.length) return;
+    activeSlide = (nextIndex + slides.length) % slides.length;
+    slides.forEach((slide, index) => {
+      const isActive = index === activeSlide;
+      slide.classList.toggle('is-active', isActive);
+      slide.setAttribute('aria-hidden', String(!isActive));
+      if (isActive) slide.removeAttribute('inert');
+      else slide.setAttribute('inert', '');
+    });
+    dots.forEach((dot, index) => {
+      const isActive = index === activeSlide;
+      dot.classList.toggle('is-active', isActive);
+      dot.setAttribute('aria-current', String(isActive));
+    });
+    if (counter) counter.textContent = `${String(activeSlide + 1).padStart(2, '0')} / ${String(slides.length).padStart(2, '0')}`;
   };
-
-  const stopAchievementTimer = () => {
-    if (slideTimer) window.clearInterval(slideTimer);
-    slideTimer = undefined;
+  const stopSlideshow = () => { if (slideTimer) window.clearInterval(slideTimer); slideTimer = undefined; };
+  const startSlideshow = () => {
+    stopSlideshow();
+    if (prefersReducedMotion || popupClosed || document.hidden || slides.length < 2) return;
+    slideTimer = window.setInterval(() => showSlide(activeSlide + 1), slideDuration);
   };
-
-  const startAchievementTimer = () => {
-    stopAchievementTimer();
-    if (reducedMotion.matches || document.hidden || popup?.classList.contains('honors-popup-hidden')) return;
-    slideTimer = window.setInterval(() => renderAchievement(activeAchievement + 1), 5200);
-  };
-
   const closeHonorsPopup = () => {
-    stopAchievementTimer();
+    if (popupClosed) return;
+    popupClosed = true; stopSlideshow();
     popup?.classList.add('honors-popup-hidden');
     window.setTimeout(() => popup?.remove(), 320);
   };
 
-  previousSlide?.addEventListener('click', () => {
-    renderAchievement(activeAchievement - 1);
-    startAchievementTimer();
-  });
-  nextSlide?.addEventListener('click', () => {
-    renderAchievement(activeAchievement + 1);
-    startAchievementTimer();
-  });
-  slideDots.forEach((dot) => dot.addEventListener('click', () => {
-    renderAchievement(Number(dot.getAttribute('data-slide')));
-    startAchievementTimer();
-  }));
-
-  popup?.addEventListener('mouseenter', stopAchievementTimer);
-  popup?.addEventListener('mouseleave', startAchievementTimer);
-  popup?.addEventListener('focusin', stopAchievementTimer);
-  popup?.addEventListener('focusout', (event) => {
-    if (!(event.relatedTarget instanceof Node) || !popup.contains(event.relatedTarget)) startAchievementTimer();
-  });
-  document.addEventListener('visibilitychange', () => {
-    if (document.hidden) stopAchievementTimer();
-    else startAchievementTimer();
-  });
-  reducedMotion.addEventListener('change', startAchievementTimer);
-
   const now = Date.now();
   let lastShown = 0;
-  try {
-    lastShown = Number.parseInt(localStorage.getItem(honorsShownKey) || '0', 10) || 0;
-  } catch {
-    lastShown = 0;
-  }
+  try { lastShown = Number.parseInt(localStorage.getItem(honorsShownKey) || '0', 10); } catch { lastShown = 0; }
   const shouldShow = !Number.isFinite(lastShown) || now - lastShown >= honorsCooldown;
-
   if (shouldShow) {
-    try { localStorage.setItem(honorsShownKey, String(now)); } catch { /* Storage may be disabled. */ }
+    try { localStorage.setItem(honorsShownKey, String(now)); } catch { /* Storage may be unavailable. */ }
     popup?.classList.remove('honors-popup-pending');
-    startAchievementTimer();
-  } else {
-    popup?.remove();
-  }
+    showSlide(0);
+    window.setTimeout(() => closeButton?.focus(), 80);
+    startSlideshow();
+  } else { popup?.remove(); popupClosed = true; }
 
+  previousButton?.addEventListener('click', () => { showSlide(activeSlide - 1); startSlideshow(); });
+  nextButton?.addEventListener('click', () => { showSlide(activeSlide + 1); startSlideshow(); });
+  dots.forEach((dot) => dot.addEventListener('click', () => {
+    const target = Number.parseInt(dot.dataset.goTo || '', 10);
+    if (Number.isInteger(target)) { showSlide(target); startSlideshow(); }
+  }));
   closeButton?.addEventListener('click', closeHonorsPopup);
-  popup?.addEventListener('click', (event) => {
-    if (event.target === popup) closeHonorsPopup();
-  });
+  popup?.addEventListener('click', (event) => { if (event.target === popup) closeHonorsPopup(); });
+  popup?.addEventListener('mouseenter', stopSlideshow);
+  popup?.addEventListener('mouseleave', startSlideshow);
+  popup?.addEventListener('focusin', stopSlideshow);
+  popup?.addEventListener('focusout', (event) => { if (!popup?.contains(event.relatedTarget)) startSlideshow(); });
+  document.addEventListener('visibilitychange', () => { if (document.hidden) stopSlideshow(); else startSlideshow(); });
   document.addEventListener('keydown', (event) => {
-    if (event.key === 'Escape' && popup && !popup.classList.contains('honors-popup-pending')) closeHonorsPopup();
+    if (event.key === 'Escape' && !popupClosed) closeHonorsPopup();
+    if (event.key === 'ArrowRight' && !popupClosed) { showSlide(activeSlide + 1); startSlideshow(); }
+    if (event.key === 'ArrowLeft' && !popupClosed) { showSlide(activeSlide - 1); startSlideshow(); }
   });
 </script>
 
 <style>
-.honors-popup-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 1000;
-  display: grid;
-  place-items: center;
-  padding: 1.25rem;
-  background: rgba(2, 8, 13, 0.48);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
-  animation: honors-backdrop-in 0.45s ease both;
-}
-.honors-popup-pending { display: none !important; }
-.honors-popup {
-  position: relative;
-  width: min(100%, 680px);
-  padding: 2rem 2rem 1.45rem;
-  overflow: hidden;
-  border: 1px solid rgba(231, 184, 102, 0.62);
-  border-radius: 18px;
-  background:
-    radial-gradient(circle at 85% 8%, rgba(231, 184, 102, 0.2), transparent 32%),
-    radial-gradient(circle at 10% 100%, rgba(98, 203, 189, 0.13), transparent 36%),
-    linear-gradient(145deg, #102532, #07131d 72%);
-  box-shadow:
-    0 30px 80px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(255, 255, 255, 0.04) inset,
-    0 0 45px rgba(231, 184, 102, 0.13);
-  animation: honors-popup-in 0.55s cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-.honors-popup-layout {
-  position: relative;
-  display: grid;
-  grid-template-columns: 150px minmax(0, 1fr);
-  gap: 1.4rem;
-  align-items: center;
-}
-.honors-popup-photo {
-  width: 150px;
-  height: 185px;
-  overflow: hidden;
-  border: 2px solid rgba(255,255,255,0.92);
-  border-radius: 15px;
-  background: #07131d;
-  box-shadow: 0 14px 35px rgba(0,0,0,0.45), 0 0 24px rgba(98,203,189,0.16);
-}
-.honors-popup-photo img {
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;
-  object-position: center 12%;
-}
-.honors-popup-content {
-  min-width: 0;
-}
-.honors-popup::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background: linear-gradient(115deg, transparent 15%, rgba(255,255,255,0.07) 48%, transparent 62%);
-  transform: translateX(-120%);
-  animation: honors-shine 1.4s 0.35s ease-out both;
-}
-.honors-popup-close {
-  position: absolute;
-  top: 0.75rem;
-  right: 0.8rem;
-  z-index: 2;
-  width: 2rem;
-  height: 2rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(255,255,255,0.13);
-  border-radius: 50%;
-  background: rgba(0,0,0,0.2);
-  color: var(--text-mid);
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-.honors-popup-close:hover {
-  color: var(--text-hi);
-  border-color: rgba(231,184,102,0.65);
-  transform: rotate(90deg);
-}
-.honors-popup-badge {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-  color: var(--amber);
-  font: 700 0.66rem 'IBM Plex Mono', monospace;
-  letter-spacing: 0.12em;
-}
-.honors-medal {
-  width: 1.45rem;
-  height: 1.45rem;
-  display: grid;
-  place-items: center;
-  border: 1px solid rgba(231,184,102,0.75);
-  border-radius: 50%;
-  background: rgba(231,184,102,0.12);
-  box-shadow: 0 0 18px rgba(231,184,102,0.16);
-  font-size: 0.68rem;
-}
-.honors-popup-kicker {
-  position: relative;
-  margin-top: 1.35rem;
-  color: var(--teal);
-  font: 600 0.68rem 'IBM Plex Mono', monospace;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-}
-.honors-popup h2 {
-  position: relative;
-  margin-top: 0.42rem;
-  padding-right: 2rem;
-  color: var(--text-hi);
-  font-size: clamp(1.8rem, 6vw, 2.45rem);
-  line-height: 1.05;
-  letter-spacing: -0.03em;
-}
-.honors-popup-sport {
-  position: relative;
-  margin-top: 0.35rem;
-  color: var(--amber);
-  font-size: 1rem;
-  font-weight: 600;
-}
-.honors-popup-line {
-  position: relative;
-  width: 70px;
-  height: 2px;
-  margin: 1.25rem 0 1rem;
-  background: linear-gradient(90deg, var(--amber), var(--teal));
-}
-.honors-popup-copy {
-  position: relative;
-  color: var(--text-mid);
-  font-size: 0.84rem;
-  line-height: 1.65;
-  max-width: 42ch;
-}
-.honors-popup-footer {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.6rem;
-  margin-top: 1.35rem;
-  padding-top: 0.9rem;
-  border-top: 1px solid rgba(255,255,255,0.1);
-  color: var(--text-low);
-  font: 600 0.58rem 'IBM Plex Mono', monospace;
-  letter-spacing: 0.1em;
-}
-.honors-popup-footer span:nth-child(2) {
-  color: var(--amber);
-}
-.honors-resume-button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.55rem;
-  width: 100%;
-  margin-top: 1rem;
-  padding: 0.78rem 1rem;
-  border: 1px solid rgba(231,184,102,.65);
-  border-radius: 7px;
-  color: #07131a;
-  background: #f0bd64;
-  font: 700 0.72rem 'IBM Plex Mono', monospace;
-  letter-spacing: 0.045em;
-  text-decoration: none;
-  box-shadow: 0 0 16px rgba(240,189,100,.25), 0 7px 18px rgba(0,0,0,.2);
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  animation: honors-resume-glow 2.6s ease-in-out infinite;
-  transition: transform .25s ease, box-shadow .25s ease, filter .25s ease;
-}
-.honors-resume-button::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(105deg, transparent 25%, rgba(255,255,255,.52) 50%, transparent 75%);
-  transform: translateX(-125%);
-  animation: honors-resume-shine 3.4s ease-in-out infinite;
-  z-index: -1;
-}
-.honors-resume-button:hover {
-  transform: translateY(-2px);
-  filter: brightness(1.04);
-  box-shadow: 0 0 26px rgba(240,189,100,.5), 0 10px 24px rgba(0,0,0,.25);
-}
-.honors-resume-icon {
-  font-size: 1rem;
-  line-height: 1;
-  transition: transform .25s ease;
-}
-.honors-resume-button:hover .honors-resume-icon { transform: translateY(3px); }
-@keyframes honors-resume-glow {
-  0%, 100% { box-shadow: 0 0 14px rgba(240,189,100,.22), 0 7px 18px rgba(0,0,0,.2); }
-  50% { box-shadow: 0 0 25px rgba(240,189,100,.48), 0 9px 22px rgba(0,0,0,.23); }
-}
-@keyframes honors-resume-shine {
-  0%, 55% { transform: translateX(-125%); }
-  75%, 100% { transform: translateX(125%); }
-}
-
-.honors-popup-hidden {
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-@keyframes honors-popup-in {
-  from { opacity: 0; transform: translateY(18px) scale(0.96); }
-  to { opacity: 1; transform: translateY(0) scale(1); }
-}
-@keyframes honors-backdrop-in {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-@keyframes honors-shine {
-  to { transform: translateX(120%); }
-}
-
-@media (max-width: 520px) {
-  .honors-popup-backdrop {
-    padding: 1rem;
-  }
-  .honors-popup {
-    width: min(88vw, 360px);
-    max-height: none;
-    overflow: hidden;
-    padding: 1rem 0.9rem 0.85rem;
-    border-radius: 15px;
-  }
-  .honors-popup-layout {
-    grid-template-columns: 72px minmax(0, 1fr);
-    gap: 0.75rem;
-    align-items: center;
-  }
-  .honors-popup-photo {
-    width: 72px;
-    height: 94px;
-    border-radius: 10px;
-  }
-  .honors-popup-close {
-    top: 0.45rem;
-    right: 0.45rem;
-    width: 2.25rem;
-    height: 2.25rem;
-    border: 1px solid rgba(231,184,102,0.45);
-    background: rgba(7,17,26,0.78);
-    color: var(--text-hi);
-    font-size: 1.45rem;
-    font-weight: 500;
-    box-shadow: 0 4px 14px rgba(0,0,0,0.35);
-  }
-  .honors-popup-close:hover {
-    background: rgba(231,184,102,0.12);
-    border-color: var(--amber);
-  }
-  .honors-popup-badge {
-    gap: 0.4rem;
-    font-size: 0.53rem;
-    letter-spacing: 0.09em;
-  }
-  .honors-medal {
-    width: 1.2rem;
-    height: 1.2rem;
-    font-size: 0.58rem;
-  }
-  .honors-popup-kicker {
-    margin-top: 0.65rem;
-    font-size: 0.54rem;
-    letter-spacing: 0.12em;
-  }
-  .honors-popup h2 {
-    font-size: clamp(1.18rem, 6vw, 1.55rem);
-    line-height: 1.04;
-    padding-right: 1.9rem;
-  }
-  .honors-popup-sport {
-    font-size: 0.78rem;
-    margin-top: 0.28rem;
-  }
-  .honors-popup-line {
-    width: 52px;
-    margin: 0.65rem 0 0.55rem;
-  }
-  .honors-popup-copy {
-    font-size: 0.67rem;
-    line-height: 1.42;
-  }
-  .honors-popup-footer {
-    font-size: 0.42rem;
-    margin-top: 0.7rem;
-    padding-top: 0.55rem;
-    letter-spacing: 0.07em;
-  }
-}
-@media (min-width: 521px) and (max-width: 900px) {
-  .honors-popup {
-    width: min(92vw, 680px);
-  }
-}
-
-.hero {
-  min-height: min(840px, 100vh);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  position: relative;
-  border-bottom: 1px solid var(--line);
-  background: radial-gradient(circle at 75% 45%, rgba(56, 116, 122, 0.22), transparent 32rem),
-              linear-gradient(120deg, #07111a 10%, #0a1923 100%);
-}
-.hero-grid {
-  position: absolute;
-  inset: 0;
-  opacity: 0.3;
-  background-image: linear-gradient(rgba(106, 155, 161, 0.14) 1px, transparent 1px),
-                    linear-gradient(90deg, rgba(106, 155, 161, 0.14) 1px, transparent 1px);
-  background-size: 64px 64px;
-  mask-image: linear-gradient(to bottom, #000, transparent);
-}
-.hero-orbit {
-  position: absolute;
-  width: min(70vw, 800px);
-  aspect-ratio: 1;
-  border: 1px solid rgba(98, 203, 189, 0.2);
-  border-radius: 50%;
-  left: 54%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 5rem rgba(98, 203, 189, 0.025), 0 0 0 12rem rgba(98, 203, 189, 0.015);
-  pointer-events: none;
-}
-.hero-content {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  gap: clamp(2rem, 5vw, 5rem);
-  align-items: center;
-  padding-block: clamp(4.5rem, 8vw, 8rem) 4rem;
-  position: relative;
-}
-.hero-copy h1 {
-  margin: 1.4rem 0 1.6rem;
-  font-size: clamp(2.8rem, 6vw, 5.5rem);
-  line-height: 0.95;
-  font-weight: 600;
-  max-width: 9.5ch;
-}
-h1 em, .contact-card em {
-  color: var(--amber);
-  font-family: Georgia, serif;
-  font-weight: 400;
-}
-.hero-intro {
-  font-size: clamp(1rem, 1.4vw, 1.15rem);
-  line-height: 1.7;
-  color: var(--text-mid);
-  max-width: 53ch;
-}
-.hero-actions {
-  display: flex;
-  gap: 0.85rem;
-  flex-wrap: wrap;
-  margin-top: 2rem;
-}
-.hero-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.2rem;
-  margin-top: 3rem;
-  color: var(--text-low);
-  font-size: 0.82rem;
-}
-.hero-meta b {
-  color: var(--text-hi);
-  font-weight: 500;
-  margin-right: 0.35rem;
-}
-.portrait-container {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-.portrait-wrap {
-  position: relative;
-  width: min(100%, 280px);
-}
-.portrait-frame {
-  position: relative;
-  width: 280px;
-  height: 280px;
-  aspect-ratio: 1;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 3.5px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 20px 45px -10px rgba(0, 0, 0, 0.75), 0 0 25px rgba(255, 255, 255, 0.2), 0 0 45px rgba(98, 203, 189, 0.18);
-  background: var(--ink-1);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
-}
-.portrait-frame:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 25px 55px -10px rgba(0, 0, 0, 0.85), 0 0 35px rgba(255, 255, 255, 0.35), 0 0 55px rgba(98, 203, 189, 0.3);
-}
-.portrait {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 12%;
-  filter: contrast(1.04) brightness(1.02);
-  display: block;
-}
-.corner {
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-color: var(--amber);
-  pointer-events: none;
-  z-index: 2;
-}
-.corner-tl { top: 6px; left: 6px; border-top: 2px solid; border-left: 2px solid; }
-.corner-br { bottom: 6px; right: 6px; border-bottom: 2px solid; border-right: 2px solid; }
-.portrait-caption {
-  margin-top: 1rem;
-  padding: 0.65rem 0.95rem;
-  background: rgba(7, 17, 26, 0.92);
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  font: 500 0.72rem 'IBM Plex Mono', monospace;
-  color: var(--text-hi);
-  display: flex;
-  align-items: center;
-  gap: 0.55rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
-}
-.pulse { display: inline-block; width: 0.5rem; height: 0.5rem; background: #10b981; border-radius: 50%; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.2); flex-shrink: 0; animation: pulse 2s infinite; }
-@keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.15); } }
-.about-section { background: rgba(7, 17, 26, 0.7); }
-.about-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: clamp(2.5rem, 8vw, 8rem); }
-.about-copy { color: var(--text-mid); font-size: 1.05rem; line-height: 1.8; }
-.about-copy p + p { margin-top: 1.3rem; }
-.text-link { display: inline-flex; gap: 0.7rem; margin-top: 2rem; color: var(--amber); font-size: 0.88rem; font-weight: 500; transition: transform 0.2s ease; }
-.text-link:hover { transform: translateX(4px); }
-.projects-section { background: #09151e; }
-.section-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 2rem; margin-bottom: 3.2rem; }
-.section-note { color: var(--text-low); font-size: 0.88rem; line-height: 1.65; max-width: 36ch; }
-.project-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 1.25rem; }
-.project-card { grid-column: span 4; overflow: hidden; background: var(--ink-1); border: 1px solid var(--line); border-radius: 8px; display: flex; flex-direction: column; transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease; }
-.project-card-featured { grid-column: span 6; }
-.project-card:hover { transform: translateY(-5px); border-color: var(--amber-dim); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4); }
-.project-category {
-  align-self: flex-start;
-  margin: 0.9rem 1.4rem 0;
-  padding: 0.38rem 0.62rem;
-  border: 1px solid rgba(231, 184, 102, 0.28);
-  border-radius: 5px;
-  background: rgba(7, 17, 26, 0.72);
-  color: var(--amber);
-  font: 600 0.64rem 'IBM Plex Mono', monospace;
-  letter-spacing: 0.05em;
-  line-height: 1.2;
-  width: fit-content;
-}
-.project-image { height: 220px; position: relative; overflow: hidden; background: var(--ink-2); }
-.project-card-featured .project-image { height: 270px; }
-.project-image img, .project-image video { width: 100%; height: 100%; transition: transform 0.5s ease; }
-.project-image img { object-fit: cover; object-position: center; background: #07111a; }
-.project-card-rc-aircraft .project-image img { object-position: center 44%; }
-.project-card:hover .project-image img, .project-card:hover .project-image video { transform: scale(1.04); }
-.project-placeholder { height: 100%; display: grid; place-items: center; position: relative; background: radial-gradient(circle at 30% 30%, rgba(98, 203, 189, 0.17), transparent 26%), linear-gradient(135deg, #102a37, #0a1822); }
-.project-body { padding: 1.4rem; display: flex; flex-direction: column; flex-grow: 1; }
-.project-number { font: 600 0.66rem 'IBM Plex Mono', monospace; color: var(--teal); }
-.project-body h3 { margin-top: 0.6rem; font-size: 1.28rem; color: var(--text-hi); line-height: 1.25; }
-.project-body > p { margin-top: 0.75rem; color: var(--text-mid); font-size: 0.88rem; line-height: 1.6; flex-grow: 1; }
-.project-footer { display: flex; align-items: center; justify-content: space-between; gap: 0.75rem; margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--line-soft); }
-.project-tools { display: flex; gap: 0.4rem; flex-wrap: wrap; }
-.project-tools span { font: 0.66rem 'IBM Plex Mono', monospace; padding: 0.25rem 0.5rem; color: var(--text-low); background: rgba(7, 17, 26, 0.5); border: 1px solid var(--line-soft); border-radius: 3px; }
-.project-footer > a { color: var(--amber); font-size: 0.82rem; font-weight: 600; white-space: nowrap; }
-.project-footer > a:hover { text-decoration: underline; }
-.project-status { color: var(--text-low); font: 0.65rem 'IBM Plex Mono', monospace; }
-.timeline-section { background: linear-gradient(180deg, #07111a, #0a1822); }
-.timeline { margin-top: 3.5rem; }
-.timeline-item { display: grid; grid-template-columns: 240px 32px 1fr; padding-bottom: 3rem; position: relative; }
-.timeline-date { padding-top: 0.2rem; color: var(--amber); font: 600 0.75rem 'IBM Plex Mono', monospace; }
-.timeline-marker { position: relative; }
-.timeline-marker::before { content: ''; position: absolute; top: 0.25rem; left: 6px; width: 0.85rem; height: 0.85rem; border: 2px solid var(--teal); background: var(--ink-0); border-radius: 50%; box-shadow: 0 0 0 4px rgba(98, 203, 189, 0.15); transition: box-shadow .3s ease, border-color .3s ease, transform .3s ease; }
-.timeline-marker::after { content: ''; position: absolute; top: 1.3rem; left: 12px; bottom: -1px; width: 1px; background: var(--line); }
-.timeline-item:last-child .timeline-marker::after { display: none; }
-.timeline-item-featured .timeline-marker::before { border-color: var(--amber); box-shadow: 0 0 0 5px rgba(231,184,102,.12), 0 0 18px rgba(231,184,102,.22); }
-.timeline-item-featured:hover .timeline-marker::before { transform: scale(1.12); box-shadow: 0 0 0 6px rgba(231,184,102,.15), 0 0 24px rgba(231,184,102,.32); }
-.timeline-content { position: relative; }
-.timeline-item-featured .timeline-content { padding: 1.5rem 1.6rem 1.6rem; border: 1px solid rgba(231,184,102,.28); border-radius: 10px; background: linear-gradient(135deg, rgba(231,184,102,.055), rgba(98,203,189,.035) 58%, rgba(7,17,26,.72)); box-shadow: 0 16px 38px rgba(0,0,0,.18), inset 0 1px 0 rgba(255,255,255,.025); overflow: hidden; transition: transform .3s ease, border-color .3s ease, box-shadow .3s ease; }
-.timeline-item-featured .timeline-content::before { content: ''; position: absolute; top: 0; left: 0; width: 34%; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); }
-.timeline-item-featured .timeline-content:hover { transform: translateY(-4px); border-color: rgba(231,184,102,.52); box-shadow: 0 20px 46px rgba(0,0,0,.25), 0 0 28px rgba(231,184,102,.06); }
-.timeline-current-badge { display: inline-flex; align-items: center; gap: .45rem; margin-bottom: .8rem; padding: .34rem .58rem; border: 1px solid rgba(16,185,129,.3); border-radius: 999px; color: #7de2bd; background: rgba(16,185,129,.07); font: 700 .6rem 'IBM Plex Mono', monospace; letter-spacing: .09em; }
-.timeline-status-dot { width: .42rem; height: .42rem; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 4px rgba(16,185,129,.12), 0 0 10px rgba(16,185,129,.35); animation: pulse 2s infinite; }
-.timeline-type { color: var(--text-low); font: 0.68rem 'IBM Plex Mono', monospace; text-transform: uppercase; letter-spacing: 0.08em; }
-.timeline-content h3 { margin-top: 0.4rem; font-size: 1.25rem; color: var(--text-hi); }
-.timeline-item-featured .timeline-content h3 { font-size: clamp(1.35rem, 2vw, 1.65rem); max-width: 28ch; }
-.timeline-org { margin-top: 0.2rem; color: var(--amber); font-size: 0.92rem; font-weight: 600; }
-.timeline-focus { margin-top: 1rem; color: var(--text-mid); font-size: .83rem; line-height: 1.6; }
-.timeline-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
-.timeline-tags span { padding: .34rem .52rem; border: 1px solid rgba(98,203,189,.22); border-radius: 4px; color: var(--teal); background: rgba(98,203,189,.045); font: 600 .62rem 'IBM Plex Mono', monospace; }
-.timeline-content ul { margin-top: 1rem; display: grid; gap: 0.5rem; color: var(--text-mid); font-size: 0.88rem; line-height: 1.6; }
-.timeline-content li { list-style: none; }
-.timeline-content li::before { content: '—'; color: var(--teal); margin-right: 0.55rem; font-weight: 700; }
-.skills-section { background: rgba(11, 23, 34, 0.88); }
-.skills-heading { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-top: 1.4rem; }
-.skills-grid { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 3.5rem; border-top: 1px solid var(--line); }
-.skill-group { padding: 1.75rem 1.75rem 1.75rem 0; min-height: 220px; border-right: 1px solid var(--line); }
-.skill-group:not(:first-child) { padding-left: 1.75rem; }
-.skill-group:last-child { border-right: 0; }
-.skill-group > span { color: var(--teal); font: 600 0.72rem 'IBM Plex Mono', monospace; }
-.skill-group h3 { margin: 0.9rem 0 1.1rem; color: var(--text-hi); font-size: 1.05rem; font-weight: 600; }
-.skill-group li { color: var(--text-mid); font-size: 0.88rem; line-height: 1.9; list-style: none; }
-.credentials-section { background: #09151e; }
-.credentials-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(2.5rem, 8vw, 8rem); }
-.credential-title { margin-top: 1.3rem; font-size: clamp(1.8rem, 3.2vw, 2.7rem); line-height: 1.08; }
-.credential-program { color: var(--amber); margin-top: 1.1rem; font-size: 1.05rem; font-weight: 500; }
-.credential-date { color: var(--text-low); font: 0.72rem 'IBM Plex Mono', monospace; margin-top: 0.45rem; }
-.school-history { margin-top: 2rem; border-top: 1px solid var(--line); }
-.school-history p { padding: 1rem 0; border-bottom: 1px solid var(--line-soft); display: grid; gap: 0.35rem; }
-.school-history b { color: var(--text-hi); font-size: 0.88rem; }
-.school-history span { color: var(--text-low); font-size: 0.75rem; }
-.achievement { margin-top: 1.8rem; padding: 1.25rem; border-left: 3px solid var(--teal); background: rgba(98, 203, 189, 0.06); border-radius: 0 8px 8px 0; }
-.achievement span { color: var(--teal); font: 600 0.65rem 'IBM Plex Mono', monospace; letter-spacing: 0.1em; }
-.cert-list { margin-top: 1.6rem; border-top: 1px solid var(--line); }
-.cert-list li { padding: 1.2rem 0; display: grid; grid-template-columns: 2.2rem 1fr; gap: 0.85rem; border-bottom: 1px solid var(--line-soft); }
-.cert-list span { color: var(--teal); font: 600 0.72rem 'IBM Plex Mono', monospace; }
-.cert-list h3 { color: var(--text-hi); font-size: 0.96rem; font-weight: 600; }
-.cert-list p { color: var(--text-low); font-size: 0.82rem; margin-top: 0.35rem; }
-.contact-section { padding: 0 0 clamp(4rem, 8vw, 7rem); background: #09151e; }
-.contact-card { background: linear-gradient(120deg, #13313a, #102331); padding: clamp(2rem, 5vw, 4rem); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: 3rem; border: 1px solid #315765; border-radius: 12px; }
-.contact-card h2 { margin-top: 1.4rem; max-width: 12ch; font-size: clamp(2.3rem, 4vw, 4.1rem); line-height: 0.98; }
-.contact-card > div > p:not(.eyebrow) { margin-top: 1.3rem; max-width: 50ch; color: var(--text-mid); line-height: 1.65; font-size: 1rem; }
-.contact-links { display: grid; align-content: center; }
-.contact-links a { display: flex; justify-content: space-between; align-items: center; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid rgba(242, 246, 246, 0.17); color: var(--text-hi); font-size: 0.98rem; transition: color 0.2s ease, border-color 0.2s ease; }
-.contact-links a:hover { color: var(--amber); border-color: var(--amber); }
-.contact-links span { color: var(--amber); font-family: 'IBM Plex Mono', monospace; font-size: 0.82rem; }
-@media (max-width: 960px) {
-  .hero-content { grid-template-columns: 1fr; gap: 3rem; padding-top: 5rem; }
-  .portrait-container { justify-content: center; }
-  .portrait-wrap { width: 220px; }
-  .portrait-frame { width: 220px; height: 220px; }
-  .about-grid, .credentials-grid, .contact-card { grid-template-columns: 1fr; }
-  .project-card, .project-card-featured { grid-column: span 6; }
-  .skills-grid { grid-template-columns: repeat(2, 1fr); }
-  .skill-group:nth-child(2) { border-right: 0; }
-  .skill-group:nth-child(n+3) { border-top: 1px solid var(--line); }
-  .skill-group:nth-child(3) { padding-left: 0; }
-  .section-head { align-items: flex-start; flex-direction: column; gap: 1rem; }
-}
-@media (max-width: 680px) {
-  .hero-copy h1 { font-size: clamp(2.5rem, 12vw, 3.8rem); }
-  .portrait-wrap { width: 165px; }
-  .portrait-frame { width: 165px; height: 165px; border-width: 3px; }
-  .hero-actions { flex-direction: column; width: 100%; }
-  .hero-actions .button { width: 100%; justify-content: center; }
-  .project-grid { grid-template-columns: 1fr; }
-  .project-card, .project-card-featured { grid-column: 1; }
-  .project-card-featured .project-image { height: 250px; }
-  .project-card-rc-aircraft .project-image { height: 260px; }
-  .project-category { margin: 0.75rem 1rem 0; font-size: 0.6rem; }
-  .timeline-item { grid-template-columns: 24px 1fr; gap: 0.75rem 1rem; padding-bottom: 2.2rem; }
-  .timeline-date { grid-column: 2; padding-top: 0; font-size: 0.72rem; }
-  .timeline-marker { grid-column: 1; grid-row: 1 / span 3; }
-  .timeline-marker::after { left: 10px; }
-  .timeline-marker::before { left: 4px; }
-  .timeline-content { grid-column: 2; }
-  .timeline-item-featured .timeline-content { padding: 1.15rem 1rem 1.2rem; }
-  .timeline-item-featured .timeline-content h3 { font-size: 1.15rem; }
-  .timeline-tags { gap: .35rem; }
-  .timeline-tags span { font-size: .58rem; padding: .3rem .45rem; }
-  .timeline-content h3 { font-size: 1.1rem; }
-  .skills-grid { grid-template-columns: 1fr; }
-  .skill-group, .skill-group:not(:first-child) { padding: 1.5rem 0; border-right: 0; border-top: 1px solid var(--line); }
-  .skill-group:first-child { border-top: 0; }
-  .contact-card { gap: 2rem; padding: 1.75rem 1.25rem; }
-  .contact-card h2 { font-size: 2.4rem; }
-  .contact-links a { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
-  .contact-links span { font-size: 0.75rem; }
-}
-
-.resume-button { position: relative; overflow: hidden; isolation: isolate; border-color: rgba(231,184,102,.55); background: linear-gradient(135deg, rgba(231,184,102,.14), rgba(98,203,189,.08)); box-shadow: 0 0 0 1px rgba(231,184,102,.05), 0 8px 24px rgba(0,0,0,.18); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-.resume-button::before { content: ''; position: absolute; inset: 0; transform: translateX(-110%); background: linear-gradient(100deg, transparent, rgba(255,255,255,.18), transparent); transition: transform .55s ease; z-index: -1; }
-.resume-button:hover { transform: translateY(-3px); border-color: var(--amber); box-shadow: 0 10px 28px rgba(231,184,102,.16); }
-.resume-button:hover::before { transform: translateX(110%); }
-.resume-button span { display: inline-block; transition: transform .25s ease; }
-.resume-button:hover span { transform: translateY(3px); }
-@media (max-width: 680px) { .resume-button { width: 100%; justify-content: center; } }
-.resume-button{color:#07131a!important;background:#f0bd64!important;border:1px solid #ffe8b0!important;font-weight:800!important;box-shadow:0 0 18px rgba(240,189,100,.38),0 8px 24px rgba(0,0,0,.2)!important;position:relative;overflow:hidden;animation:resumeGlow 2.4s ease-in-out infinite}.resume-button:before{content:"";position:absolute;inset:0;background:linear-gradient(110deg,transparent,rgba(255,255,255,.5),transparent);transform:translateX(-120%);animation:resumeShine 3s ease-in-out infinite}.resume-button:hover{color:#07131a!important;transform:translateY(-3px);box-shadow:0 0 30px rgba(240,189,100,.62),0 12px 30px rgba(0,0,0,.28)!important}.resume-icon{display:inline-block;font-weight:900}.resume-button:hover .resume-icon{transform:translateY(3px)}@keyframes resumeGlow{0%,100%{box-shadow:0 0 18px rgba(240,189,100,.3),0 8px 24px rgba(0,0,0,.2)}50%{box-shadow:0 0 32px rgba(240,189,100,.62),0 10px 28px rgba(0,0,0,.25)}}@keyframes resumeShine{0%,55%{transform:translateX(-120%)}75%,100%{transform:translateX(120%)}}@media(max-width:680px){.resume-button{width:100%;justify-content:center}}</style>
-
-<style>
-  .section-more{margin:1.05rem 0 0;text-align:center}
-  .section-more>summary{position:relative;isolation:isolate;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;gap:.65rem;max-width:100%;min-height:46px;padding:.72rem 1.05rem;border:1px solid rgba(231,184,102,.42);border-radius:999px;background:linear-gradient(110deg,rgba(231,184,102,.12),rgba(98,203,189,.09));color:var(--text-hi);box-shadow:0 0 0 1px rgba(231,184,102,.04),0 5px 18px rgba(0,0,0,.16);font:600 .67rem 'IBM Plex Mono',monospace;letter-spacing:.035em;line-height:1.35;cursor:pointer;list-style:none;transition:transform .22s ease,border-color .22s ease,box-shadow .22s ease,color .22s ease}
-  .section-more>summary::-webkit-details-marker{display:none}
-  .section-more>summary::before{content:'';position:absolute;z-index:-1;inset:0;background:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.22) 48%,transparent 72%);transform:translateX(-130%);transition:transform .65s ease}
-  .section-more>summary::after{content:'↓';color:var(--amber);font-size:.95rem;transition:transform .22s ease}
-  .section-more>summary:hover{transform:translateY(-2px);border-color:rgba(231,184,102,.78);box-shadow:0 8px 24px rgba(0,0,0,.22),0 0 22px rgba(231,184,102,.13);color:#fff}
-  .section-more>summary:hover::before{transform:translateX(130%)}
-  .section-more>summary:focus-visible{outline:2px solid var(--teal);outline-offset:4px}
-  .section-more[open]>summary::after{transform:rotate(180deg)}
-  .section-more .more-label-open{display:none}
-  .section-more[open]>summary .more-label-closed{display:none}
-  .section-more[open]>summary .more-label-open{display:inline}
-  .section-more-content{margin-top:1rem;text-align:left}
-  .experience-more .timeline-previous{margin-top:1.35rem;text-align:left}
-  .skills-more .skills-detail-grid-expanded{margin-top:1rem;text-align:left}
-  .skills-more .skills-language-strip{margin-top:1rem;text-align:left}
-  .achievement-more{margin-top:1rem}
-  .achievement-more .achievement-highlights{margin-top:0}
-  .achievement-more .achievement-gallery{margin-top:0}
-  .achievement-more .achievement-footer{margin-top:0}
-  .projects-more{border:0;background:transparent}
-  .projects-more>summary{margin-inline:auto}
-  .projects-more[open] .project-grid-more{margin-top:1rem}
-  .education-more{margin-top:1rem;text-align:left}
-  .education-more>summary{display:flex;width:fit-content;max-width:100%;margin-inline:auto;text-align:center}
-  .education-more .school-history,.education-more .cert-list{margin-top:1rem}
-  @media(max-width:680px){.section-more>summary{min-height:44px;padding:.68rem .9rem;font-size:.61rem;gap:.5rem}.section-more{margin-top:.85rem}.experience-more .timeline-previous{margin-top:1rem}}
-  @media(prefers-reduced-motion:reduce){.section-more>summary,.section-more>summary::before,.section-more>summary::after{transition:none}}
-
-/* Two-slide achievement showcase */
-.honors-popup-photo{position:relative;transition:opacity .22s ease,transform .22s ease}
-.honors-popup-photo.is-changing{opacity:.25;transform:translateX(8px)}
-.honors-slide-counter{position:absolute;left:.55rem;bottom:.55rem;padding:.28rem .45rem;border:1px solid rgba(255,255,255,.2);border-radius:4px;background:rgba(7,17,26,.78);color:#fff;font:600 .55rem 'IBM Plex Mono',monospace;letter-spacing:.08em}
-.honors-slide-controls{position:relative;display:flex;align-items:center;justify-content:space-between;gap:.75rem;margin-top:1rem}
-.honors-slide-arrow{width:2rem;height:2rem;display:grid;place-items:center;border:1px solid rgba(231,184,102,.35);border-radius:50%;background:rgba(255,255,255,.035);color:var(--text-hi);font-size:1rem;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
-.honors-slide-arrow:hover{background:rgba(231,184,102,.12);border-color:var(--amber);transform:translateY(-2px)}
-.honors-slide-dots{display:flex;align-items:center;justify-content:center;gap:.55rem}
-.honors-slide-dot{width:.48rem;height:.48rem;padding:0;border:1px solid var(--amber);border-radius:99px;background:transparent;cursor:pointer;transition:width .25s ease,background .25s ease}
-.honors-slide-dot.is-active{width:1.35rem;background:var(--amber)}
-.honors-slide-arrow:focus-visible,.honors-slide-dot:focus-visible{outline:2px solid var(--teal);outline-offset:3px}
-@media(max-width:520px){.honors-slide-controls{margin-top:.7rem}.honors-slide-arrow{width:1.8rem;height:1.8rem}.honors-slide-dot{width:.42rem;height:.42rem}.honors-slide-dot.is-active{width:1.15rem}}
-@media(prefers-reduced-motion:reduce){.honors-popup-photo,.honors-slide-arrow,.honors-slide-dot{transition:none}}
+.honors-popup-backdrop{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;padding:1.1rem;background:rgba(2,8,13,.62);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);animation:honors-backdrop-in .35s ease both}
+.honors-popup-pending{display:none!important}
+.honors-popup{position:relative;width:min(100%,760px);padding:1.45rem 1.5rem 1.15rem;overflow:hidden;border:1px solid rgba(231,184,102,.55);border-radius:20px;background:radial-gradient(circle at 85% 8%,rgba(231,184,102,.19),transparent 32%),radial-gradient(circle at 10% 100%,rgba(98,203,189,.13),transparent 36%),linear-gradient(145deg,#102532,#07131d 72%);box-shadow:0 30px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.04) inset,0 0 45px rgba(231,184,102,.13);animation:honors-popup-in .55s cubic-bezier(.16,1,.3,1) both}
+.honors-popup-topline{display:flex;align-items:center;justify-content:space-between;gap:1rem;padding-right:2.7rem}
+.honors-popup-badge{display:inline-flex;align-items:center;gap:.55rem;color:var(--amber);font:700 .63rem 'IBM Plex Mono',monospace;letter-spacing:.12em}
+.honors-medal{width:1.4rem;height:1.4rem;display:grid;place-items:center;border:1px solid rgba(231,184,102,.75);border-radius:50%;background:rgba(231,184,102,.12);box-shadow:0 0 18px rgba(231,184,102,.16);font-size:.68rem}
+.honors-popup-count{color:var(--text-low);font:600 .62rem 'IBM Plex Mono',monospace;letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.honors-slides{position:relative;margin-top:1.05rem;min-height:300px}
+.honors-slide{position:absolute;inset:0;display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);gap:1.5rem;align-items:center;opacity:0;visibility:hidden;transform:translateX(22px) scale(.985);pointer-events:none;transition:opacity .48s ease,transform .48s cubic-bezier(.2,.75,.25,1),visibility .48s}
+.honors-slide.is-active{position:relative;opacity:1;visibility:visible;transform:translateX(0) scale(1);pointer-events:auto}
+.honors-slide-image{position:relative;min-height:290px;height:clamp(260px,36vw,340px);overflow:hidden;border:1px solid rgba(231,184,102,.35);border-radius:14px;background:#07131d;box-shadow:0 15px 38px rgba(0,0,0,.36)}
+.honors-slide-image::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 62%,rgba(2,8,13,.28));pointer-events:none}
+.honors-slide-image img{width:100%;height:100%;display:block;object-fit:cover;object-position:center;animation:honors-image-reveal 6s ease both}
+.honors-slide-content{min-width:0;padding:.25rem .15rem}
+.honors-popup-kicker{margin-top:.2rem;color:var(--teal);font:600 .65rem 'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.15em}
+.honors-slide-content h2{margin-top:.55rem;padding-right:.1rem;color:var(--text-hi);font-size:clamp(1.8rem,4.4vw,2.7rem);line-height:1.02;letter-spacing:-.04em}
+.honors-popup-sport{margin-top:.55rem;color:var(--amber);font-size:1rem;font-weight:600}
+.honors-popup-copy{margin-top:1.1rem;color:var(--text-mid);font-size:.84rem;line-height:1.7;max-width:38ch}
+.honors-popup-footer{display:flex;align-items:center;justify-content:space-between;gap:.55rem;margin-top:1.3rem;padding-top:.85rem;border-top:1px solid rgba(255,255,255,.1);color:var(--text-low);font:600 .55rem 'IBM Plex Mono',monospace;letter-spacing:.08em}
+.honors-popup-footer span:nth-child(2){color:var(--amber)}
+.honors-popup-controls{display:flex;align-items:center;justify-content:center;gap:1.15rem;margin-top:.95rem}
+.honors-slide-arrow{width:2.25rem;height:2.25rem;display:grid;place-items:center;border:1px solid rgba(231,184,102,.38);border-radius:50%;background:rgba(255,255,255,.035);color:var(--text-hi);font-size:1.05rem;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.honors-slide-arrow:hover{transform:translateY(-2px);border-color:var(--amber);background:rgba(231,184,102,.12)}
+.honors-slide-dots{display:flex;align-items:center;gap:.55rem}
+.honors-slide-dot{width:.55rem;height:.55rem;padding:0;border:1px solid rgba(231,184,102,.7);border-radius:999px;background:transparent;cursor:pointer;transition:width .25s ease,background .25s ease}
+.honors-slide-dot.is-active{width:1.55rem;background:var(--amber);box-shadow:0 0 12px rgba(231,184,102,.4)}
+.honors-resume-button{display:flex;align-items:center;justify-content:center;gap:.55rem;width:100%;margin-top:.95rem;padding:.76rem 1rem;border:1px solid rgba(231,184,102,.65);border-radius:7px;color:#07131a;background:#f0bd64;font:700 .7rem 'IBM Plex Mono',monospace;letter-spacing:.045em;text-decoration:none;box-shadow:0 0 16px rgba(240,189,100,.25),0 7px 18px rgba(0,0,0,.2);position:relative;overflow:hidden;isolation:isolate;transition:transform .25s ease,box-shadow .25s ease}
+.honors-resume-button::before{content:'';position:absolute;inset:0;background:linear-gradient(105deg,transparent 25%,rgba(255,255,255,.52) 50%,transparent 75%);transform:translateX(-125%);transition:transform .6s ease;z-index:-1}
+.honors-resume-button:hover{transform:translateY(-2px);box-shadow:0 0 26px rgba(240,189,100,.5),0 10px 24px rgba(0,0,0,.25)}
+.honors-resume-button:hover::before{transform:translateX(125%)}
+.honors-resume-icon{font-size:1rem;line-height:1;transition:transform .25s ease}
+.honors-resume-button:hover .honors-resume-icon{transform:translateY(3px)}
+.honors-popup-close{position:absolute;top:.72rem;right:.75rem;z-index:3;width:2.2rem;height:2.2rem;display:grid;place-items:center;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:rgba(0,0,0,.28);color:var(--text-hi);font-size:1.35rem;line-height:1;cursor:pointer;transition:background .2s ease,border-color .2s ease,transform .2s ease}
+.honors-popup-close:hover{background:rgba(231,184,102,.13);border-color:var(--amber);transform:rotate(90deg)}
+.honors-popup-hidden{opacity:0;pointer-events:none;transition:opacity .3s ease}
+@keyframes honors-popup-in{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes honors-backdrop-in{from{opacity:0}to{opacity:1}}
+@keyframes honors-image-reveal{from{transform:scale(1.045)}to{transform:scale(1)}}
+@media(max-width:600px){.honors-popup-backdrop{padding:.75rem}.honors-popup{width:min(100%,420px);max-height:calc(100dvh - 1.5rem);overflow-y:auto;padding:1.05rem .9rem .9rem;border-radius:16px}.honors-popup-topline{padding-right:2.5rem}.honors-popup-badge{gap:.38rem;font-size:.52rem;letter-spacing:.08em}.honors-medal{width:1.2rem;height:1.2rem;font-size:.58rem}.honors-slides{min-height:0;margin-top:.85rem}.honors-slide{position:absolute;grid-template-columns:1fr;gap:.85rem;transform:translateY(12px) scale(.99)}.honors-slide.is-active{position:relative}.honors-slide-image{height:clamp(150px,31vh,230px);min-height:150px}.honors-slide-content{padding:0 .1rem}.honors-popup-kicker{font-size:.55rem}.honors-slide-content h2{font-size:clamp(1.55rem,7vw,2rem);margin-top:.35rem}.honors-popup-sport{font-size:.83rem;margin-top:.28rem}.honors-popup-copy{font-size:.72rem;line-height:1.5;margin-top:.65rem}.honors-popup-footer{font-size:.46rem;margin-top:.7rem;padding-top:.55rem}.honors-popup-controls{margin-top:.7rem}.honors-slide-arrow{width:2rem;height:2rem}.honors-resume-button{margin-top:.75rem;padding:.68rem;font-size:.64rem}.honors-popup-close{top:.55rem;right:.55rem;width:2rem;height:2rem}}
+@media(min-width:601px) and (max-width:850px){.honors-popup{width:min(94vw,680px);padding:1.25rem}.honors-slides{min-height:260px}.honors-slide-image{height:260px;min-height:260px}.honors-slide{gap:1rem}.honors-slide-content h2{font-size:clamp(1.65rem,4vw,2.2rem)}}
+@media(prefers-reduced-motion:reduce){.honors-popup-backdrop,.honors-popup,.honors-slide-image img{animation:none}.honors-slide,.honors-slide-arrow,.honors-slide-dot,.honors-popup-close,.honors-resume-button{transition:none}}
 </style>
