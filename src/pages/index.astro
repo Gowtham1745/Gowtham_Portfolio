@@ -425,8 +425,8 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 <script>
   const popup = document.getElementById('honors-popup');
   const closeButton = document.getElementById('honors-popup-close');
-  const slides = Array.from(document.querySelectorAll('.honors-slide'));
-  const dots = Array.from(document.querySelectorAll('.honors-slide-dot'));
+  const slides = Array.from(document.querySelectorAll<HTMLElement>('.honors-slide'));
+  const dots = Array.from(document.querySelectorAll<HTMLButtonElement>('.honors-slide-dot'));
   const counter = document.getElementById('honors-popup-count');
   const previousButton = document.getElementById('honors-slide-prev');
   const nextButton = document.getElementById('honors-slide-next');
@@ -435,10 +435,10 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   const slideDuration = 5200;
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   let activeSlide = 0;
-  let slideTimer;
+  let slideTimer: number | undefined;
   let popupClosed = false;
 
-  const showSlide = (nextIndex) => {
+  const showSlide = (nextIndex: number) => {
     if (!slides.length) return;
     activeSlide = (nextIndex + slides.length) % slides.length;
     slides.forEach((slide, index) => {
@@ -491,7 +491,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   popup?.addEventListener('mouseenter', stopSlideshow);
   popup?.addEventListener('mouseleave', startSlideshow);
   popup?.addEventListener('focusin', stopSlideshow);
-  popup?.addEventListener('focusout', (event) => { if (!popup?.contains(event.relatedTarget)) startSlideshow(); });
+  popup?.addEventListener('focusout', (event) => { if (!(event.relatedTarget instanceof Node) || !popup?.contains(event.relatedTarget)) startSlideshow(); });
   document.addEventListener('visibilitychange', () => { if (document.hidden) stopSlideshow(); else startSlideshow(); });
   document.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && !popupClosed) closeHonorsPopup();
