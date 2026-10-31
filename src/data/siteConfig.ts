@@ -47,8 +47,8 @@ export const siteConfig: SiteConfig = {
   ],
   contact: {
     linkedin: "https://www.linkedin.com/in/gowtham1745/",
-    whatsapp: "https://wa.me/917539982255",
-    whatsappFormatted: "+91 7539982255",
+    whatsapp: "https://wa.me/917539982355",
+    whatsappFormatted: "+91 7539982355",
     instagram: "https://www.instagram.com/gowtham_1745?stkn=MTBvemVzeHlmNjZ3ZQ==",
     instagramHandle: "gowtham_1745",
     github: "https://github.com/Gowtham1745",
