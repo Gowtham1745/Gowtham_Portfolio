@@ -457,12 +457,12 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   ];
 
   let activeAchievement = 0;
-  let slideTimer;
+  let slideTimer: number | undefined;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   const honorsShownKey = 'gowtham-honors-popup-shown-at';
   const honorsCooldown = 24 * 60 * 60 * 1000;
 
-  const renderAchievement = (index) => {
+  const renderAchievement = (index: number) => {
     activeAchievement = (index + achievementSlides.length) % achievementSlides.length;
     const slide = achievementSlides[activeAchievement];
     if (!slide || !slideImage) return;
