@@ -549,3 +549,118 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
 @keyframes swarm-nudge{0%,100%{transform:translate3d(0,0,0)}35%{transform:translate3d(3px,-2px,0)}70%{transform:translate3d(-2px,1px,0)}}
 @media(max-width:680px){.cursor-swarm-layer{opacity:.64}.cursor-intro-status{font-size:.53rem;letter-spacing:.1em}.cursor-intro-progress{bottom:17%}}
 @media(prefers-reduced-motion:reduce){.cursor-swarm-layer,.cursor-intro{display:none!important}.swarm-nudge{animation:none!important}}
+
+
+/* =========================================================
+   RED / BLACK PORTFOLIO REFRESH — November 2026
+   Additive overrides: preserve existing layout and interactions.
+   ========================================================= */
+:root {
+  color-scheme: dark;
+  --ink-0: #070708;
+  --ink-1: #101012;
+  --ink-2: #19191d;
+  --line: #353035;
+  --line-soft: #211f23;
+  --text-hi: #f7f5f5;
+  --text-mid: #c4bec1;
+  --text-low: #91898e;
+  --amber: #f04452;
+  --amber-dim: #a92734;
+  --teal: #ff6470;
+}
+html { background: #070708; }
+body {
+  background-color: #070708;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 76px 76px;
+}
+header.fixed {
+  background: rgba(7,7,8,.88) !important;
+  border-color: rgba(240,68,82,.2) !important;
+  box-shadow: 0 8px 30px rgba(0,0,0,.24);
+}
+.brand-logo { border-color: #f04452; box-shadow: 0 0 0 2px #070708, 0 0 18px rgba(240,68,82,.22); }
+.brand i { background: #f04452; }
+.button {
+  background: #f04452;
+  color: #fff;
+  border: 1px solid #f04452;
+  border-radius: 2px;
+  box-shadow: 0 8px 24px rgba(240,68,82,.12);
+}
+.button:hover { background: #ff5966; border-color: #ff5966; color: #fff; }
+.button-secondary {
+  background: rgba(255,255,255,.025);
+  color: #f7f5f5;
+  border-color: #514047;
+  box-shadow: none;
+}
+.button-secondary:hover { background: rgba(240,68,82,.1); color: #ff7b84; border-color: #f04452; }
+.eyebrow, .tag, .project-category, .timeline-type, .featured-meta,
+.achievement-kicker, .achievement-highlight-label { color: #ff626e; }
+.eyebrow::before { background: #f04452; }
+.section-title { color: #fff; }
+.panel, .project-card, .featured-card, .skill-detail-card, .contact-card,
+.achievement-feature, .timeline-content {
+  background-color: rgba(15,14,16,.92);
+  border-color: rgba(240,68,82,.2);
+}
+.project-card, .featured-card { box-shadow: 0 14px 45px rgba(0,0,0,.22); }
+.project-card:hover, .featured-card:hover { border-color: rgba(240,68,82,.55); }
+.project-image, .featured-media, .achievement-hero-image { background: #0c0b0d; }
+.project-image::after, .featured-media::after { border-color: rgba(240,68,82,.18); }
+.project-tools span, .timeline-tags span, .achievement-tags span {
+  border-color: rgba(240,68,82,.25);
+  color: #d9cdd0;
+}
+.project-footer a, .featured-action, .text-link { color: #ff6974; }
+.project-footer a:hover, .featured-action:hover, .text-link:hover { color: #fff; }
+.timeline-marker, .timeline-current-badge { border-color: #f04452; }
+.timeline-status-dot { background: #f04452; box-shadow: 0 0 12px rgba(240,68,82,.6); }
+.hero-cinematic {
+  background: radial-gradient(ellipse at 76% 42%, rgba(111,17,29,.24), transparent 38%), #070708;
+}
+.hero-cinematic::before {
+  background: linear-gradient(90deg, rgba(7,7,8,.98), rgba(7,7,8,.72) 52%, rgba(7,7,8,.18)),
+              linear-gradient(0deg, rgba(7,7,8,.82), transparent 55%) !important;
+}
+.hero-grid {
+  opacity: .28;
+  background-image: linear-gradient(rgba(255,255,255,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.055) 1px,transparent 1px);
+}
+.hero-orbit { border-color: rgba(240,68,82,.2); }
+.hero-spotlight, .hero-cutout-glow { background: radial-gradient(circle, rgba(240,68,82,.22), transparent 68%); }
+.hero-word {
+  color: rgba(240,68,82,.055);
+  -webkit-text-stroke-color: rgba(240,68,82,.32);
+}
+.hero-word-caption, .hero-kicker span, .hero-bottomline span:last-child { color: #ff6974; }
+.hero-cutout-index { color: #ff6974; }
+.honors-popup {
+  border-color: rgba(240,68,82,.55);
+  background: radial-gradient(circle at 85% 8%,rgba(240,68,82,.18),transparent 32%),
+              linear-gradient(145deg,#1b1114,#080708 72%);
+}
+.honors-popup-badge, .honors-medal, .honors-popup-footer span:nth-child(2) { color: #ff6974; }
+.honors-medal, .honors-slide-image { border-color: rgba(240,68,82,.4); }
+.honors-resume-button { background: #f04452; border-color: #f04452; color: #fff; box-shadow: 0 0 18px rgba(240,68,82,.2); }
+.honors-resume-button:hover { background: #ff5966; }
+.honors-popup-close:hover { border-color: #f04452; background: rgba(240,68,82,.14); }
+footer { border-color: rgba(240,68,82,.2) !important; }
+::selection { background: #f04452; color: #fff; }
+:focus-visible { outline-color: #ff6974; }
+@media (max-width: 680px) {
+  body { background-size: 48px 48px; }
+  .hero-cinematic::before {
+    background: linear-gradient(180deg,rgba(7,7,8,.22),rgba(7,7,8,.72) 42%,#070708 92%) !important;
+  }
+  .hero-cutout-stage { filter: drop-shadow(0 12px 30px rgba(240,68,82,.1)); }
+  .hero-cinematic .hero-actions .button { min-height: 48px; }
+  .project-grid, .featured-grid { gap: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+}
