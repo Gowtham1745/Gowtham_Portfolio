@@ -83,7 +83,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   </div>
   <div class="hero-cutout-stage" data-parallax="portrait">
     <div class="hero-cutout-glow" aria-hidden="true"></div>
-    <img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="hero-cutout" fetchpriority="high" />
+    <img src={`${base}media/gowtham-cutout.png`} data-fallback-src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="hero-cutout" fetchpriority="high" />
     <span class="hero-cutout-index" aria-hidden="true">GA / 01</span>
   </div>
   <div class="shell hero-cinematic-content">
@@ -317,6 +317,11 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     const skip = document.querySelector<HTMLButtonElement>('[data-cursor-skip]');
     const hero = document.querySelector<HTMLElement>('[data-hero]');
     if (!layer || !intro || !hero) return;
+    const cutout = hero.querySelector<HTMLImageElement>('.hero-cutout');
+    cutout?.addEventListener('error', () => {
+      const fallback = cutout.dataset.fallbackSrc;
+      if (fallback && cutout.src !== new URL(fallback, window.location.href).href) cutout.src = fallback;
+    }, { once: true });
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const touch = window.matchMedia('(hover: none), (pointer: coarse)');
@@ -365,6 +370,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     let lastRearrange = 0;
     let lastScrollEvent = 0;
     let introStart = 0;
+    let introSelectionStep = -1;
     let introRunning = false;
     let ambientRunning = false;
     let pageVisible = !document.hidden;
@@ -440,6 +446,13 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       if (introRunning) {
         const progress = Math.min(1, (now - introStart) / (small ? 2300 : 3500));
         const eased = 1 - Math.pow(1 - progress, 3);
+        const selectionStep = Math.min(4, Math.floor(progress * 5));
+        if (selectionStep !== introSelectionStep) {
+          introSelectionStep = selectionStep;
+          const blocks = hero.querySelectorAll<HTMLElement>('.hero-word-wrap, .hero-cutout-stage, .hero-copy, .hero-actions, .follow-card');
+          const block = blocks[selectionStep];
+          if (block) selectElement(block, now);
+        }
         introCursors.forEach((cursor, i) => {
           const angle = (i / introCursors.length) * Math.PI * 2;
           const startX = window.innerWidth * (.5 + Math.cos(angle) * .08);
