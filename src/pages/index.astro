@@ -67,7 +67,35 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </section>
   </div>
 
-<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I turn ideas into <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div><div class="follow-card" id="follow-card" data-base="517"><div class="follow-count"><strong id="follow-count" aria-live="polite">517</strong><span>followers</span></div><button type="button" class="button follow-button" id="follow-button" aria-pressed="false"><span id="follow-label">Follow</span></button></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+<section class="hero hero-cinematic" data-hero>
+  <div class="hero-grid" aria-hidden="true"></div>
+  <div class="hero-orbit" aria-hidden="true"></div>
+  <div class="hero-spotlight" aria-hidden="true"></div>
+  <div class="hero-word-wrap" aria-hidden="true" data-parallax="text">
+    <h1 class="hero-word" aria-label="Gowtham"><span>G</span><span>O</span><span>W</span><span>T</span><span>H</span><span>A</span><span>M</span></h1>
+    <p class="hero-word-caption">DESIGN · SIMULATION · VISUAL STORYTELLING</p>
+  </div>
+  <div class="hero-cutout-stage" data-parallax="portrait">
+    <div class="hero-cutout-glow" aria-hidden="true"></div>
+    <img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="hero-cutout" fetchpriority="high" />
+    <span class="hero-cutout-index" aria-hidden="true">GA / 01</span>
+  </div>
+  <div class="shell hero-cinematic-content">
+    <div class="hero-copy reveal" data-parallax="copy">
+      <p class="eyebrow">Gowtham A · Coimbatore, India</p>
+      <p class="hero-kicker">AERONAUTICAL ENGINEERING <span>×</span> DESIGN &amp; SIMULATION</p>
+      <p class="hero-intro">I build engineering solutions through design, simulation, and visual storytelling. Currently at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="button hero-magnetic">Explore work <span aria-hidden="true">↓</span></a>
+        <a href="#contact" class="button button-secondary hero-magnetic">Get in touch <span aria-hidden="true">↗</span></a>
+        <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button hero-magnetic" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a>
+      </div>
+      <div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div>
+      <div class="follow-card" id="follow-card" data-base="517"><div class="follow-count"><strong id="follow-count" aria-live="polite">517</strong><span>followers</span></div><button type="button" class="button follow-button" id="follow-button" aria-pressed="false"><span id="follow-label">Follow</span></button></div>
+    </div>
+  </div>
+  <div class="hero-bottomline shell" aria-hidden="true"><span>INDEPENDENT THINKING. ENGINEERED EXECUTION.</span><span>SCROLL TO EXPLORE ↓</span></div>
+</section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -275,6 +303,95 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </div>
   </section>
 </Layout>
+
+<script>
+  // Subtle pointer parallax and magnetic controls on fine-pointer devices only.
+  const cinematicHero = document.querySelector<HTMLElement>('[data-hero]');
+  const cinematicWord = cinematicHero?.querySelector<HTMLElement>('.hero-word');
+  const cinematicLetters = cinematicWord ? Array.from(cinematicWord.querySelectorAll<HTMLElement>('span')) : [];
+  const magneticLinks = Array.from(cinematicHero?.querySelectorAll<HTMLElement>('.hero-magnetic') || []);
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const motionOff = window.matchMedia('(prefers-reduced-motion: reduce)');
+  let pointerX = 0, pointerY = 0, targetX = 0, targetY = 0;
+  let pointerFrame = 0;
+  let scrollFrame = 0;
+
+  const resetPointerEffects = () => {
+    cinematicHero?.style.setProperty('--pointer-x', '72%');
+    cinematicHero?.style.setProperty('--pointer-y', '35%');
+    cinematicLetters.forEach((letter) => {
+      letter.style.setProperty('--letter-x', '0px');
+      letter.style.setProperty('--letter-y', '0px');
+    });
+    magneticLinks.forEach((link) => { link.style.transform = ''; });
+    if (cinematicHero) {
+      cinematicHero.style.setProperty('--portrait-x', '0px');
+      cinematicHero.style.setProperty('--portrait-y', '0px');
+    }
+  };
+
+  if (cinematicHero && finePointer.matches && !motionOff.matches) {
+    const renderPointer = () => {
+      pointerX += (targetX - pointerX) * .12;
+      pointerY += (targetY - pointerY) * .12;
+      const bounds = cinematicHero.getBoundingClientRect();
+      const px = pointerX - bounds.left;
+      const py = pointerY - bounds.top;
+      cinematicHero.style.setProperty('--pointer-x', `${px}px`);
+      cinematicHero.style.setProperty('--pointer-y', `${py}px`);
+      const nx = (px / bounds.width - .5);
+      const ny = (py / bounds.height - .5);
+      cinematicHero.style.setProperty('--portrait-x', `${nx * -13}px`);
+      cinematicHero.style.setProperty('--portrait-y', `${ny * -9}px`);
+      cinematicLetters.forEach((letter) => {
+        const rect = letter.getBoundingClientRect();
+        const dx = rect.left + rect.width / 2 - pointerX;
+        const dy = rect.top + rect.height / 2 - pointerY;
+        const distance = Math.hypot(dx, dy);
+        const influence = Math.max(0, 1 - distance / 250);
+        const force = influence * 12;
+        letter.style.setProperty('--letter-x', `${(dx / (distance || 1)) * force}px`);
+        letter.style.setProperty('--letter-y', `${(dy / (distance || 1)) * force}px`);
+      });
+      if (Math.abs(targetX - pointerX) > .2 || Math.abs(targetY - pointerY) > .2) {
+        pointerFrame = requestAnimationFrame(renderPointer);
+      } else pointerFrame = 0;
+    };
+    cinematicHero.addEventListener('pointermove', (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      if (!pointerFrame) pointerFrame = requestAnimationFrame(renderPointer);
+    }, { passive: true });
+    cinematicHero.addEventListener('pointerleave', resetPointerEffects, { passive: true });
+    magneticLinks.forEach((link) => {
+      link.addEventListener('pointermove', (event) => {
+        const rect = link.getBoundingClientRect();
+        const dx = event.clientX - (rect.left + rect.width / 2);
+        const dy = event.clientY - (rect.top + rect.height / 2);
+        link.style.transform = `translate(${dx * .08}px,${dy * .12}px)`;
+      }, { passive: true });
+      link.addEventListener('pointerleave', () => { link.style.transform = ''; }, { passive: true });
+    });
+  } else resetPointerEffects();
+
+  // Low-amplitude scroll parallax for touch devices; desktop pointer motion is handled above.
+  if (cinematicHero && !motionOff.matches && !finePointer.matches) {
+    const updateScrollParallax = () => {
+      const rect = cinematicHero.getBoundingClientRect();
+      const progress = Math.max(-1, Math.min(1, -rect.top / Math.max(rect.height, 1)));
+      const portrait = cinematicHero.querySelector<HTMLElement>('.hero-cutout-stage');
+      if (portrait) portrait.style.transform = `translate3d(0,${progress * -10}px,0)`;
+      scrollFrame = 0;
+    };
+    window.addEventListener('scroll', () => {
+      if (!scrollFrame) scrollFrame = requestAnimationFrame(updateScrollParallax);
+    }, { passive: true });
+    updateScrollParallax();
+  }
+
+  if (motionOff.matches) resetPointerEffects();
+</script>
+
 <style>
 .featured-section{background:linear-gradient(180deg,#07111a,#091720)}
     .featured-head{align-items:end}
