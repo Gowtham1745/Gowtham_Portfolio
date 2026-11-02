@@ -357,7 +357,8 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       const y = window.innerHeight * (.25 + Math.random() * .45);
       return { group, x, y, sx: x, sy: y, tx: x, ty: y, color, name: names[i], phase: Math.random() * Math.PI * 2, follow: !small && i < 3 };
     };
-    const introCursors = Array.from({ length: 18 }, (_, i) => createCursor(i));
+    const introCount = small ? 6 : 18;
+    const introCursors = Array.from({ length: introCount }, (_, i) => createCursor(i));
     const activeCursors = introCursors.slice(0, count);
     let frame = 0;
     let lastTime = 0;
@@ -484,6 +485,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     const finishIntro = () => {
       if (!introRunning) return;
       introRunning = false;
+      layer.style.zIndex = '35';
       intro.classList.add('cursor-intro-done');
       window.setTimeout(() => intro.remove(), 500);
       introCursors.forEach((cursor, i) => {
@@ -513,14 +515,11 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       pageVisible = !document.hidden;
       if (pageVisible) startLoop(); else stopLoop();
     });
-    const heroObserver = new IntersectionObserver((entries) => {
-      heroVisible = entries.some(e => e.isIntersecting);
-      if (!heroVisible && !introRunning) { ambientRunning = false; stopLoop(); }
-      else if (heroVisible && !introRunning) { ambientRunning = true; startLoop(); }
-    }, { threshold: 0.02 });
-    heroObserver.observe(hero);
+    const visibleSections = new Set<Element>();
     const sectionObserver = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
+        if (entry.isIntersecting) visibleSections.add(entry.target);
+        else visibleSections.delete(entry.target);
         if (!entry.isIntersecting || !ambientRunning) return;
         const title = entry.target.querySelector('.section-title, h2');
         if (title) {
@@ -528,9 +527,12 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
           const r = title.getBoundingClientRect();
           activeCursors.slice(0, 4).forEach((cursor, i) => setTarget(cursor, r.left + r.width * (i / 4 + .1), r.top + r.height / 2));
         }
-        lastScrollEvent = performance.now();
       });
-    }, { threshold: .25 });
+      if (!introRunning) {
+        ambientRunning = visibleSections.size > 0;
+        if (ambientRunning) startLoop(); else stopLoop();
+      }
+    }, { threshold: .12 });
     document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section));
 
     if (reduced.matches) {
@@ -552,6 +554,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     } else {
       introRunning = true;
       introStart = performance.now();
+      layer.style.zIndex = '81';
       intro.classList.add('cursor-intro-active');
       startLoop();
       window.setTimeout(() => {
