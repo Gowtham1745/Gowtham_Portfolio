@@ -83,7 +83,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   </div>
   <div class="hero-cutout-stage" data-parallax="portrait">
     <div class="hero-cutout-glow" aria-hidden="true"></div>
-    <img src={`${base}media/gowtham-cutout.png`} data-fallback-src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="hero-cutout" fetchpriority="high" />
+    <img src={`${base}media/profile-professional.jpg`} data-cutout-src={`${base}media/gowtham-cutout.png`} alt="Portrait of Gowtham A" class="hero-cutout" fetchpriority="high" />
     <span class="hero-cutout-index" aria-hidden="true">GA / 01</span>
   </div>
   <div class="shell hero-cinematic-content">
@@ -318,10 +318,13 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     const hero = document.querySelector<HTMLElement>('[data-hero]');
     if (!layer || !intro || !hero) return;
     const cutout = hero.querySelector<HTMLImageElement>('.hero-cutout');
-    cutout?.addEventListener('error', () => {
-      const fallback = cutout.dataset.fallbackSrc;
-      if (fallback && cutout.src !== new URL(fallback, window.location.href).href) cutout.src = fallback;
-    }, { once: true });
+    if (cutout?.dataset.cutoutSrc) {
+      cutout.addEventListener('error', () => {
+        cutout.removeAttribute('srcset');
+        cutout.src = `${import.meta.env.BASE_URL}media/profile-professional.jpg`;
+      }, { once: true });
+      cutout.src = cutout.dataset.cutoutSrc;
+    }
 
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const touch = window.matchMedia('(hover: none), (pointer: coarse)');
