@@ -371,13 +371,11 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     let frame = 0;
     let lastTime = 0;
     let lastRearrange = 0;
-    let lastScrollEvent = 0;
     let introStart = 0;
     let introSelectionStep = -1;
     let introRunning = false;
     let ambientRunning = false;
     let pageVisible = !document.hidden;
-    let heroVisible = true;
     let pointerX = window.innerWidth * .5;
     let pointerY = window.innerHeight * .5;
     let sectionPulseUntil = 0;
@@ -471,7 +469,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
           cursor.group.setAttribute('opacity', String(Math.min(1, progress * 3) * (progress > .94 ? Math.max(0, (1-progress)*16) : 1)));
           cursor.group.setAttribute('transform', `translate(${cursor.x.toFixed(1)} ${cursor.y.toFixed(1)})`);
         });
-        if (progress >= 1) finishIntro();
+        if (progress >= 1) finishIntro(true);
       } else {
         activeCursors.forEach((cursor, i) => {
           if (cursor.follow && !small) {
@@ -498,7 +496,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     };
     const startLoop = () => { if (!frame && pageVisible && (introRunning || ambientRunning)) frame = requestAnimationFrame(render); };
     const stopLoop = () => { if (frame) cancelAnimationFrame(frame); frame = 0; lastTime = 0; };
-    const finishIntro = () => {
+    const finishIntro = (fromFrame = false) => {
       if (!introRunning) return;
       introRunning = false;
       document.body.appendChild(layer);
@@ -515,7 +513,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       });
       ambientRunning = true;
       lastRearrange = performance.now();
-      startLoop();
+      if (!fromFrame) startLoop();
     };
     const skipIntro = () => {
       try { sessionStorage.setItem(introKey, '1'); } catch { /* session storage may be blocked */ }
