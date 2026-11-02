@@ -501,6 +501,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     const finishIntro = () => {
       if (!introRunning) return;
       introRunning = false;
+      document.body.appendChild(layer);
       layer.style.zIndex = '35';
       intro.classList.add('cursor-intro-done');
       window.setTimeout(() => intro.remove(), 500);
@@ -570,7 +571,8 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     } else {
       introRunning = true;
       introStart = performance.now();
-      layer.style.zIndex = '81';
+      intro.insertBefore(layer, intro.firstChild);
+      layer.style.zIndex = 'auto';
       intro.classList.add('cursor-intro-active');
       startLoop();
       window.setTimeout(() => {
