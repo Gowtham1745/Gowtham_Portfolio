@@ -15,10 +15,9 @@
   const agentCount = hero.querySelector('[data-agent-count]');
   const layerCount = hero.querySelector('[data-layer-count]');
   const ns = 'http://www.w3.org/2000/svg';
-  const colors = ['#69adff','#ff8b75','#a88cff','#6de0b5','#f1c46b','#f08bc8','#75d9e8','#c4e879'];
+  const colors = Array(8).fill('#ffffff');
   const names = ['Design','Motion','Type','Color','Layout','Detail','Grid','Flow','Scale','Light','Form','Edit'];
-  const desktopCount = lowPower ? 30 : 36;
-  const count = reduceMotion ? 0 : (coarse ? 11 : desktopCount);
+  const count = reduceMotion ? 0 : (coarse ? 11 : 0);
   const svg = document.createElementNS(ns,'svg');
   svg.setAttribute('class','hero-cursor-svg');
   layer.appendChild(svg);
@@ -46,10 +45,10 @@
   for(let i=0;i<count;i++){
     const g=make('g',{class:'hero-cursor',opacity:0},svg);
     const group=make('g',{},g);
-    make('path',{d:'M1 1 L1 20 L6 15 L10 24 L14 22 L10 13 L18 13 Z',fill:colors[i%colors.length],stroke:'#090909','stroke-width':1.2},group);
+    make('path',{d:'M2 1 L30 24 L19 27 L26 44 L19 47 L12 30 L4 39 Z',fill:'#ffffff',stroke:'#111111','stroke-width':1.2},group);
     const tag=make('g',{},group);
-    make('rect',{x:17,y:1,width:Math.max(39,names[i%names.length].length*6+12),height:15,rx:3,fill:colors[i%colors.length]},tag);
-    const t=make('text',{x:22,y:11,'font-size':8,'font-family':'IBM Plex Mono,monospace','font-weight':700,fill:'#111'},tag);
+    make('rect',{x:17,y:1,width:Math.max(39,names[i%names.length].length*6+12),height:15,rx:3,fill:'#ffffff'},tag);
+    const t=make('text',{x:22,y:11,'font-size':8,'font-family':'IBM Plex Mono,monospace','font-weight':700,fill:'#111111'},tag);
     t.textContent=names[i%names.length];
     const p=pathPoints(size().w,size().h,i);
     cursors.push({g,p,x:p.x,y:p.y,delay:Math.random()*650});
@@ -157,7 +156,8 @@
 // Site-wide 64-cursor swarm with real pointer tracking and live element selection.
 (() => {
   const layer = document.querySelector('[data-cursor-swarm]');
-  if (!layer || layer.dataset.initialized === 'true') return;
+  const coarsePointer = window.matchMedia('(pointer: coarse)').matches;
+  if (!layer || !coarsePointer || layer.dataset.initialized === 'true') return;
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reducedMotion) return;
   layer.dataset.initialized = 'true';
@@ -169,7 +169,7 @@
   svg.setAttribute('preserveAspectRatio', 'none');
   layer.appendChild(svg);
 
-  const colors = ['#b9eee2','#e9c58c','#8edfd1','#b8c9ff','#f0a9bb','#d7e9f2','#9cc9b8','#f1d6a7'];
+  const colors = Array(8).fill('#ffffff');
   const labels = ['Gowtham','Design','Motion','Aero','Simulation','Visual','Creative','Explore','Detail','Engineering','Studio','Ideas'];
   const cursors = [];
   const make = (tag, attrs, parent) => {
@@ -182,18 +182,18 @@
   const selection = make('g', { class: 'swarm-selection', opacity: 0 }, svg);
   const selectionRect = make('rect', {
     x: 0, y: 0, width: 10, height: 10, rx: 5,
-    fill: 'rgba(126,218,199,.045)', stroke: '#a7e5d7',
+    fill: 'rgba(255,255,255,.035)', stroke: '#ffffff',
     'stroke-width': 1.15, 'stroke-dasharray': '5 4'
   }, selection);
   const handles = [];
   for (let i = 0; i < 8; i++) {
     handles.push(make('rect', {
       x: 0, y: 0, width: 6, height: 6, rx: 1.5,
-      fill: '#0b1b20', stroke: '#e9c58c', 'stroke-width': 1.1
+      fill: '#0a0a0a', stroke: '#ffffff', 'stroke-width': 1.1
     }, selection));
   }
   const selectionLabel = make('text', {
-    x: 0, y: 0, fill: '#e9c58c', 'font-size': 9,
+    x: 0, y: 0, fill: '#ffffff', 'font-size': 9,
     'font-family': 'IBM Plex Mono, monospace', 'letter-spacing': 1.2
   }, selection);
   let pointerX = window.innerWidth * .5;
@@ -210,17 +210,17 @@
     const color = colors[i % colors.length];
     const size = i < 8 ? 1 : (i < 24 ? .86 : .72);
     const arrow = make('path', {
-      d: 'M1 1 L1 20 L6.5 15 L10.5 24 L14 22 L10 13 L18 13 Z',
-      fill: color, stroke: '#071116', 'stroke-width': 1.05,
+      d: 'M2 1 L30 24 L19 27 L26 44 L19 47 L12 30 L4 39 Z',
+      fill: '#ffffff', stroke: '#111111', 'stroke-width': 1.05,
       'stroke-linejoin': 'round'
     }, group);
     arrow.setAttribute('transform', 'scale(' + size + ')');
     if (i % 4 === 0) {
       const tag = make('g', {}, group);
       const labelText = labels[(i / 4) % labels.length];
-      make('rect', { x: 15, y: 1, width: labelText.length * 5.5 + 10, height: 14, rx: 3, fill: '#0a1a20', stroke: color, 'stroke-width': .7 }, tag);
+      make('rect', { x: 15, y: 1, width: labelText.length * 5.5 + 10, height: 14, rx: 3, fill: '#0a0a0a', stroke: '#ffffff', 'stroke-width': .7 }, tag);
       const textNode = make('text', {
-        x: 20, y: 10.5, fill: '#edf8f3', 'font-size': 7.5,
+        x: 20, y: 10.5, fill: '#ffffff', 'font-size': 7.5,
         'font-family': 'IBM Plex Mono, monospace', 'font-weight': 600
       }, tag);
       textNode.textContent = labelText;
