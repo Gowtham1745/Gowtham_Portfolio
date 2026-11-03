@@ -13,7 +13,7 @@ const stats = [
 ---
 <section class="hero-redesign hero-cinematic-premium" data-hero data-hero-redesign aria-labelledby="hero-name">
   <div class="hero-redesign-grid" aria-hidden="true"></div>
-  <div class="custom-dune-cursor" data-hero-cursor aria-hidden="true"></div>
+  <div class="cursor-swarm-layer" id="cursor-swarm" aria-hidden="true"></div>
   <div class="hero-redesign-glow" aria-hidden="true"></div>
   <div class="hero-atmosphere" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="hero-redesign-word-wrap" data-parallax="text" aria-hidden="true">
@@ -103,75 +103,230 @@ const stats = [
 
 
 <script>
-  const cursorHost = document.querySelector<HTMLElement>('[data-hero-cursor]');
+  // ============================================================
+  // CURSOR SWARM - 6250 Organic Cursors with Content Interaction
+  // ============================================================
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (cursorHost && !reducedMotion.matches) {
+  if (!reducedMotion.matches) {
     const ns = 'http://www.w3.org/2000/svg';
-    const svg = document.createElementNS(ns, 'svg');
-    svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
-    svg.setAttribute('class', 'hero-cursor-svg');
-    svg.setAttribute('aria-hidden', 'true');
-    const group = document.createElementNS(ns, 'g');
-    group.setAttribute('class', 'hero-cursor-glyph');
-    // Dune-style cursor: curved, organic shape with smooth edges
-    const pointer = document.createElementNS(ns, 'path');
-    pointer.setAttribute('d', 'M 12 2 C 7 2 3 6 3 11 C 3 14 5 17 8 19 L 12 25 L 16 19 C 19 17 21 14 21 11 C 21 6 17 2 12 2 Z');
-    pointer.setAttribute('fill', '#ffffff');
-    pointer.setAttribute('stroke', '#ffffff');
-    pointer.setAttribute('stroke-width', '1.5');
-    pointer.setAttribute('stroke-linejoin', 'round');
-    pointer.setAttribute('stroke-linecap', 'round');
-    group.appendChild(pointer);
-    // Add inner glow ring
-    const innerRing = document.createElementNS(ns, 'circle');
-    innerRing.setAttribute('cx', '12');
-    innerRing.setAttribute('cy', '12');
-    innerRing.setAttribute('r', '6');
-    innerRing.setAttribute('fill', 'none');
-    innerRing.setAttribute('stroke', '#ffffff');
-    innerRing.setAttribute('stroke-width', '0.8');
-    innerRing.setAttribute('opacity', '0.6');
-    group.appendChild(innerRing);
-    svg.appendChild(group);
-    const cursors = [{ group, x: innerWidth / 2, y: innerHeight / 3, lag: 0.32 }];
-    cursorHost.appendChild(svg);
-    document.body.appendChild(cursorHost);
-    cursorHost.classList.add('is-active');
-    document.documentElement.classList.add('has-dune-cursor');
-    let targetX = innerWidth * 0.5;
-    let targetY = innerHeight * 0.35;
-    let raf = 0;
-    const move = (event: PointerEvent) => {
-      targetX = event.clientX;
-      targetY = event.clientY;
-      cursorHost.classList.add('is-visible');
-    };
-    const animate = () => {
-      cursors.forEach((cursor) => {
-        cursor.x += (targetX - cursor.x) * cursor.lag;
-        cursor.y += (targetY - cursor.y) * cursor.lag;
-        cursor.group.setAttribute('transform', 'translate(' + cursor.x + ' ' + cursor.y + ') scale(1)');
-      });
-      raf = requestAnimationFrame(animate);
-    };
-    window.addEventListener('resize', () => svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight), { passive: true });
-    window.addEventListener('pointermove', move, { passive: true });
-    window.addEventListener('touchmove', (e) => {
-      if (e.touches.length > 0) {
-        targetX = e.touches[0].clientX;
-        targetY = e.touches[0].clientY;
-        cursorHost.classList.add('is-visible');
+    const swarmLayer = document.getElementById('cursor-swarm');
+    if (swarmLayer) {
+      const svg = document.createElementNS(ns, 'svg');
+      svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+      svg.setAttribute('class', 'cursor-swarm-svg');
+      svg.setAttribute('aria-hidden', 'true');
+      swarmLayer.appendChild(svg);
+
+      // Dune-style cursor shape (curved, organic, no sharp edges)
+      const cursorPath = 'M 12 2 C 7 2 3 6 3 11 C 3 14 5 17 8 19 L 12 25 L 16 19 C 19 17 21 14 21 11 C 21 6 17 2 12 2 Z';
+      const CURSOR_COUNT = 6250;
+      const cursors = [];
+      const groups = [];
+
+      // Create cursor groups
+      for (let i = 0; i < CURSOR_COUNT; i++) {
+        const group = document.createElementNS(ns, 'g');
+        group.setAttribute('class', 'swarm-cursor');
+        
+        const pointer = document.createElementNS(ns, 'path');
+        pointer.setAttribute('d', cursorPath);
+        pointer.setAttribute('fill', '#ffffff');
+        pointer.setAttribute('stroke', '#ffffff');
+        pointer.setAttribute('stroke-width', '0.5');
+        pointer.setAttribute('stroke-linejoin', 'round');
+        pointer.setAttribute('stroke-linecap', 'round');
+        pointer.setAttribute('opacity', '0.15');
+        group.appendChild(pointer);
+        
+        // Inner glow
+        const innerRing = document.createElementNS(ns, 'circle');
+        innerRing.setAttribute('cx', '12');
+        innerRing.setAttribute('cy', '12');
+        innerRing.setAttribute('r', '4');
+        innerRing.setAttribute('fill', 'none');
+        innerRing.setAttribute('stroke', '#ffffff');
+        innerRing.setAttribute('stroke-width', '0.3');
+        innerRing.setAttribute('opacity', '0.1');
+        group.appendChild(innerRing);
+        
+        svg.appendChild(group);
+        groups.push(group);
+        
+        // Random initial positions across viewport
+        const angle = Math.random() * Math.PI * 2;
+        const radius = Math.random() * Math.max(window.innerWidth, window.innerHeight) * 0.6;
+        cursors.push({
+          group,
+          x: window.innerWidth / 2 + Math.cos(angle) * radius,
+          y: window.innerHeight / 2 + Math.sin(angle) * radius,
+          baseX: window.innerWidth / 2 + Math.cos(angle) * radius,
+          baseY: window.innerHeight / 2 + Math.sin(angle) * radius,
+          lag: 0.02 + Math.random() * 0.08, // Varied lag for organic movement
+          angle: angle,
+          radius: radius,
+          speed: 0.0005 + Math.random() * 0.002,
+          phase: Math.random() * Math.PI * 2,
+          targetX: window.innerWidth / 2,
+          targetY: window.innerHeight / 2,
+          attraction: 0.3 + Math.random() * 0.4
+        });
       }
-    }, { passive: true });
-    window.addEventListener('pointerleave', () => cursorHost.classList.remove('is-visible'));
-    window.addEventListener('pointerenter', () => cursorHost.classList.add('is-visible'));
-    document.addEventListener('visibilitychange', () => {
-      if (document.hidden) cancelAnimationFrame(raf);
-      else animate();
-    });
-    animate();
+
+      let targetX = window.innerWidth / 2;
+      let targetY = window.innerHeight / 2;
+      let mouseActive = false;
+      let raf = 0;
+
+      // Content attractors - sections that pull cursors
+      const attractors = [];
+      function registerAttractors() {
+        attractors.length = 0;
+        const sections = document.querySelectorAll('section[id]');
+        sections.forEach(section => {
+          const rect = section.getBoundingClientRect();
+          if (rect.width > 0 && rect.height > 0) {
+            attractors.push({
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2 + window.scrollY,
+              width: rect.width,
+              height: rect.height,
+              id: section.id,
+              strength: 1.0
+            });
+          }
+        });
+        // Add specific text highlights
+        const highlights = document.querySelectorAll('.section-title, .eyebrow, h2, h3, .featured-meta, .project-category, .skill-detail-header h3, .achievement-kicker, .timeline-type');
+        highlights.forEach(el => {
+          const rect = el.getBoundingClientRect();
+          if (rect.width > 0) {
+            attractors.push({
+              x: rect.left + rect.width / 2,
+              y: rect.top + rect.height / 2 + window.scrollY,
+              width: rect.width,
+              height: rect.height,
+              id: 'text-' + Math.random(),
+              strength: 0.8
+            });
+          }
+        });
+        // Hero photo attractor
+        const heroPhoto = document.querySelector('.hero-redesign-photo');
+        if (heroPhoto) {
+          const rect = heroPhoto.getBoundingClientRect();
+          attractors.push({
+            x: rect.left + rect.width / 2,
+            y: rect.top + rect.height / 2 + window.scrollY,
+            width: rect.width,
+            height: rect.height,
+            id: 'hero-photo',
+            strength: 2.0
+          });
+        }
+      }
+
+      const move = (event: PointerEvent) => {
+        targetX = event.clientX;
+        targetY = event.clientY;
+        mouseActive = true;
+        swarmLayer.classList.add('is-visible');
+      };
+
+      const animate = () => {
+        // Update attractors periodically
+        if (Math.random() < 0.01) registerAttractors();
+        
+        cursors.forEach((cursor, i) => {
+          let dx = targetX - cursor.x;
+          let dy = targetY - cursor.y;
+          let dist = Math.sqrt(dx * dx + dy * dy);
+          
+          // Mouse attraction
+          if (mouseActive && dist > 1) {
+            cursor.x += dx * cursor.lag * cursor.attraction;
+            cursor.y += dy * cursor.lag * cursor.attraction;
+          }
+          
+          // Content attractors - cursors flow toward content
+          attractors.forEach(attr => {
+            const adx = attr.x - cursor.x;
+            const ady = attr.y - cursor.y;
+            const adist = Math.sqrt(adx * adx + ady * ady);
+            const maxDist = Math.max(attr.width, attr.height) * 1.5 + 200;
+            
+            if (adist < maxDist && adist > 5) {
+              const force = (1 - adist / maxDist) * attr.strength * 0.02;
+              cursor.x += adx * force;
+              cursor.y += ady * force;
+            }
+          });
+          
+          // Organic ambient drift (zigzag/organic movement)
+          cursor.phase += cursor.speed;
+          const driftX = Math.sin(cursor.phase) * 30;
+          const driftY = Math.cos(cursor.phase * 0.7) * 20;
+          cursor.x += (cursor.baseX + driftX - cursor.x) * 0.001;
+          cursor.y += (cursor.baseY + driftY - cursor.y) * 0.001;
+          
+          // Boundary wrap
+          if (cursor.x < -50) cursor.x = window.innerWidth + 50;
+          if (cursor.x > window.innerWidth + 50) cursor.x = -50;
+          if (cursor.y < -50) cursor.y = window.innerHeight + 50;
+          if (cursor.y > window.innerHeight + 50) cursor.y = -50;
+          
+          // Scale based on distance to mouse
+          const scale = mouseActive ? Math.max(0.3, 1 - dist / 800) : 0.4;
+          cursor.group.setAttribute('transform', 'translate(' + cursor.x + ' ' + cursor.y + ') scale(' + scale + ')');
+          
+          // Opacity based on activity
+          const opacity = mouseActive ? Math.max(0.05, 0.3 - dist / 1200) : 0.12;
+          cursor.group.setAttribute('opacity', opacity.toString());
+        });
+        
+        raf = requestAnimationFrame(animate);
+      };
+
+      window.addEventListener('resize', () => {
+        svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+        targetX = window.innerWidth / 2;
+        targetY = window.innerHeight / 2;
+        registerAttractors();
+      }, { passive: true });
+
+      window.addEventListener('pointermove', move, { passive: true });
+      window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+          targetX = e.touches[0].clientX;
+          targetY = e.touches[0].clientY;
+          mouseActive = true;
+          swarmLayer.classList.add('is-visible');
+        }
+      }, { passive: true });
+      
+      window.addEventListener('pointerleave', () => { mouseActive = false; swarmLayer.classList.remove('is-visible'); });
+      window.addEventListener('pointerenter', () => { mouseActive = true; swarmLayer.classList.add('is-visible'); });
+      
+      document.addEventListener('visibilitychange', () => {
+        if (document.hidden) cancelAnimationFrame(raf);
+        else animate();
+      });
+      
+      window.addEventListener('scroll', () => {
+        registerAttractors();
+      }, { passive: true });
+
+      // Initial registration
+      setTimeout(registerAttractors, 100);
+      animate();
+      
+      // Hide native cursor
+      document.documentElement.classList.add('has-dune-cursor');
+    }
   }
 
+  // ============================================================
+  // HERO SCROLL PARALLAX
+  // ============================================================
   const heroRoot = document.querySelector<HTMLElement>('[data-hero-redesign]');
   if (heroRoot && !reducedMotion.matches) {
     let scrollFrame = 0;
@@ -191,25 +346,45 @@ const stats = [
 </script>
 
 <style is:global>
-  .custom-dune-cursor { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .18s ease; display:block; }
-  .custom-dune-cursor.is-active.is-visible { opacity:1; }
-  .hero-cursor-svg { display:block; width:100%; height:100%; overflow:visible; }
-  .hero-cursor-glyph { transform-origin:12px 12px; filter:drop-shadow(0 2px 8px rgba(0,0,0,.8)); }
+  /* Cursor Swarm Layer */
+  .cursor-swarm-layer { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .3s ease; display:block; }
+  .cursor-swarm-layer.is-visible { opacity:1; }
+  .cursor-swarm-svg { display:block; width:100%; height:100%; overflow:visible; }
+  .swarm-cursor { transform-origin:12px 12px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); will-change:transform,opacity; }
   .has-dune-cursor, .has-dune-cursor body, .has-dune-cursor body * { cursor:none !important; }
-  @media (prefers-reduced-motion:no-preference) { .custom-dune-cursor.is-active { display:block; } }
+  @media (prefers-reduced-motion:reduce) { .cursor-swarm-layer { display:none!important; } .has-dune-cursor, .has-dune-cursor body, .has-dune-cursor body * { cursor:auto !important; } }
+
+  /* Hero Photo Centered on ALL desktop/laptop sizes */
+  .hero-cinematic-premium .hero-redesign-photo {
+    left:50% !important;
+    transform:translateX(-50%) !important;
+    width:clamp(370px,48vw,700px);
+    height:94%;
+    z-index:2;
+    filter:drop-shadow(0 28px 58px rgba(0,0,0,.35));
+    transition:transform .08s linear, filter .3s ease;
+  }
+
+  /* Enhanced Scroll Parallax */
   .hero-cinematic-premium .hero-redesign-grid { transform:translate3d(0,calc(var(--hero-scroll-depth,0) * -30px),0); transition:transform .08s linear; }
   .hero-cinematic-premium .hero-redesign-glow { background-position:0 calc(var(--hero-scroll-depth,0) * 25px); }
   .hero-cinematic-premium .hero-redesign-photo { transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 20px),0); transition:transform .08s linear; }
   .hero-cinematic-premium .hero-redesign-cutout { transform:scale(calc(1 + var(--hero-scroll-depth,0) * 0.02)); transition:transform .08s linear, filter .3s ease; }
   body { background-position: 0 var(--page-scroll-offset,0px), 0 var(--page-scroll-offset,0px); background-attachment: fixed; }
+  
   .hero-redesign-profile { border-radius:0 !important; object-fit:cover; }
   .hero-follow-card { width:max-content; }
   .hero-social-links { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
   .hero-social-link { display:inline-flex; align-items:center; gap:.4rem; padding:.5rem .85rem; border:1px solid rgba(171,220,207,.25); border-radius:6px; background:rgba(5,17,22,.7); color:#e7c994; font:600 .58rem 'IBM Plex Mono',monospace; text-decoration:none; white-space:nowrap; transition:all .2s ease; }
   .hero-social-link:hover { background:rgba(183,226,214,.15); color:#fff; border-color:#b7e2dc; text-decoration:none; }
+  
+  @media(max-width:900px) {
+    .hero-cinematic-premium .hero-redesign-photo { width:65vw; height:85%; opacity:.96; }
+  }
+  
   @media(max-width:680px) {
     .hero-cinematic-premium .hero-redesign-photo {
-      transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 8px),0) scale(1.055);
+      transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 8px),0) scale(1.055) !important;
       transform-origin:50% 72%; overflow:hidden;
     }
     .hero-cinematic-premium .hero-redesign-cutout { object-fit:contain; object-position:center bottom; transform:scale(1.075); transform-origin:50% 72%; filter:drop-shadow(0 15px 30px rgba(0,0,0,.45)); }
@@ -223,7 +398,6 @@ const stats = [
     .hero-social-link { padding:.4rem .6rem; font-size:.5rem; }
   }
   @media(prefers-reduced-motion:reduce) {
-    .custom-dune-cursor { display:none!important; }
     .hero-cinematic-premium .hero-redesign-grid, .hero-cinematic-premium .hero-redesign-photo, .hero-cinematic-premium .hero-redesign-cutout { transform:none!important; }
   }
 </style>
