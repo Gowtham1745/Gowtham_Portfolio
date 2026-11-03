@@ -11,15 +11,18 @@ const stats = [
   { value: String(achievements.length).padStart(2, '0'), label: 'Award entries' },
 ];
 ---
-<section class="hero-redesign" data-hero data-hero-redesign aria-labelledby="hero-name">
+<section class="hero-redesign hero-cinematic-premium" data-hero data-hero-redesign aria-labelledby="hero-name">
   <div class="hero-redesign-grid" aria-hidden="true"></div>
   <div class="hero-redesign-glow" aria-hidden="true"></div>
+  <div class="hero-atmosphere" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="hero-redesign-word-wrap" data-parallax="text" aria-hidden="true">
     <h1 class="hero-redesign-word">GOWTHAM</h1>
-    <p class="hero-redesign-word-caption">DESIGN · ENGINEERING · SIMULATION</p>
+    <p class="hero-redesign-word-caption">DESIGN · ENGINEERING · SIMULATION · VISUAL STORYTELLING</p>
   </div>
 
   <div class="hero-redesign-photo" data-parallax="portrait" aria-hidden="true">
+    <div class="hero-photo-aura"></div>
+    <div class="hero-photo-floor"></div>
     <img
       src={`${base}media/gowtham-full.png`}
       alt=""
@@ -29,6 +32,7 @@ const stats = [
       width="1152"
       height="2047"
     />
+    <span class="hero-photo-index">GA / 01</span>
   </div>
 
   <div class="hero-redesign-shell">
@@ -38,6 +42,7 @@ const stats = [
         <h2 id="hero-name">{siteConfig.name}</h2>
         <img
           class="hero-redesign-profile"
+          data-profile-focus
           src={`${base}media/profile-professional.jpg`}
           alt="Gowtham A"
           width="88"
@@ -48,8 +53,24 @@ const stats = [
       </div>
       <p class="hero-redesign-role">{siteConfig.role}</p>
       <p class="hero-redesign-intro">{siteConfig.headline}</p>
-      <a class="hero-redesign-cta" href="#projects">View my work <span aria-hidden="true">↗</span></a>
+      <div class="hero-redesign-actions">
+        <a class="hero-redesign-cta" href="#projects">Explore my work <span aria-hidden="true">↗</span></a>
+        <a class="hero-redesign-cta hero-resume-cta" href={`${base}media/Resume/Gowtham_A_Resume.pdf`} download>
+          <span aria-hidden="true">↓</span> Download Resume
+        </a>
+      </div>
       <p class="hero-redesign-location">{siteConfig.location}</p>
+
+      <div class="follow-card hero-follow-card" id="follow-card" data-base="517">
+        <div class="follow-count">
+          <strong id="follow-count" aria-live="polite">517</strong>
+          <span>followers</span>
+        </div>
+        <a class="hero-instagram-link" href={siteConfig.contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Open Gowtham's Instagram profile">Instagram ↗</a>
+        <button type="button" class="button follow-button" id="follow-button" aria-pressed="false">
+          <span id="follow-label">Follow</span>
+        </button>
+      </div>
     </div>
 
     <aside class="hero-redesign-stats" aria-label="Portfolio facts">
