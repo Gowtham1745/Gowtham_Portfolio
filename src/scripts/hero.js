@@ -152,3 +152,95 @@
   }
   window.addEventListener('pagehide',()=>{stopped=true;cancelAnimationFrame(raf);window.removeEventListener('resize',onResize);},{once:true});
 })();
+
+
+// Site-wide pointer swarm: follows the real mouse across every section, not only the hero.
+(() => {
+  const layer = document.querySelector('[data-cursor-swarm]');
+  if (!layer || layer.dataset.initialized === 'true') return;
+  if (window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  layer.dataset.initialized = 'true';
+
+  const ns = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(ns, 'svg');
+  svg.setAttribute('class', 'cursor-swarm-svg');
+  svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+  svg.setAttribute('preserveAspectRatio', 'none');
+  layer.appendChild(svg);
+
+  const palette = ['#ff5968', '#75d9e8', '#f08bc8', '#a88cff', '#f1c46b', '#ffffff', '#6de0b5', '#ff9b75'];
+  const labels = ['Gowtham', 'Design', 'Motion', 'Detail', 'Layout', 'Type', 'Visual', 'Explore'];
+  const cursors = [];
+  const make = (tag, attrs, parent) => {
+    const el = document.createElementNS(ns, tag);
+    for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, String(value));
+    parent.appendChild(el);
+    return el;
+  };
+
+  for (let i = 0; i < 8; i++) {
+    const group = make('g', { class: 'swarm-cursor', opacity: 0 }, svg);
+    const cursor = make('path', {
+      d: 'M1 1 L1 22 L7 16 L12 26 L16 24 L11 14 L21 14 Z',
+      fill: palette[i], stroke: '#09090b', 'stroke-width': 1.15, 'stroke-linejoin': 'round'
+    }, group);
+    const tag = make('g', {}, group);
+    make('rect', { x: 18, y: 1, width: labels[i].length * 6.1 + 12, height: 16, rx: 3, fill: palette[i] }, tag);
+    const text = make('text', {
+      x: 23, y: 12, fill: '#101014', 'font-size': 8,
+      'font-family': 'IBM Plex Mono, monospace', 'font-weight': 700
+    }, tag);
+    text.textContent = labels[i];
+    cursors.push({ group, x: -100, y: -100, tx: -100, ty: -100, lag: 0.19 - i * 0.014, offset: i * 7 });
+  }
+
+  let active = false, raf = 0, lastX = 0, lastY = 0, pressed = false;
+  const setSize = () => svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
+  const move = (event) => {
+    if (event.pointerType && event.pointerType !== 'mouse') return;
+    lastX = event.clientX;
+    lastY = event.clientY;
+    active = true;
+    cursors.forEach((cursor, i) => {
+      const angle = i * 0.78;
+      cursor.tx = lastX - Math.cos(angle) * cursor.offset;
+      cursor.ty = lastY - Math.sin(angle) * cursor.offset;
+    });
+    const target = document.elementFromPoint(lastX, lastY);
+    const interactive = target?.closest('a, button, [role="button"], input, textarea, select, summary, [data-cursor-label]');
+    const label = interactive?.getAttribute('data-cursor-label') ||
+      (interactive?.matches('a,button,[role="button"]') ? 'SELECT' : '');
+    const firstText = svg.querySelector('.swarm-cursor text');
+    if (firstText && label) firstText.textContent = label.slice(0, 18);
+    else if (firstText) firstText.textContent = labels[0];
+  };
+  const animate = () => {
+    if (!active) {
+      cursors.forEach(c => c.group.setAttribute('opacity', '0'));
+      raf = 0;
+      return;
+    }
+    cursors.forEach((cursor, i) => {
+      cursor.x += (cursor.tx - cursor.x) * cursor.lag;
+      cursor.y += (cursor.ty - cursor.y) * cursor.lag;
+      cursor.group.setAttribute('transform', 'translate(' + cursor.x.toFixed(1) + ' ' + cursor.y.toFixed(1) + ') scale(' + (pressed && i === 0 ? 1.18 : 1) + ')');
+      cursor.group.setAttribute('opacity', String(Math.max(0.2, 0.92 - i * 0.085)));
+    });
+    raf = requestAnimationFrame(animate);
+  };
+  window.addEventListener('pointermove', (event) => {
+    move(event);
+    if (!raf) raf = requestAnimationFrame(animate);
+  }, { passive: true });
+  window.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse') { pressed = true; move(event); }
+  }, { passive: true });
+  window.addEventListener('pointerup', () => { pressed = false; }, { passive: true });
+  window.addEventListener('pointerleave', () => { active = false; }, { passive: true });
+  window.addEventListener('blur', () => { active = false; }, { passive: true });
+  window.addEventListener('resize', setSize, { passive: true });
+  window.addEventListener('scroll', () => {
+    if (active && !raf) raf = requestAnimationFrame(animate);
+  }, { passive: true });
+})();
