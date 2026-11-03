@@ -120,8 +120,35 @@ const stats = [
       // Dune-style cursor shape (curved, organic, no sharp edges)
       const cursorPath = 'M 12 2 C 7 2 3 6 3 11 C 3 14 5 17 8 19 L 12 25 L 16 19 C 19 17 21 14 21 11 C 21 6 17 2 12 2 Z';
       const CURSOR_COUNT = 6250;
-      const cursors = [];
-      const groups = [];
+      
+      // Type definitions
+      interface Cursor {
+        group: SVGGElement;
+        x: number;
+        y: number;
+        baseX: number;
+        baseY: number;
+        lag: number;
+        angle: number;
+        radius: number;
+        speed: number;
+        phase: number;
+        targetX: number;
+        targetY: number;
+        attraction: number;
+      }
+      
+      interface Attractor {
+        x: number;
+        y: number;
+        width: number;
+        height: number;
+        id: string;
+        strength: number;
+      }
+      
+      const cursors: Cursor[] = [];
+      const groups: SVGGElement[] = [];
 
       // Create cursor groups
       for (let i = 0; i < CURSOR_COUNT; i++) {
@@ -178,7 +205,7 @@ const stats = [
       let raf = 0;
 
       // Content attractors - sections that pull cursors
-      const attractors = [];
+      const attractors: Attractor[] = [];
       function registerAttractors() {
         attractors.length = 0;
         const sections = document.querySelectorAll('section[id]');
@@ -236,7 +263,7 @@ const stats = [
         // Update attractors periodically
         if (Math.random() < 0.01) registerAttractors();
         
-        cursors.forEach((cursor, i) => {
+        cursors.forEach((cursor) => {
           let dx = targetX - cursor.x;
           let dy = targetY - cursor.y;
           let dist = Math.sqrt(dx * dx + dy * dy);
