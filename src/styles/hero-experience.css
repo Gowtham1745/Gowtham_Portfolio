@@ -63,4 +63,3 @@
 @media(max-width:380px){.hero-redesign{min-height:880px}.hero-redesign-shell{padding-top:16rem;padding-bottom:7rem}.hero-redesign-photo{width:78vw;height:39%;top:12%}.hero-redesign-stats{gap:.3rem}.hero-redesign-stat span{font-size:.51rem}}
 @media(min-width:681px) and (max-width:1100px){.hero-redesign-photo{left:60%;width:47vw}.hero-redesign-shell{grid-template-columns:minmax(0,1fr) 145px}.hero-redesign-left{max-width:54%}}
 @media(prefers-reduced-motion:reduce){.hero-agent-bar{display:none}.hero-cursor-layer{display:none!important}.hero-redesign-cta{transition:none}}
-@media(hover:none),(pointer:coarse){.hero-redesign-photo,.hero-redesign-word-wrap{transform:none!important}}
