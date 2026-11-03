@@ -13,6 +13,7 @@ const stats = [
 ---
 <section class="hero-redesign hero-cinematic-premium" data-hero data-hero-redesign aria-labelledby="hero-name">
   <div class="hero-redesign-grid" aria-hidden="true"></div>
+  <div class="hero-cursor-layer" data-hero-cursor aria-hidden="true"></div>
   <div class="hero-redesign-glow" aria-hidden="true"></div>
   <div class="hero-atmosphere" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="hero-redesign-word-wrap" data-parallax="text" aria-hidden="true">
@@ -66,11 +67,11 @@ const stats = [
           <strong id="follow-count" aria-live="polite">517</strong>
           <span>followers</span>
         </div>
-        <a class="hero-instagram-link" href={siteConfig.contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Open Gowtham's Instagram profile">Instagram ↗</a>
         <button type="button" class="button follow-button" id="follow-button" aria-pressed="false">
           <span id="follow-label">Follow</span>
         </button>
       </div>
+      <a class="hero-instagram-link" href={siteConfig.contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Open Gowtham Instagram profile">Instagram ↗</a>
     </div>
 
     <aside class="hero-redesign-stats" aria-label="Portfolio facts">
@@ -95,3 +96,123 @@ const stats = [
     <button type="button" data-agent-skip>Skip intro</button>
   </div>
 </section>
+
+
+<script>
+  const cursorHost = document.querySelector<HTMLElement>('[data-hero-cursor]');
+  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (cursorHost && finePointer.matches && !reducedMotion.matches) {
+    const ns = 'http://www.w3.org/2000/svg';
+    const svg = document.createElementNS(ns, 'svg');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('class', 'hero-cursor-svg');
+    svg.setAttribute('aria-hidden', 'true');
+    const cursors = [];
+    for (let i = 0; i < 5; i += 1) {
+      const group = document.createElementNS(ns, 'g');
+      group.setAttribute('class', 'hero-cursor-glyph');
+      group.style.opacity = String(1 - i * .14);
+      const pointer = document.createElementNS(ns, 'path');
+      pointer.setAttribute('d', 'M 3 2 L 30 26 L 19 28 L 25 43 L 19 46 L 13 31 L 5 40 Z');
+      pointer.setAttribute('fill', '#fff');
+      pointer.setAttribute('fill-opacity', i === 0 ? '.96' : '.7');
+      pointer.setAttribute('stroke', '#fff');
+      pointer.setAttribute('stroke-width', '1.35');
+      pointer.setAttribute('stroke-linejoin', 'round');
+      group.appendChild(pointer);
+      if (i === 0) {
+        const spine = document.createElementNS(ns, 'path');
+        spine.setAttribute('d', 'M 8 8 L 22 22 M 24 9 L 29 4 M 31 14 L 37 14');
+        spine.setAttribute('fill', 'none');
+        spine.setAttribute('stroke', '#fff');
+        spine.setAttribute('stroke-width', '1.2');
+        spine.setAttribute('stroke-linecap', 'round');
+        group.appendChild(spine);
+      }
+      svg.appendChild(group);
+      cursors.push({ group, x: innerWidth / 2, y: innerHeight / 3, lag: .23 - i * .025 });
+    }
+    cursorHost.appendChild(svg);
+    cursorHost.classList.add('is-active');
+    document.documentElement.classList.add('has-dune-cursor');
+    let targetX = innerWidth * .5;
+    let targetY = innerHeight * .35;
+    let raf = 0;
+    const move = (event) => {
+      targetX = event.clientX;
+      targetY = event.clientY;
+      cursorHost.classList.add('is-visible');
+    };
+    const animate = () => {
+      cursors.forEach((cursor, index) => {
+        cursor.x += (targetX - cursor.x) * cursor.lag;
+        cursor.y += (targetY - cursor.y) * cursor.lag;
+        const scale = index === 0 ? 1 : 1 - index * .075;
+        cursor.group.setAttribute('transform', 'translate(' + cursor.x + ' ' + cursor.y + ') scale(' + scale + ')');
+      });
+      raf = requestAnimationFrame(animate);
+    };
+    window.addEventListener('pointermove', move, { passive: true });
+    window.addEventListener('pointerleave', () => cursorHost.classList.remove('is-visible'));
+    window.addEventListener('pointerenter', () => cursorHost.classList.add('is-visible'));
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) cancelAnimationFrame(raf);
+      else animate();
+    });
+    finePointer.addEventListener('change', (event) => {
+      if (!event.matches) {
+        cancelAnimationFrame(raf);
+        window.removeEventListener('pointermove', move);
+        cursorHost.remove();
+        document.documentElement.classList.remove('has-dune-cursor');
+      }
+    });
+    animate();
+  }
+
+  const heroRoot = document.querySelector<HTMLElement>('[data-hero-redesign]');
+  if (heroRoot && !reducedMotion.matches) {
+    let scrollFrame = 0;
+    const updateDepth = () => {
+      if (scrollFrame) return;
+      scrollFrame = requestAnimationFrame(() => {
+        const rect = heroRoot.getBoundingClientRect();
+        const progress = Math.max(-1, Math.min(1, -rect.top / Math.max(rect.height, 1)));
+        heroRoot.style.setProperty('--hero-scroll-depth', progress.toFixed(3));
+        scrollFrame = 0;
+      });
+    };
+    window.addEventListener('scroll', updateDepth, { passive: true });
+    updateDepth();
+  }
+</script>
+
+<style>
+  .hero-cursor-layer { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .18s ease; display:none; }
+  .hero-cursor-layer.is-active.is-visible { opacity:1; }
+  .hero-cursor-svg { display:block; width:100%; height:100%; overflow:visible; }
+  .hero-cursor-glyph { transform-origin:0 0; filter:drop-shadow(0 1px 5px rgba(0,0,0,.75)); }
+  .has-dune-cursor, .has-dune-cursor body, .has-dune-cursor body * { cursor:none !important; }
+  @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) { .hero-cursor-layer.is-active { display:block; } }
+  .hero-cinematic-premium .hero-redesign-grid { transform:translate3d(0,calc(var(--hero-scroll-depth,0) * -22px),0); transition:transform .08s linear; }
+  .hero-cinematic-premium .hero-redesign-glow { background-position:0 calc(var(--hero-scroll-depth,0) * 18px); }
+  .hero-cinematic-premium .hero-redesign-photo { transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 14px),0); transition:transform .08s linear; }
+  .hero-follow-card { width:max-content; }
+  .hero-instagram-link { display:inline-flex; width:max-content; margin:.55rem 0 0 .15rem; color:rgba(231,201,148,.75); font-size:.56rem; opacity:.8; }
+  @media(max-width:680px) {
+    .hero-cinematic-premium .hero-redesign-photo {
+      transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 5px),0) scale(1.055);
+      transform-origin:50% 72%; overflow:hidden;
+      -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.7) 87%,transparent 100%);
+      mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.7) 87%,transparent 100%);
+    }
+    .hero-cinematic-premium .hero-redesign-cutout { object-fit:contain; object-position:center bottom; transform:scale(1.075); transform-origin:50% 72%; filter:drop-shadow(0 15px 30px rgba(0,0,0,.45)); }
+    .hero-follow-card { width:100%; }
+    .hero-instagram-link { margin:.65rem 0 0 .25rem; }
+  }
+  @media(prefers-reduced-motion:reduce) {
+    .hero-cursor-layer { display:none!important; }
+    .hero-cinematic-premium .hero-redesign-grid, .hero-cinematic-premium .hero-redesign-photo { transform:none!important; }
+  }
+</style>
