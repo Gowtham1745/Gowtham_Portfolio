@@ -331,8 +331,9 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     const small = touch.matches;
     const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
     const lowPower = (navigator.hardwareConcurrency || 4) <= 4 || connection?.saveData === true;
-    // Dense desktop cursor choreography, with a lighter touch-device budget.
-    const count = small ? (lowPower ? 10 : 22) : (lowPower ? 48 : 100);
+    // Keep the collaboration cursors visible on laptops and desktops as well as phones.
+    // Reduced-motion users get a smaller, calmer swarm rather than a completely hidden effect.
+    const count = reduced.matches ? (small ? 6 : 24) : (small ? (lowPower ? 10 : 22) : (lowPower ? 48 : 100));
     const introKey = 'gowtham-cursor-swarm-intro-v1';
     const ns = 'http://www.w3.org/2000/svg';
     const colors = ['#65a9ff','#ff8b6b','#9b8cff','#65d8b4','#f1bd62','#ed82c5','#7ed9e8','#c2e879'];
@@ -566,12 +567,9 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     }, { threshold: .12 });
     document.querySelectorAll('main section[id]').forEach(section => sectionObserver.observe(section));
 
-    if (reduced.matches) {
-      intro.remove();
-      layer.remove();
-      return;
-    }
-    let alreadyPlayed = false;
+    // Do not remove the swarm on desktop when the OS requests reduced motion.
+    // The smaller cursor budget above keeps the effect lighter in that mode.
+    let alreadyPlayed = reduced.matches;
     try { alreadyPlayed = sessionStorage.getItem(introKey) === '1'; } catch { alreadyPlayed = false; }
     if (alreadyPlayed) {
       intro.remove();
