@@ -108,7 +108,7 @@ const stats = [
     svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
     svg.setAttribute('class', 'hero-cursor-svg');
     svg.setAttribute('aria-hidden', 'true');
-    const cursors = [];
+    const cursors: { group: SVGGElement; x: number; y: number; lag: number }[] = [];
     for (let i = 0; i < 5; i += 1) {
       const group = document.createElementNS(ns, 'g');
       group.setAttribute('class', 'hero-cursor-glyph');
@@ -140,7 +140,7 @@ const stats = [
     let targetX = innerWidth * .5;
     let targetY = innerHeight * .35;
     let raf = 0;
-    const move = (event) => {
+    const move = (event: PointerEvent) => {
       targetX = event.clientX;
       targetY = event.clientY;
       cursorHost.classList.add('is-visible');
@@ -162,7 +162,7 @@ const stats = [
       if (document.hidden) cancelAnimationFrame(raf);
       else animate();
     });
-    finePointer.addEventListener('change', (event) => {
+    finePointer.addEventListener('change', (event: MediaQueryListEvent) => {
       if (!event.matches) {
         cancelAnimationFrame(raf);
         window.removeEventListener('pointermove', move);
