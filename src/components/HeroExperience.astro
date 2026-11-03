@@ -13,7 +13,7 @@ const stats = [
 ---
 <section class="hero-redesign hero-cinematic-premium" data-hero data-hero-redesign aria-labelledby="hero-name">
   <div class="hero-redesign-grid" aria-hidden="true"></div>
-  <div class="hero-cursor-layer" data-hero-cursor aria-hidden="true"></div>
+  <div class="custom-dune-cursor" data-hero-cursor aria-hidden="true"></div>
   <div class="hero-redesign-glow" aria-hidden="true"></div>
   <div class="hero-atmosphere" aria-hidden="true"><span></span><span></span><span></span></div>
   <div class="hero-redesign-word-wrap" data-parallax="text" aria-hidden="true">
@@ -191,13 +191,13 @@ const stats = [
   }
 </script>
 
-<style>
-  .hero-cursor-layer { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .18s ease; display:none; }
-  .hero-cursor-layer.is-active.is-visible { opacity:1; }
+<style is:global>
+  .custom-dune-cursor { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .18s ease; display:none; }
+  .custom-dune-cursor.is-active.is-visible { opacity:1; }
   .hero-cursor-svg { display:block; width:100%; height:100%; overflow:visible; }
   .hero-cursor-glyph { transform-origin:0 0; filter:drop-shadow(0 1px 5px rgba(0,0,0,.75)); }
   .has-dune-cursor, .has-dune-cursor body, .has-dune-cursor body * { cursor:none !important; }
-  @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) { .hero-cursor-layer.is-active { display:block; } }
+  @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) { .custom-dune-cursor.is-active { display:block; } }
   .hero-cinematic-premium .hero-redesign-grid { transform:translate3d(0,calc(var(--hero-scroll-depth,0) * -22px),0); transition:transform .08s linear; }
   .hero-cinematic-premium .hero-redesign-glow { background-position:0 calc(var(--hero-scroll-depth,0) * 18px); }
   .hero-cinematic-premium .hero-redesign-photo { transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 14px),0); transition:transform .08s linear; }
@@ -216,7 +216,7 @@ const stats = [
     .hero-instagram-link { margin:.65rem 0 0 .25rem; }
   }
   @media(prefers-reduced-motion:reduce) {
-    .hero-cursor-layer { display:none!important; }
+    .custom-dune-cursor { display:none!important; }
     .hero-cinematic-premium .hero-redesign-grid, .hero-cinematic-premium .hero-redesign-photo { transform:none!important; }
   }
 </style>
