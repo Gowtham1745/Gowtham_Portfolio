@@ -329,7 +329,10 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)');
     const touch = window.matchMedia('(hover: none), (pointer: coarse)');
     const small = touch.matches;
-    const count = small ? 6 : 12;
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    const lowPower = (navigator.hardwareConcurrency || 4) <= 4 || connection?.saveData === true;
+    // Dense desktop cursor choreography, with a lighter touch-device budget.
+    const count = small ? (lowPower ? 10 : 22) : (lowPower ? 48 : 100);
     const introKey = 'gowtham-cursor-swarm-intro-v1';
     const ns = 'http://www.w3.org/2000/svg';
     const colors = ['#65a9ff','#ff8b6b','#9b8cff','#65d8b4','#f1bd62','#ed82c5','#7ed9e8','#c2e879'];
@@ -365,7 +368,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       const y = window.innerHeight * (.25 + Math.random() * .45);
       return { group, x, y, sx: x, sy: y, tx: x, ty: y, color, name: names[i], phase: Math.random() * Math.PI * 2, follow: !small && i < 3 };
     };
-    const introCount = small ? 6 : 18;
+    const introCount = count;
     const introCursors = Array.from({ length: introCount }, (_, i) => createCursor(i));
     const activeCursors = introCursors.slice(0, count);
     let frame = 0;
@@ -538,9 +541,21 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
         if (!entry.isIntersecting || !ambientRunning) return;
         const title = entry.target.querySelector('.section-title, h2');
         if (title) {
-          selectElement(title, performance.now());
+          const now = performance.now();
+          selectElement(title, now);
           const r = title.getBoundingClientRect();
-          activeCursors.slice(0, 4).forEach((cursor, i) => setTarget(cursor, r.left + r.width * (i / 4 + .1), r.top + r.height / 2));
+          const sectionRect = entry.target.getBoundingClientRect();
+          const centerX = r.left + r.width / 2;
+          const centerY = r.top + r.height / 2;
+          const radiusX = Math.max(36, Math.min(sectionRect.width * .46, window.innerWidth * .43));
+          const radiusY = Math.max(24, Math.min(sectionRect.height * .18, 118));
+          // When a section enters view, the pointer swarm gathers around its heading
+          // and spreads along a soft ellipse, creating the scrolling alignment effect.
+          activeCursors.forEach((cursor, i) => {
+            const angle = (i / activeCursors.length) * Math.PI * 2;
+            const ripple = 1 + Math.sin(now / 520 + i * .21) * .08;
+            setTarget(cursor, centerX + Math.cos(angle) * radiusX * ripple, centerY + Math.sin(angle) * radiusY * ripple);
+          });
         }
       });
       if (!introRunning) {
