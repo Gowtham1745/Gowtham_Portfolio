@@ -79,6 +79,19 @@
       agentCount.textContent=String(n).padStart(2,'0');
       layerCount.textContent=String(l).padStart(3,'0');
       updateSelection(t,w,h);
+
+      // Choreographed "live editing": transform/opacity only, with the final layout untouched.
+      const headline=hero.querySelector('.hero-redesign-word');
+      const portrait=hero.querySelector('.hero-redesign-photo');
+      const copy=hero.querySelector('.hero-redesign-left');
+      const glow=hero.querySelector('.hero-redesign-glow');
+      const cta=hero.querySelector('.hero-redesign-cta');
+      const phase=Math.min(1,elapsed/6800);
+      if(headline) headline.style.transform=`scale(${phase<.32?(.94+phase*.24):phase<.62?(1.017-(phase-.32)*.08):1})`;
+      if(portrait) portrait.style.translate=`0 ${phase>.34&&phase<.72?Math.sin(phase*18)*7:0}px`;
+      if(copy) copy.style.translate=`${phase>.15&&phase<.52?Math.sin(phase*13)*9:0}px 0`;
+      if(glow) glow.style.opacity=String(.68+.28*Math.sin(phase*Math.PI*5));
+      if(cta) cta.style.scale=phase>.72&&phase<.82?'1.035':'1';
     }
     cursors.forEach((c,i)=>{
       const active=!introDone || i<Math.min(8,count);
