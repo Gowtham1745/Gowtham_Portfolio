@@ -1,0 +1,76 @@
+---
+import { siteConfig } from '../data/siteConfig';
+import { projects } from '../data/projects.js';
+import { experiences } from '../data/experience';
+import { achievements } from '../data/achievements';
+
+const base = import.meta.env.BASE_URL;
+const stats = [
+  { value: String(projects.length).padStart(2, '0'), label: 'Projects documented' },
+  { value: String(experiences.length).padStart(2, '0'), label: 'Experience entries' },
+  { value: String(achievements.length).padStart(2, '0'), label: 'Award entries' },
+];
+---
+<section class="hero-redesign" data-hero data-hero-redesign aria-labelledby="hero-name">
+  <div class="hero-redesign-grid" aria-hidden="true"></div>
+  <div class="hero-redesign-glow" aria-hidden="true"></div>
+  <div class="hero-redesign-word-wrap" data-parallax="text" aria-hidden="true">
+    <h1 class="hero-redesign-word">GOWTHAM</h1>
+    <p class="hero-redesign-word-caption">DESIGN · ENGINEERING · SIMULATION</p>
+  </div>
+
+  <div class="hero-redesign-photo" data-parallax="portrait" aria-hidden="true">
+    <img
+      src={`${base}assets/gowtham-full.png`}
+      alt=""
+      class="hero-redesign-cutout"
+      fetchpriority="high"
+      decoding="async"
+      width="1152"
+      height="2047"
+    />
+  </div>
+
+  <div class="hero-redesign-shell">
+    <div class="hero-redesign-left" data-parallax="copy">
+      <p class="hero-redesign-script">Hello, I'm</p>
+      <div class="hero-redesign-name-row">
+        <h2 id="hero-name">{siteConfig.name}</h2>
+        <img
+          class="hero-redesign-profile"
+          src={`${base}media/profile-passport.jpg`}
+          alt="Gowtham A"
+          width="88"
+          height="88"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+      <p class="hero-redesign-role">{siteConfig.role}</p>
+      <p class="hero-redesign-intro">{siteConfig.headline}</p>
+      <a class="hero-redesign-cta" href="#projects">View my work <span aria-hidden="true">↗</span></a>
+      <p class="hero-redesign-location">{siteConfig.location}</p>
+    </div>
+
+    <aside class="hero-redesign-stats" aria-label="Portfolio facts">
+      {stats.map((stat) => (
+        <div class="hero-redesign-stat">
+          <strong>{stat.value}</strong>
+          <span>{stat.label}</span>
+        </div>
+      ))}
+    </aside>
+  </div>
+
+  <div class="hero-redesign-bottom">
+    <span>INDEPENDENT THINKING. ENGINEERED EXECUTION.</span>
+    <span>SCROLL TO EXPLORE ↓</span>
+  </div>
+
+  <div class="hero-agent-bar" data-agent-bar aria-live="off">
+    <span class="hero-agent-live"><i></i> LIVE DESIGN SESSION</span>
+    <span><b data-agent-count>00</b> agents</span>
+    <span><b data-layer-count>000</b> layers</span>
+    <button type="button" data-agent-skip>Skip intro</button>
+  </div>
+</section>
