@@ -33,6 +33,7 @@
   const bounds=()=>hero.getBoundingClientRect();
   const size=()=>({w:Math.max(1,hero.clientWidth),h:Math.max(1,hero.clientHeight)});
   const selection=make('g',{class:'hero-selection-group'},svg);
+  selection.setAttribute('display','none');
   const selectRect=make('rect',{class:'hero-selection',x:0,y:0,width:120,height:60,rx:2},selection);
   const handles=[];
   for(let i=0;i<8;i++) handles.push(make('rect',{class:'hero-selection-handle',width:6,height:6,rx:1},selection));
