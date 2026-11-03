@@ -548,7 +548,7 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
 .swarm-nudge{animation:swarm-nudge .58s cubic-bezier(.2,.8,.2,1)}
 @keyframes swarm-nudge{0%,100%{transform:translate3d(0,0,0)}35%{transform:translate3d(3px,-2px,0)}70%{transform:translate3d(-2px,1px,0)}}
 @media(max-width:680px){.cursor-swarm-layer{opacity:.64}.cursor-intro-status{font-size:.53rem;letter-spacing:.1em}.cursor-intro-progress{bottom:17%}}
-@media(prefers-reduced-motion:reduce){.cursor-swarm-layer,.cursor-intro{display:none!important}.swarm-nudge{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.cursor-intro{display:none!important}.swarm-nudge{animation:none!important}}
 
 
 /* =========================================================
