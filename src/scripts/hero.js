@@ -154,93 +154,233 @@
 })();
 
 
-// Site-wide pointer swarm: follows the real mouse across every section, not only the hero.
+// Site-wide 64-cursor swarm with real pointer tracking and live element selection.
 (() => {
   const layer = document.querySelector('[data-cursor-swarm]');
   if (!layer || layer.dataset.initialized === 'true') return;
-  if (window.matchMedia('(pointer: coarse)').matches ||
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reducedMotion) return;
   layer.dataset.initialized = 'true';
 
-  const ns = 'http://www.w3.org/2000/svg';
-  const svg = document.createElementNS(ns, 'svg');
+  const NS = 'http://www.w3.org/2000/svg';
+  const svg = document.createElementNS(NS, 'svg');
   svg.setAttribute('class', 'cursor-swarm-svg');
   svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
   svg.setAttribute('preserveAspectRatio', 'none');
   layer.appendChild(svg);
 
-  const palette = ['#ff5968', '#75d9e8', '#f08bc8', '#a88cff', '#f1c46b', '#ffffff', '#6de0b5', '#ff9b75'];
-  const labels = ['Gowtham', 'Design', 'Motion', 'Detail', 'Layout', 'Type', 'Visual', 'Explore'];
+  const colors = ['#b9eee2','#e9c58c','#8edfd1','#b8c9ff','#f0a9bb','#d7e9f2','#9cc9b8','#f1d6a7'];
+  const labels = ['Gowtham','Design','Motion','Aero','Simulation','Visual','Creative','Explore','Detail','Engineering','Studio','Ideas'];
   const cursors = [];
   const make = (tag, attrs, parent) => {
-    const el = document.createElementNS(ns, tag);
-    for (const [key, value] of Object.entries(attrs)) el.setAttribute(key, String(value));
-    parent.appendChild(el);
-    return el;
+    const node = document.createElementNS(NS, tag);
+    Object.entries(attrs).forEach(([key, value]) => node.setAttribute(key, String(value)));
+    parent.appendChild(node);
+    return node;
   };
 
+  const selection = make('g', { class: 'swarm-selection', opacity: 0 }, svg);
+  const selectionRect = make('rect', {
+    x: 0, y: 0, width: 10, height: 10, rx: 5,
+    fill: 'rgba(126,218,199,.045)', stroke: '#a7e5d7',
+    'stroke-width': 1.15, 'stroke-dasharray': '5 4'
+  }, selection);
+  const handles = [];
   for (let i = 0; i < 8; i++) {
+    handles.push(make('rect', {
+      x: 0, y: 0, width: 6, height: 6, rx: 1.5,
+      fill: '#0b1b20', stroke: '#e9c58c', 'stroke-width': 1.1
+    }, selection));
+  }
+  const selectionLabel = make('text', {
+    x: 0, y: 0, fill: '#e9c58c', 'font-size': 9,
+    'font-family': 'IBM Plex Mono, monospace', 'letter-spacing': 1.2
+  }, selection);
+  let pointerX = window.innerWidth * .5;
+  let pointerY = window.innerHeight * .4;
+  let active = false;
+  let pressed = false;
+  let raf = 0;
+  let lastTarget = null;
+  let targetName = '';
+  let pointerTime = 0;
+
+  for (let i = 0; i < 64; i++) {
     const group = make('g', { class: 'swarm-cursor', opacity: 0 }, svg);
-    const cursor = make('path', {
-      d: 'M1 1 L1 22 L7 16 L12 26 L16 24 L11 14 L21 14 Z',
-      fill: palette[i], stroke: '#09090b', 'stroke-width': 1.15, 'stroke-linejoin': 'round'
+    const color = colors[i % colors.length];
+    const size = i < 8 ? 1 : (i < 24 ? .86 : .72);
+    const arrow = make('path', {
+      d: 'M1 1 L1 20 L6.5 15 L10.5 24 L14 22 L10 13 L18 13 Z',
+      fill: color, stroke: '#071116', 'stroke-width': 1.05,
+      'stroke-linejoin': 'round'
     }, group);
-    const tag = make('g', {}, group);
-    make('rect', { x: 18, y: 1, width: labels[i].length * 6.1 + 12, height: 16, rx: 3, fill: palette[i] }, tag);
-    const text = make('text', {
-      x: 23, y: 12, fill: '#101014', 'font-size': 8,
-      'font-family': 'IBM Plex Mono, monospace', 'font-weight': 700
-    }, tag);
-    text.textContent = labels[i];
-    cursors.push({ group, x: -100, y: -100, tx: -100, ty: -100, lag: 0.19 - i * 0.014, offset: i * 7 });
+    arrow.setAttribute('transform', 'scale(' + size + ')');
+    if (i % 4 === 0) {
+      const tag = make('g', {}, group);
+      const labelText = labels[(i / 4) % labels.length];
+      make('rect', { x: 15, y: 1, width: labelText.length * 5.5 + 10, height: 14, rx: 3, fill: '#0a1a20', stroke: color, 'stroke-width': .7 }, tag);
+      const textNode = make('text', {
+        x: 20, y: 10.5, fill: '#edf8f3', 'font-size': 7.5,
+        'font-family': 'IBM Plex Mono, monospace', 'font-weight': 600
+      }, tag);
+      textNode.textContent = labelText;
+    }
+    const angle = i * 2.399963;
+    const radius = 10 + Math.sqrt(i) * 17;
+    cursors.push({
+      group, x: pointerX, y: pointerY, angle, radius,
+      lag: .12 + (i % 7) * .012,
+      speed: .35 + (i % 9) * .055,
+      phase: i * .47,
+      size
+    });
   }
 
-  let active = false, raf = 0, lastX = 0, lastY = 0, pressed = false;
-  const setSize = () => svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
-  const move = (event) => {
-    if (event.pointerType && event.pointerType !== 'mouse') return;
-    lastX = event.clientX;
-    lastY = event.clientY;
-    active = true;
-    cursors.forEach((cursor, i) => {
-      const angle = i * 0.78;
-      cursor.tx = lastX - Math.cos(angle) * cursor.offset;
-      cursor.ty = lastY - Math.sin(angle) * cursor.offset;
-    });
-    const target = document.elementFromPoint(lastX, lastY);
-    const interactive = target?.closest('a, button, [role="button"], input, textarea, select, summary, [data-cursor-label]');
-    const label = interactive?.getAttribute('data-cursor-label') ||
-      (interactive?.matches('a,button,[role="button"]') ? 'SELECT' : '');
-    const firstText = svg.querySelector('.swarm-cursor text');
-    if (firstText && label) firstText.textContent = label.slice(0, 18);
-    else if (firstText) firstText.textContent = labels[0];
+  const setSize = () => {
+    svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
   };
-  const animate = () => {
-    if (!active) {
-      cursors.forEach(c => c.group.setAttribute('opacity', '0'));
-      raf = 0;
+
+  const isInside = (rect, x, y) =>
+    rect && x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
+
+  const chooseTarget = () => {
+    const direct = document.elementFromPoint(pointerX, pointerY);
+    const profile = document.querySelector('[data-profile-focus]');
+    const portrait = document.querySelector('.hero-redesign-photo');
+    const profileRect = profile?.getBoundingClientRect();
+    const portraitRect = portrait?.getBoundingClientRect();
+
+    if (isInside(profileRect, pointerX, pointerY)) return { element: profile, label: 'PROFILE PHOTO' };
+    if (isInside(portraitRect, pointerX, pointerY)) return { element: portrait, label: 'PORTRAIT / 01' };
+
+    const candidate = direct?.closest(
+      '.hero-redesign-left, .hero-redesign-cta, .project-card, .featured-card, .skill-detail-card, .timeline-content, .contact-card, a, button, summary'
+    );
+    if (!candidate || candidate === layer || candidate === document.body) return null;
+    let label = candidate.getAttribute('data-cursor-label');
+    if (!label) {
+      if (candidate.matches('.hero-redesign-left')) label = 'PROFILE / INFO';
+      else if (candidate.matches('.hero-redesign-cta')) label = 'CALL TO ACTION';
+      else if (candidate.matches('.project-card,.featured-card')) label = 'PROJECT';
+      else if (candidate.matches('.skill-detail-card')) label = 'SKILLS';
+      else if (candidate.matches('.timeline-content')) label = 'EXPERIENCE';
+      else if (candidate.matches('a,button,summary')) label = 'INTERACT';
+      else label = 'EXPLORE';
+    }
+    return { element: candidate, label };
+  };
+
+  const updateSelection = (target) => {
+    if (!target?.element) {
+      selection.setAttribute('opacity', '0');
+      lastTarget = null;
+      targetName = '';
       return;
     }
-    cursors.forEach((cursor, i) => {
-      cursor.x += (cursor.tx - cursor.x) * cursor.lag;
-      cursor.y += (cursor.ty - cursor.y) * cursor.lag;
-      cursor.group.setAttribute('transform', 'translate(' + cursor.x.toFixed(1) + ' ' + cursor.y.toFixed(1) + ') scale(' + (pressed && i === 0 ? 1.18 : 1) + ')');
-      cursor.group.setAttribute('opacity', String(Math.max(0.2, 0.92 - i * 0.085)));
+    const rect = target.element.getBoundingClientRect();
+    if (!rect.width || !rect.height) {
+      selection.setAttribute('opacity', '0');
+      return;
+    }
+    const pad = target.label === 'PORTRAIT / 01' ? 7 : 5;
+    const x = rect.left - pad, y = rect.top - pad;
+    const width = rect.width + pad * 2, height = rect.height + pad * 2;
+    selectionRect.setAttribute('x', x);
+    selectionRect.setAttribute('y', y);
+    selectionRect.setAttribute('width', width);
+    selectionRect.setAttribute('height', height);
+    const points = [
+      [x,y],[x+width/2,y],[x+width,y],[x,y+height/2],
+      [x+width,y+height/2],[x,y+height],[x+width/2,y+height],[x+width,y+height]
+    ];
+    handles.forEach((handle, index) => {
+      handle.setAttribute('x', points[index][0] - 3);
+      handle.setAttribute('y', points[index][1] - 3);
     });
-    raf = requestAnimationFrame(animate);
+    selectionLabel.setAttribute('x', x);
+    selectionLabel.setAttribute('y', Math.max(12, y - 9));
+    selectionLabel.textContent = target.label;
+    selection.setAttribute('opacity', '.96');
+    lastTarget = target.element;
+    targetName = target.label;
   };
+
+  const move = (event) => {
+    if (event.pointerType === 'touch' || event.pointerType === 'pen' || event.pointerType === 'mouse') {
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      pointerTime = performance.now();
+      active = true;
+      const target = chooseTarget();
+      if (target?.element !== lastTarget || target?.label !== targetName) updateSelection(target);
+    }
+  };
+
+  const animate = (now) => {
+    raf = 0;
+    if (!active || document.hidden) return;
+    const elapsed = now * .001;
+    const target = chooseTarget();
+    if (target?.element !== lastTarget || target?.label !== targetName) updateSelection(target);
+    else if (target?.element) updateSelection(target);
+
+    cursors.forEach((cursor, index) => {
+      const drift = elapsed * cursor.speed + cursor.phase;
+      const orbit = cursor.radius * (1 + Math.sin(drift * .58) * .12);
+      const targetX = pointerX + Math.cos(cursor.angle + drift) * orbit;
+      const targetY = pointerY + Math.sin(cursor.angle + drift) * orbit * .62;
+      cursor.x += (targetX - cursor.x) * cursor.lag;
+      cursor.y += (targetY - cursor.y) * cursor.lag;
+      const scale = pressed && index < 8 ? 1.16 : cursor.size;
+      const opacity = Math.max(.28, .92 - index * .0095);
+      cursor.group.setAttribute(
+        'transform',
+        'translate(' + cursor.x.toFixed(1) + ' ' + cursor.y.toFixed(1) + ') scale(' + scale + ')'
+      );
+      cursor.group.setAttribute('opacity', String(opacity));
+    });
+
+    // Keep the swarm alive briefly after the last movement so the trail settles naturally.
+    if (now - pointerTime < 12000) raf = requestAnimationFrame(animate);
+    else {
+      active = false;
+      cursors.forEach((cursor) => cursor.group.setAttribute('opacity', '0'));
+      selection.setAttribute('opacity', '0');
+      lastTarget = null;
+      targetName = '';
+    }
+  };
+
+  const schedule = () => {
+    if (!raf && active) raf = requestAnimationFrame(animate);
+  };
+
   window.addEventListener('pointermove', (event) => {
     move(event);
-    if (!raf) raf = requestAnimationFrame(animate);
+    schedule();
   }, { passive: true });
   window.addEventListener('pointerdown', (event) => {
-    if (event.pointerType === 'mouse') { pressed = true; move(event); }
+    move(event);
+    pressed = true;
+    schedule();
   }, { passive: true });
   window.addEventListener('pointerup', () => { pressed = false; }, { passive: true });
-  window.addEventListener('pointerleave', () => { active = false; }, { passive: true });
-  window.addEventListener('blur', () => { active = false; }, { passive: true });
   window.addEventListener('resize', setSize, { passive: true });
   window.addEventListener('scroll', () => {
-    if (active && !raf) raf = requestAnimationFrame(animate);
+    if (active) {
+      const target = chooseTarget();
+      if (target?.element !== lastTarget || target?.label !== targetName) updateSelection(target);
+      schedule();
+    }
   }, { passive: true });
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) {
+      active = false;
+      if (raf) cancelAnimationFrame(raf);
+      raf = 0;
+      cursors.forEach((cursor) => cursor.group.setAttribute('opacity', '0'));
+      selection.setAttribute('opacity', '0');
+    }
+  });
+  setSize();
 })();
