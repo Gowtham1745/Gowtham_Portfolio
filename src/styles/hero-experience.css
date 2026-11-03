@@ -107,8 +107,9 @@
 }
 .hero-cinematic-premium .hero-redesign-word-caption{color:rgba(207,230,222,.58);letter-spacing:.2em}
 .hero-cinematic-premium .hero-redesign-photo{
-  left:67%;width:clamp(370px,43vw,650px);height:94%;z-index:2;
+  left:50%;transform:translateX(-50%);width:clamp(370px,48vw,700px);height:94%;z-index:2;
   filter:drop-shadow(0 28px 58px rgba(0,0,0,.35));
+  transition:transform .08s linear, filter .3s ease;
 }
 .hero-photo-aura{
   position:absolute;left:50%;bottom:7%;width:82%;height:76%;transform:translateX(-50%);
@@ -176,7 +177,7 @@
 .hero-follow-card .follow-button.is-following{border:1px solid #8ed9c5;color:#a9ead7;background:rgba(94,192,166,.08)}
 @media(max-width:900px){
  .hero-cinematic-premium{min-height:850px}
- .hero-cinematic-premium .hero-redesign-photo{left:67%;width:52vw;height:76%;opacity:.94}
+ .hero-cinematic-premium .hero-redesign-photo{left:50%;transform:translateX(-50%);width:60vw;height:80%;opacity:.96}
  .hero-cinematic-premium .hero-redesign-shell{grid-template-columns:minmax(0,1fr) 130px;padding-top:13rem}
  .hero-cinematic-premium .hero-redesign-left{max-width:510px}
 }
