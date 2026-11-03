@@ -570,7 +570,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     // Do not remove the swarm on desktop when the OS requests reduced motion.
     // The smaller cursor budget above keeps the effect lighter in that mode.
     let alreadyPlayed = reduced.matches;
-    try { alreadyPlayed = sessionStorage.getItem(introKey) === '1'; } catch { alreadyPlayed = false; }
+    try { alreadyPlayed = reduced.matches || sessionStorage.getItem(introKey) === '1'; } catch { alreadyPlayed = reduced.matches; }
     if (alreadyPlayed) {
       intro.remove();
       introCursors.forEach((cursor, i) => cursor.group.setAttribute('opacity', i < count ? '.68' : '0'));
@@ -1041,7 +1041,6 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
   .hero-cinematic .hero-actions .resume-button { grid-column:auto; }
 }
 @media (prefers-reduced-motion:reduce) {
-  .cursor-swarm-layer { display:none !important; }
   .hero-cutout-stage, .hero-cutout, .hero-word span { transform:none !important; }
 }
 </style>
