@@ -65,13 +65,17 @@ const stats = [
       <div class="follow-card hero-follow-card" id="follow-card" data-base="517">
         <div class="follow-count">
           <strong id="follow-count" aria-live="polite">517</strong>
-          <span>followers</span>
+          <span>connections</span>
         </div>
         <button type="button" class="button follow-button" id="follow-button" aria-pressed="false">
           <span id="follow-label">Follow</span>
         </button>
       </div>
-      <a class="hero-instagram-link" href={siteConfig.contact.instagram} target="_blank" rel="noopener noreferrer" aria-label="Open Gowtham Instagram profile">Instagram ↗</a>
+      <div class="hero-social-links">
+        <a class="hero-social-link" href={siteConfig.contact.linkedin} target="_blank" rel="noopener noreferrer" aria-label="Open Gowtham LinkedIn profile">LinkedIn</a>
+        <a class="hero-social-link" href={siteConfig.contact.github} target="_blank" rel="noopener noreferrer" aria-label="Open Gowtham GitHub profile">GitHub</a>
+        <a class="hero-social-link" href={siteConfig.contact.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="Contact Gowtham on WhatsApp">WhatsApp</a>
+      </div>
     </div>
 
     <aside class="hero-redesign-stats" aria-label="Portfolio facts">
@@ -100,9 +104,8 @@ const stats = [
 
 <script>
   const cursorHost = document.querySelector<HTMLElement>('[data-hero-cursor]');
-  const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (cursorHost && finePointer.matches && !reducedMotion.matches) {
+  if (cursorHost && !reducedMotion.matches) {
     const ns = 'http://www.w3.org/2000/svg';
     const svg = document.createElementNS(ns, 'svg');
     svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight);
@@ -110,21 +113,33 @@ const stats = [
     svg.setAttribute('aria-hidden', 'true');
     const group = document.createElementNS(ns, 'g');
     group.setAttribute('class', 'hero-cursor-glyph');
+    // Dune-style cursor: curved, organic shape with smooth edges
     const pointer = document.createElementNS(ns, 'path');
-    pointer.setAttribute('d', 'M 3 2 C 2.2 1.2 1 1.8 1.2 3.2 L 4.5 19 C 4.8 20.4 6.4 20.8 7.2 19.7 L 10.2 15.8 L 14.8 20.2 C 15.7 21 17 20.8 17.7 19.9 C 18.4 19 18.2 17.8 17.3 17 L 12.8 12.8 L 17.2 11.7 C 18.7 11.3 18.7 9.5 17.4 8.8 Z');
-    pointer.setAttribute('fill', '#fff');
-    pointer.setAttribute('stroke', '#fff');
-    pointer.setAttribute('stroke-width', '.65');
+    pointer.setAttribute('d', 'M 12 2 C 7 2 3 6 3 11 C 3 14 5 17 8 19 L 12 25 L 16 19 C 19 17 21 14 21 11 C 21 6 17 2 12 2 Z');
+    pointer.setAttribute('fill', '#ffffff');
+    pointer.setAttribute('stroke', '#ffffff');
+    pointer.setAttribute('stroke-width', '1.5');
     pointer.setAttribute('stroke-linejoin', 'round');
+    pointer.setAttribute('stroke-linecap', 'round');
     group.appendChild(pointer);
+    // Add inner glow ring
+    const innerRing = document.createElementNS(ns, 'circle');
+    innerRing.setAttribute('cx', '12');
+    innerRing.setAttribute('cy', '12');
+    innerRing.setAttribute('r', '6');
+    innerRing.setAttribute('fill', 'none');
+    innerRing.setAttribute('stroke', '#ffffff');
+    innerRing.setAttribute('stroke-width', '0.8');
+    innerRing.setAttribute('opacity', '0.6');
+    group.appendChild(innerRing);
     svg.appendChild(group);
-    const cursors = [{ group, x: innerWidth / 2, y: innerHeight / 3, lag: .32 }];
+    const cursors = [{ group, x: innerWidth / 2, y: innerHeight / 3, lag: 0.32 }];
     cursorHost.appendChild(svg);
-    document.body.appendChild(cursorHost); // escape the hero's paint containment so the cursor follows across the whole page
+    document.body.appendChild(cursorHost);
     cursorHost.classList.add('is-active');
     document.documentElement.classList.add('has-dune-cursor');
-    let targetX = innerWidth * .5;
-    let targetY = innerHeight * .35;
+    let targetX = innerWidth * 0.5;
+    let targetY = innerHeight * 0.35;
     let raf = 0;
     const move = (event: PointerEvent) => {
       targetX = event.clientX;
@@ -141,19 +156,18 @@ const stats = [
     };
     window.addEventListener('resize', () => svg.setAttribute('viewBox', '0 0 ' + window.innerWidth + ' ' + window.innerHeight), { passive: true });
     window.addEventListener('pointermove', move, { passive: true });
+    window.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        targetX = e.touches[0].clientX;
+        targetY = e.touches[0].clientY;
+        cursorHost.classList.add('is-visible');
+      }
+    }, { passive: true });
     window.addEventListener('pointerleave', () => cursorHost.classList.remove('is-visible'));
     window.addEventListener('pointerenter', () => cursorHost.classList.add('is-visible'));
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) cancelAnimationFrame(raf);
       else animate();
-    });
-    finePointer.addEventListener('change', (event: MediaQueryListEvent) => {
-      if (!event.matches) {
-        cancelAnimationFrame(raf);
-        window.removeEventListener('pointermove', move);
-        cursorHost.remove();
-        document.documentElement.classList.remove('has-dune-cursor');
-      }
     });
     animate();
   }
@@ -177,29 +191,35 @@ const stats = [
 </script>
 
 <style is:global>
-  .custom-dune-cursor { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .18s ease; display:none; }
+  .custom-dune-cursor { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .18s ease; display:block; }
   .custom-dune-cursor.is-active.is-visible { opacity:1; }
   .hero-cursor-svg { display:block; width:100%; height:100%; overflow:visible; }
-  .hero-cursor-glyph { transform-origin:0 0; filter:drop-shadow(0 1px 5px rgba(0,0,0,.75)); }
+  .hero-cursor-glyph { transform-origin:12px 12px; filter:drop-shadow(0 2px 8px rgba(0,0,0,.8)); }
   .has-dune-cursor, .has-dune-cursor body, .has-dune-cursor body * { cursor:none !important; }
-  @media (hover:hover) and (pointer:fine) and (prefers-reduced-motion:no-preference) { .custom-dune-cursor.is-active { display:block; } }
+  @media (prefers-reduced-motion:no-preference) { .custom-dune-cursor.is-active { display:block; } }
   .hero-cinematic-premium .hero-redesign-grid { transform:translate3d(0,calc(var(--hero-scroll-depth,0) * -22px),0); transition:transform .08s linear; }
   .hero-cinematic-premium .hero-redesign-glow { background-position:0 calc(var(--hero-scroll-depth,0) * 18px); }
   .hero-cinematic-premium .hero-redesign-photo { transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 14px),0); transition:transform .08s linear; }
-  body { background-position: 0 var(--page-scroll-offset,0px), 0 var(--page-scroll-offset,0px); }
+  body { background-position: 0 var(--page-scroll-offset,0px), 0 var(--page-scroll-offset,0px); background-attachment: fixed; }
   .hero-redesign-profile { border-radius:0 !important; object-fit:cover; }
   .hero-follow-card { width:max-content; }
-  .hero-instagram-link { display:inline-flex; width:max-content; margin:.55rem 0 0 .15rem; color:rgba(231,201,148,.75); font-size:.56rem; opacity:.8; }
+  .hero-social-links { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:1rem; }
+  .hero-social-link { display:inline-flex; align-items:center; gap:.4rem; padding:.5rem .85rem; border:1px solid rgba(171,220,207,.25); border-radius:6px; background:rgba(5,17,22,.7); color:#e7c994; font:600 .58rem 'IBM Plex Mono',monospace; text-decoration:none; white-space:nowrap; transition:all .2s ease; }
+  .hero-social-link:hover { background:rgba(183,226,214,.15); color:#fff; border-color:#b7e2dc; text-decoration:none; }
   @media(max-width:680px) {
     .hero-cinematic-premium .hero-redesign-photo {
       transform:translate3d(-50%,calc(var(--hero-scroll-depth,0) * 5px),0) scale(1.055);
       transform-origin:50% 72%; overflow:hidden;
-      -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.7) 87%,transparent 100%);
-      mask-image:linear-gradient(to bottom,#000 0%,#000 76%,rgba(0,0,0,.7) 87%,transparent 100%);
     }
     .hero-cinematic-premium .hero-redesign-cutout { object-fit:contain; object-position:center bottom; transform:scale(1.075); transform-origin:50% 72%; filter:drop-shadow(0 15px 30px rgba(0,0,0,.45)); }
-    .hero-follow-card { width:100%; }
-    .hero-instagram-link { margin:.65rem 0 0 .25rem; }
+    .hero-follow-card { width:100%; justify-content:space-between; gap:.5rem; padding:.6rem; }
+    .hero-follow-card .follow-count strong { font-size:1.2rem; }
+    .hero-social-links { width:100%; justify-content:center; }
+    .hero-social-link { padding:.45rem .75rem; font-size:.54rem; }
+  }
+  @media(max-width:380px) {
+    .hero-follow-card .follow-count strong { font-size:1.1rem; }
+    .hero-social-link { padding:.4rem .6rem; font-size:.5rem; }
   }
   @media(prefers-reduced-motion:reduce) {
     .custom-dune-cursor { display:none!important; }

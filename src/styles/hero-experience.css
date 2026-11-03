@@ -15,7 +15,7 @@
 .hero-redesign-script{margin:0 0 .3rem;color:#f4a1a7;font:italic 500 clamp(1.5rem,2.5vw,2.2rem) Georgia,serif}
 .hero-redesign-name-row{display:flex;align-items:center;gap:1rem;max-width:100%}
 .hero-redesign-name-row h2{margin:0;color:#fff;font:800 clamp(2.6rem,5vw,4.8rem)/.98 'Space Grotesk',sans-serif;letter-spacing:-.065em}
-.hero-redesign-profile{flex:0 0 auto;width:clamp(58px,7vw,88px);height:clamp(58px,7vw,88px);object-fit:cover;object-position:center 24%;border:2px solid rgba(240,68,82,.8);border-radius:5px;box-shadow:0 0 0 5px rgba(240,68,82,.09)}
+.hero-redesign-profile{flex:0 0 auto;width:clamp(58px,7vw,88px);height:clamp(58px,7vw,88px);object-fit:cover;object-position:center 24%;border:2px solid rgba(240,68,82,.8);border-radius:0;box-shadow:0 0 0 5px rgba(240,68,82,.09)}
 .hero-redesign-role{margin:1.1rem 0 .5rem;color:#ff6874;font:600 .72rem 'IBM Plex Mono',monospace;letter-spacing:.1em;text-transform:uppercase}
 .hero-redesign-intro{max-width:47ch;margin:0;color:#e1dcde;font-size:clamp(.95rem,1.2vw,1.08rem);line-height:1.72;text-wrap:pretty}
 .hero-redesign-cta{display:inline-flex;align-items:center;gap:1rem;margin-top:1.5rem;padding:.9rem 1.25rem;background:#f04452;border:1px solid #f04452;color:#fff;text-decoration:none;font-size:.8rem;font-weight:700;box-shadow:0 10px 28px rgba(240,68,82,.2);transition:transform .2s ease,background .2s ease}
@@ -46,11 +46,11 @@
  .hero-redesign{min-height:900px}
  .hero-redesign-word-wrap{top:7%}.hero-redesign-word{font-size:clamp(3.6rem,17.5vw,7rem);-webkit-text-stroke:1.2px rgba(240,68,82,.62)}
  .hero-redesign-word-caption{font-size:.44rem;letter-spacing:.12em}
- .hero-redesign-photo{left:50%;top:12%;bottom:auto;width:min(77vw,390px);height:43%;opacity:1}
+ .hero-redesign-photo{left:50%;top:12%;bottom:auto;width:min(77vw,390px);height:43%;opacity:1}.hero-redesign-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(10,10,10,.6) 85%,#0a0a0a 100%);pointer-events:none;z-index:10}
  .hero-redesign-shell{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:1rem;width:calc(100% - 2rem);padding:18rem 0 7rem}
  .hero-redesign-left{max-width:none;padding:0}
  .hero-redesign-name-row{gap:.75rem}.hero-redesign-name-row h2{font-size:clamp(2.3rem,9vw,3.2rem)}
- .hero-redesign-profile{width:58px;height:58px}
+ .hero-redesign-profile{width:58px;height:58px;border-radius:0}
  .hero-redesign-role{font-size:.58rem;letter-spacing:.06em;margin-top:.8rem}
  .hero-redesign-intro{font-size:.9rem;line-height:1.58;max-width:50ch}
  .hero-redesign-cta{min-height:48px;margin-top:1rem}
@@ -185,12 +185,12 @@
  .hero-cinematic-premium .hero-redesign-word-wrap{top:6%}
  .hero-cinematic-premium .hero-redesign-word{font-size:clamp(3.7rem,17vw,7rem);-webkit-text-stroke:1px rgba(190,229,220,.28)}
  .hero-cinematic-premium .hero-redesign-word-caption{font-size:.42rem;letter-spacing:.08em}
- .hero-cinematic-premium .hero-redesign-photo{left:50%;top:10%;bottom:auto;width:min(84vw,410px);height:43%;opacity:1}
+ .hero-cinematic-premium .hero-redesign-photo{left:50%;top:10%;bottom:auto;width:min(84vw,410px);height:43%;opacity:1}.hero-cinematic-premium .hero-redesign-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(to bottom,transparent 60%,rgba(7,13,19,.6) 85%,#070d13 100%);pointer-events:none;z-index:10}
  .hero-cinematic-premium .hero-redesign-shell{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-end;gap:1rem;width:calc(100% - 2rem);padding:19rem 0 8.5rem}
  .hero-cinematic-premium .hero-redesign-left{max-width:none;padding:0}
  .hero-cinematic-premium .hero-redesign-name-row{gap:.7rem}
  .hero-cinematic-premium .hero-redesign-name-row h2{font-size:clamp(2.3rem,9vw,3.2rem)}
- .hero-cinematic-premium .hero-redesign-profile{width:58px;height:58px}
+ .hero-cinematic-premium .hero-redesign-profile{width:58px;height:58px;border-radius:0}
  .hero-cinematic-premium .hero-redesign-role{font-size:.57rem;letter-spacing:.06em;margin-top:.8rem}
  .hero-cinematic-premium .hero-redesign-intro{font-size:.9rem;line-height:1.58}
  .hero-redesign-actions{display:grid;grid-template-columns:1fr 1fr;gap:.55rem}
