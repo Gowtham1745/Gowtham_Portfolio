@@ -107,7 +107,7 @@ const stats = [
   // CURSOR SWARM - 6250 Organic Cursors with Content Interaction
   // ============================================================
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
-  if (!reducedMotion.matches) {
+  if (!reducedMotion.matches) {      document.documentElement.classList.add("has-dune-cursor");
     const ns = 'http://www.w3.org/2000/svg';
     const swarmLayer = document.getElementById('cursor-swarm');
     if (swarmLayer) {
@@ -335,7 +335,7 @@ const stats = [
       
       document.addEventListener('visibilitychange', () => {
         if (document.hidden) cancelAnimationFrame(raf);
-        else animate();
+        else animate();      swarmLayer.classList.add("is-visible");
       });
       
       window.addEventListener('scroll', () => {
@@ -344,7 +344,7 @@ const stats = [
 
       // Initial registration
       setTimeout(registerAttractors, 100);
-      animate();
+      animate();      swarmLayer.classList.add("is-visible");
       
       // Hide native cursor
       document.documentElement.classList.add('has-dune-cursor');
@@ -374,7 +374,7 @@ const stats = [
 
 <style is:global>
   /* Cursor Swarm Layer */
-  .cursor-swarm-layer { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:0; transition:opacity .3s ease; display:block; }
+  .cursor-swarm-layer { position:fixed; inset:0; z-index:9999; pointer-events:none; overflow:hidden; opacity:1; transition:opacity .3s ease; display:block; }
   .cursor-swarm-layer.is-visible { opacity:1; }
   .cursor-swarm-svg { display:block; width:100%; height:100%; overflow:visible; }
   .swarm-cursor { transform-origin:12px 12px; filter:drop-shadow(0 1px 3px rgba(0,0,0,.6)); will-change:transform,opacity; }
