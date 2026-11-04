@@ -3,6 +3,7 @@ import { siteConfig } from '../data/siteConfig';
 import { projects } from '../data/projects.js';
 import { experiences } from '../data/experience';
 import { achievements } from '../data/achievements';
+import MultiAgentCursor from '../components/react/MultiAgentCursor.tsx';
 
 const base = import.meta.env.BASE_URL;
 const stats = [
@@ -98,6 +99,11 @@ const stats = [
     <span><b data-agent-count>00</b> agents</span>
     <span><b data-layer-count>000</b> layers</span>
     <button type="button" data-agent-skip>Skip intro</button>
+  </div>
+
+  {/* Multi-Agent Cursor Collaborative Layout */}
+  <div class="multi-agent-section" aria-hidden="true">
+    <MultiAgentCursor client:only="react" />
   </div>
 </section>
 
@@ -504,5 +510,26 @@ const stats = [
     .hero-cinematic-premium .hero-redesign-grid,
     .hero-cinematic-premium .hero-redesign-photo,
     .hero-cinematic-premium .hero-redesign-cutout { transform: none !important; }
+  }
+
+  /* ============================================================
+     MULTI-AGENT CURSOR COLLABORATIVE LAYOUT
+     ============================================================ */
+  .multi-agent-section {
+    position: absolute;
+    inset: 0;
+    z-index: 15;
+    pointer-events: none;
+    overflow: visible;
+  }
+  .multi-agent-section > div {
+    width: 100%;
+    height: 100%;
+  }
+  @media (max-width: 768px) {
+    .multi-agent-section { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .multi-agent-section { display: none; }
   }
 </style>
