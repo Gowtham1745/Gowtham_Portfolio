@@ -8,5 +8,6 @@
       "@layouts/*": ["src/layouts/*"],
       "@data/*": ["src/data/*"]
     }
-  }
+  },
+  "exclude": ["public/**/*", "src/scripts/**/*", "dist/**/*", "node_modules/**/*"]
 }
