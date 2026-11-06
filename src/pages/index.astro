@@ -67,7 +67,36 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </section>
   </div>
 
-<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I turn ideas into <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div><div class="follow-card" id="follow-card" data-base="517"><div class="follow-count"><strong id="follow-count" aria-live="polite">517</strong><span>followers</span></div><button type="button" class="button follow-button" id="follow-button" aria-pressed="false"><span id="follow-label">Follow</span></button></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
+<section class="hero hero-interactive" data-interactive-hero>
+  <div class="hero-grid" data-parallax="5"></div>
+  <div class="hero-orbit" data-parallax="9"></div>
+  <div class="hero-wordmark" aria-hidden="true"><span data-parallax="13">PORTFOLIO</span></div>
+  <div class="shell hero-content">
+    <div class="hero-copy reveal" data-parallax="4">
+      <p class="eyebrow">Gowtham A · Coimbatore, India</p>
+      <h1>I turn ideas into <em>engineering solutions.</em></h1>
+      <p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p>
+      <div class="hero-actions">
+        <a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a>
+        <a href="#contact" class="button button-secondary">Get in touch</a>
+        <a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a>
+      </div>
+      <div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div>
+      <div class="follow-card" id="follow-card" data-base="517">
+        <div class="follow-count"><strong id="follow-count" aria-live="polite">517</strong><span>followers</span></div>
+        <button type="button" class="button follow-button" id="follow-button" aria-pressed="false"><span id="follow-label">Follow</span></button>
+      </div>
+    </div>
+    <div class="portrait-container reveal" data-parallax="17">
+      <div class="portrait-wrap">
+        <div class="portrait-frame portrait-frame-full">
+          <img src={`${base}media/profile.png`} alt="Full-length portrait of Gowtham A" class="portrait" loading="eager" />
+        </div>
+        <div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div>
+      </div>
+    </div>
+  </div>
+</section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -274,6 +303,51 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
       </div>
     </div>
   </section>
+
+
+<script>
+  // Subtle desktop-only pointer parallax: each hero layer moves a few pixels toward the pointer.
+  (() => {
+    const hero = document.querySelector('[data-interactive-hero]');
+    if (!hero || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const layers = Array.from(hero.querySelectorAll('[data-parallax]'));
+    let frame = 0;
+    let targetX = 0;
+    let targetY = 0;
+    let currentX = 0;
+    let currentY = 0;
+
+    const animate = () => {
+      currentX += (targetX - currentX) * 0.085;
+      currentY += (targetY - currentY) * 0.085;
+      layers.forEach((layer) => {
+        const strength = Number(layer.getAttribute('data-parallax')) || 0;
+        layer.style.setProperty('--parallax-x', (currentX * strength).toFixed(2) + 'px');
+        layer.style.setProperty('--parallax-y', (currentY * strength).toFixed(2) + 'px');
+      });
+      if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+        frame = window.requestAnimationFrame(animate);
+      } else {
+        frame = 0;
+      }
+    };
+
+    hero.addEventListener('pointermove', (event) => {
+      const bounds = hero.getBoundingClientRect();
+      targetX = ((event.clientX - bounds.left) / bounds.width - 0.5) * 2;
+      targetY = ((event.clientY - bounds.top) / bounds.height - 0.5) * 2;
+      if (!frame) frame = window.requestAnimationFrame(animate);
+    });
+
+    hero.addEventListener('pointerleave', () => {
+      targetX = 0;
+      targetY = 0;
+      if (!frame) frame = window.requestAnimationFrame(animate);
+    });
+  })();
+</script>
 </Layout>
 <style>
 .featured-section{background:linear-gradient(180deg,#07111a,#091720)}
