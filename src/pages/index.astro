@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import HeroExperience from '../components/HeroExperience.astro';
 import { projects } from '../data/projects.js';
 import { skillCategories } from '../data/skills';
 
@@ -68,7 +67,7 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </section>
   </div>
 
-<HeroExperience />
+<section class="hero"><div class="hero-grid"></div><div class="hero-orbit"></div><div class="shell hero-content"><div class="hero-copy reveal"><p class="eyebrow">Gowtham A · Coimbatore, India</p><h1>I turn ideas into <em>engineering solutions.</em></h1><p class="hero-intro">Aeronautical Engineering graduate at AMPO Valves India, working across sourcing operations, CAD design, and engineering simulation.</p><div class="hero-actions"><a href="#projects" class="button">Explore selected work <span aria-hidden="true">↓</span></a><a href="#contact" class="button button-secondary">Get in touch</a><a href={`${base}media/Resume/Gowtham_A_Resume.pdf`} class="button resume-button" download><span class="resume-icon" aria-hidden="true">↓</span><span>Download Resume</span></a></div><div class="hero-meta"><span><b>Based in</b> Tamil Nadu, India</span><span><b>Currently</b> AMPO Valves India</span></div><div class="follow-card" id="follow-card" data-base="517"><div class="follow-count"><strong id="follow-count" aria-live="polite">517</strong><span>followers</span></div><button type="button" class="button follow-button" id="follow-button" aria-pressed="false"><span id="follow-label">Follow</span></button></div></div><div class="portrait-container reveal"><div class="portrait-wrap"><div class="portrait-frame"><img src={`${base}media/profile-professional.jpg`} alt="Portrait of Gowtham A" class="portrait" loading="eager" /><div class="corner corner-tl"></div><div class="corner corner-br"></div></div><div class="portrait-caption"><span class="pulse"></span> Gowtham A · available for the next challenge</div></div></div></div></section>
   
     <section id="featured" class="section featured-section">
     <div class="shell">
@@ -276,11 +275,6 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
     </div>
   </section>
 </Layout>
-
-
-
-
-
 <style>
 .featured-section{background:linear-gradient(180deg,#07111a,#091720)}
     .featured-head{align-items:end}
@@ -605,39 +599,4 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 @media(max-width:600px){.honors-popup-backdrop{padding:.75rem}.honors-popup{width:min(100%,420px);max-height:calc(100dvh - 1.5rem);overflow-y:auto;padding:1.05rem .9rem .9rem;border-radius:16px}.honors-popup-topline{padding-right:2.5rem}.honors-popup-badge{gap:.38rem;font-size:.52rem;letter-spacing:.08em}.honors-medal{width:1.2rem;height:1.2rem;font-size:.58rem}.honors-slides{min-height:0;margin-top:.85rem}.honors-slide{position:absolute;grid-template-columns:1fr;gap:.85rem;transform:translateY(12px) scale(.99)}.honors-slide.is-active{position:relative}.honors-slide-image{height:clamp(150px,31vh,230px);min-height:150px}.honors-slide-content{padding:0 .1rem}.honors-popup-kicker{font-size:.55rem}.honors-slide-content h2{font-size:clamp(1.55rem,7vw,2rem);margin-top:.35rem}.honors-popup-sport{font-size:.83rem;margin-top:.28rem}.honors-popup-copy{font-size:.72rem;line-height:1.5;margin-top:.65rem}.honors-popup-footer{font-size:.46rem;margin-top:.7rem;padding-top:.55rem}.honors-popup-controls{margin-top:.7rem}.honors-slide-arrow{width:2rem;height:2rem}.honors-resume-button{margin-top:.75rem;padding:.68rem;font-size:.64rem}.honors-popup-close{top:.55rem;right:.55rem;width:2rem;height:2rem}}
 @media(min-width:601px) and (max-width:850px){.honors-popup{width:min(94vw,680px);padding:1.25rem}.honors-slides{min-height:260px}.honors-slide-image{height:260px;min-height:260px}.honors-slide{gap:1rem}.honors-slide-content h2{font-size:clamp(1.65rem,4vw,2.2rem)}}
 @media(prefers-reduced-motion:reduce){.honors-popup-backdrop,.honors-popup,.honors-slide-image img{animation:none}.honors-slide,.honors-slide-arrow,.honors-slide-dot,.honors-popup-close,.honors-resume-button{transition:none}}
-
-/* Responsive hero composition: reserve a real portrait zone above copy on touch screens. */
-@media (min-width:681px) and (max-width:900px) {
-  .hero-cinematic { min-height:0 !important; }
-  .hero-word-wrap { top:1.1rem !important; }
-  .hero-cutout-stage { top:3.8rem !important; bottom:auto !important; right:3% !important; width:min(48vw,360px) !important; height:16rem !important; opacity:.9 !important; }
-  .hero-cinematic-content { display:block !important; min-height:0 !important; padding:21rem 0 5.5rem !important; }
-  .hero-cinematic .hero-copy { position:relative; z-index:4; max-width:100% !important; padding:0 !important; }
-}
-@media (max-width:680px) {
-  .hero-cinematic { min-height:0 !important; overflow:hidden; }
-  .hero-word-wrap { top:.85rem !important; width:100% !important; }
-  .hero-cutout-stage { top:4.2rem !important; bottom:auto !important; right:1% !important; width:min(74vw,310px) !important; height:14rem !important; opacity:.92 !important; z-index:2 !important; }
-  .hero-cutout { width:100%; height:100%; object-fit:contain !important; object-position:center bottom !important; mask-image:linear-gradient(180deg,#000 0%,#000 78%,transparent 100%) !important; }
-  .hero-cinematic-content { display:block !important; min-height:0 !important; padding:19rem 0 5.4rem !important; }
-  .hero-cinematic .hero-copy { position:relative; z-index:4; width:100%; max-width:none !important; padding:0 !important; }
-  .hero-kicker { max-width:100%; line-height:1.7; }
-  .hero-cinematic .hero-intro { max-width:48ch; font-size:1rem !important; line-height:1.68 !important; }
-  .hero-cinematic .hero-actions { display:grid !important; grid-template-columns:1fr 1fr !important; gap:.65rem !important; }
-  .hero-cinematic .hero-actions .button { width:100%; min-width:0; min-height:50px; padding:.72rem .55rem; font-size:.72rem; }
-  .hero-cinematic .hero-actions .resume-button { grid-column:1/-1; }
-  .hero-cinematic .hero-meta { display:flex; flex-wrap:wrap; gap:.55rem 1rem; }
-  .hero-cinematic .follow-card { width:100%; justify-content:space-between; }
-  .hero-bottomline { position:relative !important; bottom:auto !important; left:auto !important; transform:none !important; padding-bottom:1rem; }
-  .cursor-swarm-layer { opacity:.58 !important; }
-}
-@media (max-width:380px) {
-  .hero-cutout-stage { top:3.8rem !important; height:12.5rem !important; width:min(76vw,270px) !important; }
-  .hero-cinematic-content { padding-top:17rem !important; }
-  .hero-cinematic .hero-actions { grid-template-columns:1fr !important; }
-  .hero-cinematic .hero-actions .resume-button { grid-column:auto; }
-}
-@media (prefers-reduced-motion:reduce) {
-  .hero-cutout-stage, .hero-cutout, .hero-word span { transform:none !important; }
-}
 </style>

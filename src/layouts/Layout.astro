@@ -24,7 +24,7 @@ const nav = [
     <meta name="description" content={description} />
     <meta name="author" content="Gowtham A" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#070708" />
+    <meta name="theme-color" content="#07111a" />
     <meta property="og:site_name" content="Gowtham A · Portfolio" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -54,64 +54,28 @@ const nav = [
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
-    <style>
-      /* Loading Screen - Shows immediately, hides when page ready */
-      #page-loader {
-        position: fixed;
-        inset: 0;
-        z-index: 10000;
-        background: #070708;
-        display: grid;
-        place-items: center;
-        transition: opacity 0.4s ease, visibility 0.4s ease;
-      }
-      #page-loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
-      .loader-content { text-align: center; }
-      .loader-logo {
-        width: 60px;
-        height: 60px;
-        border: 3px solid rgba(240,68,82,.2);
-        border-top-color: #f04452;
-        border-radius: 50%;
-        animation: spin 1s linear infinite;
-        margin: 0 auto 1.5rem;
-      }
-      @keyframes spin { to { transform: rotate(360deg); } }
-      .loader-text {
-        color: #f7f5f5;
-        font: 500 0.75rem 'IBM Plex Mono', monospace;
-        letter-spacing: 0.2em;
-        text-transform: uppercase;
-      }
-      .loader-progress {
-        width: 120px;
-        height: 2px;
-        background: rgba(255,255,255,.08);
-        border-radius: 1px;
-        margin: 1.5rem auto 0;
-        overflow: hidden;
-      }
-      .loader-progress-bar {
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(90deg, #f04452, #e9c58c);
-        transform: scaleX(0);
-        transform-origin: left;
-        animation: loadProgress 1.5s ease-out forwards;
-      }
-      @keyframes loadProgress { to { transform: scaleX(1); } }
-    </style>
   </head>
   <body>
-    <!-- Loading Screen -->
-    <div id="page-loader" aria-hidden="true">
-      <div class="loader-content">
-        <div class="loader-logo" aria-hidden="true"></div>
-        <div class="loader-text">Loading Portfolio</div>
-        <div class="loader-progress"><div class="loader-progress-bar"></div></div>
+    <div id="page-skeleton" class="page-skeleton" role="status" aria-label="Loading portfolio">
+      <div class="skeleton-header">
+        <span class="skeleton-avatar"></span>
+        <span class="skeleton-brand"></span>
+        <span class="skeleton-nav"></span>
+        <span class="skeleton-cta"></span>
       </div>
+      <div class="skeleton-main shell">
+        <div class="skeleton-copy">
+          <span class="skeleton-line skeleton-kicker"></span>
+          <span class="skeleton-line skeleton-heading"></span>
+          <span class="skeleton-line skeleton-heading-short"></span>
+          <span class="skeleton-line skeleton-text"></span>
+          <span class="skeleton-line skeleton-text skeleton-text-short"></span>
+          <div class="skeleton-actions"><span></span><span></span></div>
+        </div>
+        <div class="skeleton-portrait"></div>
+      </div>
+      <span class="skeleton-loading-label">Preparing portfolio</span>
     </div>
-
     <a class="skip-link" href="#main-content">Skip to main content</a>
     <header class="fixed top-0 inset-x-0 z-40 backdrop-blur-xl bg-[#07111a]/90 border-b border-[var(--line)]">
       <div class="shell flex items-center justify-between py-3">
@@ -152,8 +116,218 @@ const nav = [
         </div>
       </div>
     </footer>
-    <script type="module">
-      import './scripts/layout.js';
+    <script>
+      // Build a true round profile-photo favicon from the same profile image used in the header.
+      // This avoids browsers dropping the external image inside an SVG favicon.
+      (() => {
+        const profile = document.querySelector<HTMLImageElement>('.brand-logo');
+        const faviconLinks = document.querySelectorAll<HTMLLinkElement>('link[rel~="icon"]');
+        if (!profile || !faviconLinks.length) return;
+
+        const setProfileFavicon = () => {
+          const size = 64;
+          const canvas = document.createElement('canvas');
+          canvas.width = size;
+          canvas.height = size;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          ctx.clearRect(0, 0, size, size);
+          ctx.beginPath();
+          ctx.arc(size / 2, size / 2, 30, 0, Math.PI * 2);
+          ctx.closePath();
+          ctx.clip();
+
+          const img = new Image();
+          img.onload = () => {
+            const scale = Math.max(size / img.naturalWidth, size / img.naturalHeight);
+            const w = img.naturalWidth * scale;
+            const h = img.naturalHeight * scale;
+            ctx.drawImage(img, (size - w) / 2, (size - h) / 2, w, h);
+
+            ctx.globalCompositeOperation = 'destination-over';
+            ctx.fillStyle = '#07111a';
+            ctx.fillRect(0, 0, size, size);
+            ctx.globalCompositeOperation = 'source-over';
+
+            ctx.beginPath();
+            ctx.arc(size / 2, size / 2, 30.5, 0, Math.PI * 2);
+            ctx.strokeStyle = '#e7b866';
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            const favicon = canvas.toDataURL('image/png');
+            faviconLinks.forEach((link) => {
+              link.setAttribute('type', 'image/png');
+              link.setAttribute('href', favicon);
+            });
+          };
+          img.src = profile.getAttribute('src') || '';
+        };
+
+        if (profile.complete) setProfileFavicon();
+        else profile.addEventListener('load', setProfileFavicon, { once: true });
+      })();
+
+      const toggle = document.getElementById('mobile-menu-toggle');
+      const menu = document.getElementById('mobile-menu');
+      const iconOpen = document.getElementById('menu-icon-open');
+      const iconClose = document.getElementById('menu-icon-close');
+      const links = document.querySelectorAll('.mobile-nav-link');
+
+      function closeMenu({ restoreFocus = false } = {}) {
+        menu?.classList.add('hidden');
+        menu?.classList.remove('flex');
+        iconOpen?.classList.remove('hidden');
+        iconOpen?.classList.add('block');
+        iconClose?.classList.remove('block');
+        iconClose?.classList.add('hidden');
+        toggle?.setAttribute('aria-expanded', 'false');
+
+        if (restoreFocus) toggle?.focus();
+      }
+
+      function openMenu() {
+        menu?.classList.remove('hidden');
+        menu?.classList.add('flex');
+        iconOpen?.classList.remove('block');
+        iconOpen?.classList.add('hidden');
+        iconClose?.classList.remove('hidden');
+        iconClose?.classList.add('block');
+        toggle?.setAttribute('aria-expanded', 'true');
+      }
+
+      toggle?.addEventListener('click', () => {
+        const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+        if (isExpanded) {
+          closeMenu();
+        } else {
+          openMenu();
+        }
+      });
+
+      links.forEach((link) => {
+        link.addEventListener('click', () => closeMenu());
+      });
+
+      // Escape closes the drawer and returns keyboard focus to its trigger.
+      document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && toggle?.getAttribute('aria-expanded') === 'true') {
+          closeMenu({ restoreFocus: true });
+        }
+      });
+
+      // If a device is rotated or resized to desktop width, leave the drawer closed.
+      const desktopViewport = window.matchMedia('(min-width: 768px)');
+      desktopViewport.addEventListener('change', (event) => {
+        if (event.matches) closeMenu();
+      });
+
+      // Dismiss the skeleton after the page has loaded; keep a safety timeout for slow assets.
+      const pageSkeleton = document.getElementById('page-skeleton');
+      const hideSkeleton = () => {
+        if (!pageSkeleton || pageSkeleton.dataset.dismissed === 'true') return;
+        pageSkeleton.dataset.dismissed = 'true';
+        pageSkeleton.classList.add('is-hidden');
+        window.setTimeout(() => pageSkeleton.remove(), 360);
+      };
+      if (document.readyState === 'complete') {
+        window.setTimeout(hideSkeleton, 120);
+      } else {
+        window.addEventListener('load', () => window.setTimeout(hideSkeleton, 120), { once: true });
+      }
+      window.setTimeout(hideSkeleton, 5000);
     </script>
+    <style>
+      .page-skeleton {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        overflow: hidden;
+        background: #07111a;
+        color: #afc1c9;
+        transition: opacity .32s ease, visibility .32s ease;
+      }
+      .page-skeleton.is-hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+      .skeleton-header {
+        height: 4.1rem;
+        display: flex;
+        align-items: center;
+        gap: .7rem;
+        padding-inline: max(1.5rem, calc((100vw - 1120px) / 2));
+        border-bottom: 1px solid #19303e;
+        background: rgba(7,17,26,.96);
+      }
+      .skeleton-avatar, .skeleton-brand, .skeleton-nav, .skeleton-cta,
+      .skeleton-line, .skeleton-actions span, .skeleton-portrait {
+        display: block;
+        background: linear-gradient(100deg, #102331 20%, #1a3443 38%, #102331 56%);
+        background-size: 220% 100%;
+        animation: skeleton-shimmer 1.45s ease-in-out infinite;
+      }
+      .skeleton-avatar { width: 32px; height: 32px; flex: 0 0 32px; border-radius: 50%; }
+      .skeleton-brand { width: 142px; height: 10px; border-radius: 3px; }
+      .skeleton-nav { width: min(32vw, 360px); height: 10px; margin-inline: auto; border-radius: 3px; }
+      .skeleton-cta { width: 112px; height: 34px; border-radius: 3px; }
+      .skeleton-main { min-height: min(650px, calc(100vh - 4.1rem)); display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 3rem; padding-block: 5rem; }
+      .skeleton-copy { display: grid; gap: 1rem; }
+      .skeleton-line { height: 14px; border-radius: 4px; }
+      .skeleton-kicker { width: 34%; height: 10px; margin-bottom: .5rem; }
+      .skeleton-heading { width: 82%; height: clamp(36px, 5vw, 62px); }
+      .skeleton-heading-short { width: 58%; height: clamp(36px, 5vw, 62px); }
+      .skeleton-text { width: 90%; height: 13px; margin-top: .5rem; }
+      .skeleton-text-short { width: 68%; margin-top: -.45rem; }
+      .skeleton-actions { display: flex; gap: .8rem; margin-top: 1rem; }
+      .skeleton-actions span { width: 142px; height: 48px; border-radius: 3px; }
+      .skeleton-actions span + span { width: 164px; background: #0b1722; border: 1px solid #274150; }
+      .skeleton-portrait { width: min(100%, 340px); aspect-ratio: 4 / 5; justify-self: center; border-radius: 8px; opacity: .75; }
+      .skeleton-loading-label { position: absolute; bottom: 1.5rem; left: 50%; transform: translateX(-50%); font: 500 .65rem 'IBM Plex Mono', monospace; letter-spacing: .12em; text-transform: uppercase; color: #718996; white-space: nowrap; }
+      @keyframes skeleton-shimmer { to { background-position: -220% 0; } }
+      @media (max-width: 680px) {
+        .skeleton-header { height: 3.65rem; padding-inline: 1rem; }
+        .skeleton-brand { width: 112px; }
+        .skeleton-nav { display: none; }
+        .skeleton-cta { width: 42px; height: 32px; margin-left: auto; }
+        .skeleton-main { min-height: calc(100vh - 3.65rem); grid-template-columns: 1fr; gap: 1.4rem; padding-block: 3rem 4.5rem; }
+        .skeleton-copy { order: 1; gap: .8rem; }
+        .skeleton-heading, .skeleton-heading-short { height: 34px; }
+        .skeleton-portrait { order: 2; width: min(58vw, 220px); aspect-ratio: 1 / 1; }
+        .skeleton-actions span { height: 44px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .skeleton-avatar, .skeleton-brand, .skeleton-nav, .skeleton-cta,
+        .skeleton-line, .skeleton-actions span, .skeleton-portrait { animation: none; }
+        .page-skeleton { transition: none; }
+      }
+      .skip-link {
+        position: fixed;
+        top: 0.75rem;
+        left: 0.75rem;
+        z-index: 100;
+        transform: translateY(calc(-100% - 1rem));
+        padding: 0.75rem 1rem;
+        border-radius: 0.25rem;
+        background: var(--amber);
+        color: var(--ink-0);
+        font-weight: 600;
+        box-shadow: 0 4px 18px rgb(0 0 0 / 25%);
+        transition: transform 150ms ease;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+        outline: 2px solid var(--text-hi);
+        outline-offset: 2px;
+      }
+
+      #main-content:focus {
+        outline: 2px solid var(--amber);
+        outline-offset: -2px;
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .skip-link { transition: none; }
+      }
+    </style>
   </body>
 </html>
