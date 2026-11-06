@@ -476,3 +476,83 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
 @media (prefers-reduced-motion: reduce) {
   .projects-section .project-card { scroll-behavior: auto; }
 }
+
+
+/* Minimal interactive hero enhancement — keeps the existing portfolio design intact. */
+.hero-interactive { position: relative; }
+.hero-interactive .hero-grid,
+.hero-interactive .hero-orbit,
+.hero-interactive .hero-copy,
+.hero-interactive .portrait-container,
+.hero-interactive .hero-wordmark span {
+  will-change: transform;
+  transition: transform 180ms ease-out;
+}
+.hero-interactive [data-parallax] {
+  transform: translate3d(var(--parallax-x, 0px), var(--parallax-y, 0px), 0);
+}
+.hero-wordmark {
+  position: absolute;
+  z-index: 0;
+  top: 48%;
+  left: 50%;
+  width: max-content;
+  max-width: 100%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  overflow: visible;
+  white-space: nowrap;
+}
+.hero-wordmark span {
+  display: block;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(190, 211, 214, .19);
+  font-family: 'Space Grotesk', 'IBM Plex Sans', sans-serif;
+  font-size: clamp(4.2rem, 13.2vw, 12.5rem);
+  font-weight: 700;
+  letter-spacing: -.085em;
+  line-height: .9;
+}
+.hero-interactive .hero-content { z-index: 1; }
+.hero-interactive .portrait-container { z-index: 2; align-self: end; }
+.hero-interactive .portrait-wrap {
+  width: min(100%, clamp(300px, 34vw, 470px));
+}
+.hero-interactive .portrait-frame-full {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  width: 100%;
+  height: min(74svh, 650px);
+  min-height: 420px;
+  aspect-ratio: auto;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.hero-interactive .portrait-frame-full .portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: drop-shadow(0 18px 30px rgba(0,0,0,.28));
+}
+.hero-interactive .portrait-frame-full .corner { display: none; }
+@media (max-width: 900px) {
+  .hero-wordmark { top: 38%; }
+  .hero-wordmark span { font-size: clamp(3.2rem, 12vw, 7.5rem); }
+  .hero-interactive .portrait-wrap { width: min(100%, 350px); }
+  .hero-interactive .portrait-frame-full { height: min(58svh, 520px); min-height: 340px; }
+}
+@media (max-width: 680px) {
+  .hero-wordmark { top: 72%; }
+  .hero-wordmark span { font-size: clamp(3rem, 14vw, 5.5rem); -webkit-text-stroke-width: .7px; }
+  .hero-interactive .portrait-wrap { width: min(84vw, 330px); }
+  .hero-interactive .portrait-frame-full { height: min(54svh, 430px); min-height: 280px; }
+}
+@media (prefers-reduced-motion: reduce), (hover: none) {
+  .hero-interactive [data-parallax] { transform: none !important; transition: none !important; }
+}
