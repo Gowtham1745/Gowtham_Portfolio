@@ -86,6 +86,10 @@ const nav = [
           ))}
         </nav>
         <div class="flex items-center gap-2">
+          <div class="theme-switcher" role="group" aria-label="Choose portfolio theme">
+            <button type="button" class="theme-choice is-active" data-theme-choice="coastal" aria-pressed="true" title="Powder Blue, Lavender White and Sunset">Coastal</button>
+            <button type="button" class="theme-choice" data-theme-choice="midnight" aria-pressed="false" title="Deep Midnight Teal, Soft Pearl and Neon Lime">Neon</button>
+          </div>
           <a href={`${base}#contact`} class="hidden sm:inline-flex button button-small">Let's connect <span aria-hidden="true">↗</span></a>
           <button id="mobile-menu-toggle" type="button" class="md:hidden p-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] border border-[var(--line)] bg-[var(--ink-1)] rounded cursor-pointer" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
             <svg id="menu-icon-open" class="w-5 h-5 block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -116,6 +120,32 @@ const nav = [
         </div>
       </div>
     </footer>
+    <script>
+      // Lightweight, accessible theme switcher. The default remains the existing coastal theme.
+      (() => {
+        const root = document.documentElement;
+        const choices = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]'));
+        const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
+        const applyTheme = (theme: string, persist = true) => {
+          const selected = theme === 'midnight' ? 'midnight' : 'coastal';
+          if (selected === 'midnight') root.dataset.theme = 'midnight';
+          else delete root.dataset.theme;
+          choices.forEach((button) => {
+            const active = button.dataset.themeChoice === selected;
+            button.classList.toggle('is-active', active);
+            button.setAttribute('aria-pressed', String(active));
+          });
+          if (themeColor) themeColor.content = selected === 'midnight' ? '#0B3048' : '#F7F5FC';
+          if (persist) {
+            try { localStorage.setItem('gowtham-portfolio-theme', selected); } catch { /* storage may be unavailable */ }
+          }
+        };
+        let saved = 'coastal';
+        try { saved = localStorage.getItem('gowtham-portfolio-theme') || 'coastal'; } catch { /* use default theme */ }
+        applyTheme(saved, false);
+        choices.forEach((button) => button.addEventListener('click', () => applyTheme(button.dataset.themeChoice || 'coastal')));
+      })();
+    </script>
     <script>
       // Build a true round profile-photo favicon from the same profile image used in the header.
       // This avoids browsers dropping the external image inside an SVG favicon.
