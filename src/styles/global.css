@@ -1169,3 +1169,52 @@ img, video { border-radius: inherit; }
     border-radius: 32px !important;
   }
 }
+
+
+/* Use the original square passport profile photo beside Gowtham's name. */
+.hero-interactive .hero-content {
+  grid-template-columns: minmax(0, 1fr) !important;
+}
+.hero-interactive .hero-copy {
+  max-width: 900px;
+}
+.hero-interactive .hero-eyebrow {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 1rem;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 68px;
+}
+.hero-interactive .hero-eyebrow > span {
+  order: 0;
+}
+.hero-interactive .hero-profile-photo {
+  display: block;
+  order: 1;
+  flex: 0 0 64px;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 18px !important;
+  border: 2px solid rgba(255,255,255,.92);
+  outline: 1px solid rgba(132,170,208,.48);
+  box-shadow: 0 8px 24px rgba(112,145,184,.20);
+}
+.hero-interactive .portrait-container {
+  display: none !important;
+}
+@media (max-width: 680px) {
+  .hero-interactive .hero-eyebrow {
+    gap: .8rem;
+    min-height: 58px;
+  }
+  .hero-interactive .hero-profile-photo {
+    flex-basis: 56px;
+    width: 56px;
+    height: 56px;
+    border-radius: 16px !important;
+  }
+}
