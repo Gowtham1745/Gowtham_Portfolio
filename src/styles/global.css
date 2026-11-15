@@ -1062,3 +1062,110 @@ img, video { border-radius: inherit; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
 }
+
+
+/* HERO PROFILE BALANCE — keep the introduction clear and the portrait integrated. */
+.hero-interactive .hero-wordmark { display: none !important; }
+.hero-interactive .hero-content {
+  grid-template-columns: minmax(0, 1.12fr) minmax(280px, .88fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 4rem);
+  padding-block: clamp(4.5rem, 8vh, 6.5rem);
+}
+.hero-interactive .hero-copy {
+  position: relative;
+  z-index: 3;
+  width: 100%;
+  max-width: 680px;
+}
+.hero-interactive .hero-copy h1 {
+  max-width: none;
+  margin-block: 1rem 1.35rem;
+  font-size: clamp(3.15rem, 4.35vw, 4.65rem);
+  line-height: 1.04;
+  letter-spacing: -.06em;
+  text-wrap: pretty;
+}
+.hero-interactive .hero-copy h1 em {
+  display: block;
+  max-width: 100%;
+  font-size: .91em;
+  line-height: 1.06;
+  color: #78add0 !important;
+  text-shadow: 0 8px 28px rgba(120,173,208,.18) !important;
+}
+.hero-interactive .hero-intro {
+  max-width: 58ch;
+  color: #526b87 !important;
+  font-size: clamp(1rem, 1.12vw, 1.1rem);
+  line-height: 1.8;
+  text-shadow: none !important;
+}
+.hero-interactive .portrait-container {
+  position: relative;
+  z-index: 2;
+  align-self: center;
+  justify-content: center;
+}
+.hero-interactive .portrait-wrap {
+  width: min(100%, clamp(270px, 28vw, 390px));
+}
+.hero-interactive .portrait-frame-full {
+  width: 100%;
+  height: min(66svh, 570px);
+  min-height: 390px;
+  overflow: hidden;
+  border: 1px solid rgba(132,170,208,.42) !important;
+  border-radius: 38px !important;
+  background: linear-gradient(150deg, rgba(185,220,242,.72), rgba(247,245,252,.94)) !important;
+  box-shadow: 0 26px 70px rgba(112,145,184,.20), inset 0 1px 0 rgba(255,255,255,.92) !important;
+}
+.hero-interactive .portrait-frame-full .portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center bottom;
+  filter: none;
+  border-radius: 0 !important;
+}
+.hero-interactive .portrait-caption {
+  margin-top: 1rem;
+  padding: .8rem 1.1rem;
+  border-radius: 999px !important;
+  color: #526b87 !important;
+  background: rgba(247,249,255,.78) !important;
+  border: 1px solid rgba(133,170,207,.3) !important;
+  box-shadow: 0 8px 24px rgba(112,145,184,.10);
+}
+@media (max-width: 1100px) and (min-width: 681px) {
+  .hero-interactive .hero-content {
+    grid-template-columns: minmax(0, 1fr) minmax(240px, .72fr);
+    gap: 2rem;
+  }
+  .hero-interactive .hero-copy h1 { font-size: clamp(2.8rem, 5vw, 3.8rem); }
+  .hero-interactive .portrait-wrap { width: min(100%, 320px); }
+  .hero-interactive .portrait-frame-full { height: min(58svh, 480px); min-height: 340px; }
+}
+@media (max-width: 680px) {
+  .hero-interactive .hero-content {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.8rem;
+    padding-block: 3.1rem 3.4rem;
+  }
+  .hero-interactive .hero-copy h1 {
+    max-width: 100%;
+    font-size: clamp(2.75rem, 10vw, 3.65rem);
+    line-height: 1.04;
+  }
+  .hero-interactive .hero-copy h1 em { font-size: .88em; }
+  .hero-interactive .hero-intro { max-width: 100%; }
+  .hero-interactive .portrait-container { justify-content: center; }
+  .hero-interactive .portrait-wrap { width: min(82vw, 320px); }
+  .hero-interactive .portrait-frame-full {
+    height: min(62svh, 480px);
+    min-height: 300px;
+    border-radius: 32px !important;
+  }
+}
