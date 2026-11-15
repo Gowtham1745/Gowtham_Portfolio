@@ -1943,3 +1943,184 @@ html[data-theme="royal"] ::selection { color: #1C1D2D; background: #FFC928; }
   html[data-theme="royal"] .resume-button,
   html[data-theme="royal"] .contact-primary-cta { transition: none !important; }
 }
+
+
+/* REFINEMENT PASS — disclosure alignment, readable credentials, and theme contrast. */
+/* Keep disclosure containers visually quiet; the clickable summary is the only pill. */
+.section-more {
+  display: block;
+  min-width: 0;
+  margin-top: 1rem !important;
+  padding: 0 !important;
+  overflow: visible;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+}
+.section-more > summary {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: flex-start;
+  gap: .45rem;
+  width: fit-content;
+  max-width: 100%;
+  min-height: 3rem;
+  padding: .72rem 1.15rem !important;
+  margin: 0 0 .85rem !important;
+  white-space: normal;
+  line-height: 1.45;
+  cursor: pointer;
+  list-style: none;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.24) !important;
+  border: 1px solid rgba(132,170,208,.25) !important;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.58), 0 8px 22px rgba(70,100,140,.055) !important;
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+}
+.section-more > summary::-webkit-details-marker { display: none; }
+.section-more > summary::marker { content: ""; }
+.section-more > summary::before {
+  content: "＋";
+  flex: 0 0 auto;
+  font-size: .9em;
+  opacity: .8;
+  transition: transform .25s ease;
+}
+.section-more[open] > summary::before { content: "−"; }
+.section-more > summary:hover { transform: translateY(-1px); }
+.section-more > summary .more-label-closed,
+.section-more > summary .more-label-open { display: inline; }
+.section-more:not([open]) > summary .more-label-open { display: none !important; }
+.section-more[open] > summary .more-label-closed { display: none !important; }
+.section-more-content {
+  display: block;
+  width: 100%;
+  margin: .25rem 0 0 !important;
+  padding: clamp(1rem, 2.4vw, 1.5rem) !important;
+  border-radius: 26px !important;
+  line-height: 1.75;
+}
+.section-more-content > * + * { margin-top: .8rem; }
+
+/* Education rows: separate the qualification from its school/date metadata. */
+.school-history {
+  display: grid;
+  gap: .55rem;
+  width: 100%;
+  padding: clamp(.85rem, 2vw, 1.2rem) !important;
+  margin: .15rem 0 0 !important;
+  border-radius: 24px !important;
+}
+.school-history p {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1fr);
+  gap: .22rem;
+  margin: 0 !important;
+  padding: .8rem .95rem;
+  border: 1px solid rgba(132,170,208,.20);
+  border-radius: 18px;
+  background: rgba(255,255,255,.20);
+  line-height: 1.55;
+}
+.school-history p b { display: block; font-weight: 700; }
+.school-history p span { display: block; min-width: 0; overflow-wrap: anywhere; }
+
+/* Certification cards use a consistent number/content grid and readable spacing. */
+.cert-list {
+  display: grid;
+  gap: .65rem;
+  margin-top: .8rem;
+  padding: 0;
+  list-style: none;
+}
+.cert-list li {
+  display: grid !important;
+  grid-template-columns: 2.4rem minmax(0, 1fr);
+  align-items: start;
+  gap: .8rem;
+  width: 100%;
+  padding: 1rem 1.1rem !important;
+  margin: 0 !important;
+  border-radius: 22px !important;
+}
+.cert-list li > span { display: block; font-variant-numeric: tabular-nums; opacity: .78; }
+.cert-list li > div { min-width: 0; }
+.cert-list li h3 { margin: 0; line-height: 1.35; overflow-wrap: anywhere; }
+.cert-list li p { margin: .35rem 0 0; line-height: 1.6; overflow-wrap: anywhere; }
+
+/* The education/honours block remains transparent outside its individual glass panels. */
+.credentials-grid, .credentials-grid > div { min-width: 0; }
+.credentials-grid .achievement {
+  padding: 1.1rem 1.2rem !important;
+  margin-top: .8rem;
+  border-radius: 24px !important;
+}
+.credentials-grid .achievement > p { line-height: 1.6; }
+.credentials-grid .eyebrow { margin-bottom: .65rem; }
+
+/* Explicit high-contrast typography in both dark themes, including long-form copy. */
+html[data-theme="midnight"] #education,
+html[data-theme="royal"] #education { color: #F2F4F1 !important; }
+html[data-theme="midnight"] #education h1,
+html[data-theme="midnight"] #education h2,
+html[data-theme="midnight"] #education h3,
+html[data-theme="midnight"] #education b,
+html[data-theme="royal"] #education h1,
+html[data-theme="royal"] #education h2,
+html[data-theme="royal"] #education h3,
+html[data-theme="royal"] #education b { color: #F2F4F1 !important; }
+html[data-theme="midnight"] #education p,
+html[data-theme="midnight"] #education span,
+html[data-theme="midnight"] #education .muted,
+html[data-theme="royal"] #education p,
+html[data-theme="royal"] #education span,
+html[data-theme="royal"] #education .muted { color: #DCE5E4 !important; }
+html[data-theme="midnight"] #education .eyebrow,
+html[data-theme="midnight"] #education .tag { color: #B9F12F !important; }
+html[data-theme="royal"] #education .eyebrow,
+html[data-theme="royal"] #education .tag { color: #FFC928 !important; }
+html[data-theme="midnight"] .section-more > summary {
+  color: #F2F0E9 !important;
+  background: rgba(242,240,233,.075) !important;
+  border-color: rgba(185,241,47,.22) !important;
+}
+html[data-theme="royal"] .section-more > summary {
+  color: #F2F4F1 !important;
+  background: rgba(242,244,241,.075) !important;
+  border-color: rgba(255,201,40,.22) !important;
+}
+html[data-theme="midnight"] .school-history p,
+html[data-theme="royal"] .school-history p {
+  background: rgba(242,244,241,.045);
+  border-color: rgba(242,244,241,.13);
+}
+html[data-theme="midnight"] .cert-list li,
+html[data-theme="royal"] .cert-list li {
+  background: linear-gradient(145deg, rgba(242,244,241,.12), rgba(8,39,57,.44)) !important;
+}
+html[data-theme="royal"] .cert-list li { background: linear-gradient(145deg, rgba(242,244,241,.12), rgba(28,29,45,.48)) !important; }
+html[data-theme="midnight"] .section-more-content,
+html[data-theme="royal"] .section-more-content {
+  background: rgba(242,244,241,.045) !important;
+  border-color: rgba(242,244,241,.14) !important;
+}
+html[data-theme="midnight"] .credentials-grid .achievement {
+  background: linear-gradient(145deg, rgba(242,240,233,.12), rgba(8,39,57,.48)) !important;
+  border-color: rgba(185,241,47,.2) !important;
+}
+html[data-theme="royal"] .credentials-grid .achievement {
+  background: linear-gradient(145deg, rgba(242,244,241,.12), rgba(28,29,45,.5)) !important;
+  border-color: rgba(255,201,40,.2) !important;
+}
+@media (max-width: 680px) {
+  .section-more > summary { min-height: 2.8rem; padding: .65rem .9rem !important; font-size: .9rem; }
+  .school-history p { padding: .75rem .8rem; }
+  .cert-list li { grid-template-columns: 1.9rem minmax(0,1fr); gap: .55rem; padding: .85rem !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .section-more > summary, .section-more > summary::before { transition: none !important; }
+}
