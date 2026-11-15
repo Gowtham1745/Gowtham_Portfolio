@@ -1218,3 +1218,82 @@ img, video { border-radius: inherit; }
     border-radius: 16px !important;
   }
 }
+
+
+/* Restore the previously approved profile-professional.jpg hero portrait. */
+.hero-interactive .hero-wordmark { display: none !important; }
+.hero-interactive .hero-content {
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.12fr) minmax(280px, .88fr) !important;
+  align-items: center !important;
+  gap: clamp(2rem, 4vw, 4rem) !important;
+}
+.hero-interactive .hero-copy {
+  width: 100%;
+  max-width: 680px;
+  min-width: 0;
+}
+.hero-interactive .hero-eyebrow {
+  display: block;
+  width: fit-content;
+  min-height: 0;
+}
+.hero-interactive .portrait-container {
+  display: flex !important;
+  position: relative;
+  z-index: 2;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+}
+.hero-interactive .portrait-wrap {
+  width: min(100%, 390px);
+}
+.hero-interactive .portrait-frame-full {
+  width: 100%;
+  height: min(64svh, 560px);
+  min-height: 360px;
+  overflow: hidden;
+  border-radius: 36px !important;
+  border: 1px solid rgba(132,170,208,.42) !important;
+  background: linear-gradient(145deg, rgba(185,220,242,.56), rgba(247,245,252,.94)) !important;
+  box-shadow: 0 26px 70px rgba(112,145,184,.20), inset 0 1px 0 rgba(255,255,255,.94) !important;
+}
+.hero-interactive .portrait-frame-full .portrait {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain !important;
+  object-position: center bottom;
+  border-radius: 0 !important;
+  filter: none !important;
+}
+.hero-interactive .portrait-caption {
+  width: fit-content;
+  max-width: 100%;
+  margin: 1rem auto 0;
+  padding: .8rem 1.1rem;
+  border-radius: 999px !important;
+}
+@media (max-width: 900px) {
+  .hero-interactive .hero-content {
+    grid-template-columns: minmax(0, 1fr) minmax(230px, .72fr) !important;
+    gap: 1.5rem !important;
+  }
+  .hero-interactive .portrait-wrap { width: min(100%, 310px); }
+}
+@media (max-width: 680px) {
+  .hero-interactive .hero-content {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch !important;
+    gap: 2rem !important;
+  }
+  .hero-interactive .portrait-container { justify-content: center; }
+  .hero-interactive .portrait-wrap { width: min(82vw, 320px); }
+  .hero-interactive .portrait-frame-full {
+    height: min(62svh, 460px);
+    min-height: 300px;
+    border-radius: 30px !important;
+  }
+}
