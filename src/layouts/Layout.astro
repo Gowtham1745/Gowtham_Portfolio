@@ -89,6 +89,7 @@ const nav = [
           <div class="theme-switcher" role="group" aria-label="Choose portfolio theme">
             <button type="button" class="theme-choice is-active" data-theme-choice="coastal" aria-pressed="true" title="Powder Blue, Lavender White and Sunset">Coastal</button>
             <button type="button" class="theme-choice" data-theme-choice="midnight" aria-pressed="false" title="Deep Midnight Teal, Soft Pearl and Neon Lime">Neon</button>
+            <button type="button" class="theme-choice" data-theme-choice="royal" aria-pressed="false" title="Deep Slate, Soft Pearl and Golden Yellow">Golden</button>
           </div>
           <a href={`${base}#contact`} class="hidden sm:inline-flex button button-small">Let's connect <span aria-hidden="true">↗</span></a>
           <button id="mobile-menu-toggle" type="button" class="md:hidden p-2 text-[var(--text-mid)] hover:text-[var(--text-hi)] border border-[var(--line)] bg-[var(--ink-1)] rounded cursor-pointer" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobile-menu">
@@ -127,15 +128,15 @@ const nav = [
         const choices = Array.from(document.querySelectorAll<HTMLButtonElement>('[data-theme-choice]'));
         const themeColor = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
         const applyTheme = (theme: string, persist = true) => {
-          const selected = theme === 'midnight' ? 'midnight' : 'coastal';
-          if (selected === 'midnight') root.dataset.theme = 'midnight';
-          else delete root.dataset.theme;
+          const selected = theme === 'midnight' || theme === 'royal' ? theme : 'coastal';
+          if (selected === 'coastal') delete root.dataset.theme;
+          else root.dataset.theme = selected;
           choices.forEach((button) => {
             const active = button.dataset.themeChoice === selected;
             button.classList.toggle('is-active', active);
             button.setAttribute('aria-pressed', String(active));
           });
-          if (themeColor) themeColor.content = selected === 'midnight' ? '#0B3048' : '#F7F5FC';
+          if (themeColor) themeColor.content = selected === 'midnight' ? '#0B3048' : selected === 'royal' ? '#1C1D2D' : '#F7F5FC';
           if (persist) {
             try { localStorage.setItem('gowtham-portfolio-theme', selected); } catch { /* storage may be unavailable */ }
           }
