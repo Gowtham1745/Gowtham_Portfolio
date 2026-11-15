@@ -308,11 +308,11 @@ const certifications = [['ANSYS Virtual Intern in Fluid Dynamics', 'Computationa
 <script>
   // Subtle desktop-only pointer parallax: each hero layer moves a few pixels toward the pointer.
   (() => {
-    const hero = document.querySelector('[data-interactive-hero]');
+    const hero = document.querySelector<HTMLElement>('[data-interactive-hero]');
     if (!hero || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const layers = Array.from(hero.querySelectorAll('[data-parallax]'));
+    const layers = Array.from(hero.querySelectorAll<HTMLElement>('[data-parallax]'));
     let frame = 0;
     let targetX = 0;
     let targetY = 0;
