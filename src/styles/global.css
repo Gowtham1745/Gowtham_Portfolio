@@ -1450,3 +1450,78 @@ img, video { border-radius: inherit; }
   #experience .experience-more > summary { transition: none !important; }
   #experience .timeline-content:hover { transform: none !important; }
 }
+
+
+/* WARM SUNSET BEACH ACCENTS — reserved for key actions and important signals. */
+:root {
+  --sunset-peach: #F1B58F;
+  --sunset-sand: #E9C79A;
+  --sunset-coral: #D98F78;
+  --sunset-ink: #493B3A;
+  --sunset-glow: rgba(241,181,143,.24);
+}
+/* Primary actions: a warm sunset highlight against the cool blue/lavender glass. */
+.button:not(.button-secondary),
+.hero-actions .button:not(.button-secondary),
+.resume-button,
+.contact-primary-cta,
+.honors-resume-button,
+.follow-button {
+  background: linear-gradient(125deg, #F3C5A4 0%, #EBD0B0 52%, #E9C6B6 100%) !important;
+  border-color: rgba(217,143,120,.42) !important;
+  color: var(--sunset-ink) !important;
+  box-shadow:
+    0 9px 25px rgba(217,143,120,.15),
+    inset 0 1px 0 rgba(255,255,255,.88) !important;
+}
+.button:not(.button-secondary):hover,
+.hero-actions .button:not(.button-secondary):hover,
+.resume-button:hover,
+.contact-primary-cta:hover,
+.honors-resume-button:hover,
+.follow-button:hover {
+  background: linear-gradient(125deg, #F5B994 0%, #E8BE98 55%, #E5B4A5 100%) !important;
+  border-color: rgba(205,128,105,.56) !important;
+  box-shadow: 0 13px 30px rgba(217,143,120,.23), inset 0 1px 0 rgba(255,255,255,.92) !important;
+}
+/* Quiet warm markers for section labels and the currently active experience. */
+.eyebrow::before,
+#experience .timeline-current-badge .pulse,
+#experience .timeline-current-badge::before {
+  background: var(--sunset-peach) !important;
+}
+#experience .timeline-current-badge {
+  border-color: rgba(217,143,120,.30) !important;
+  background: linear-gradient(120deg, rgba(255,226,204,.64), rgba(247,235,224,.48)) !important;
+  color: #8B6555 !important;
+  box-shadow: 0 5px 18px var(--sunset-glow), inset 0 1px 0 rgba(255,255,255,.9);
+}
+/* Important featured labels and selected project indicators only. */
+.featured-action,
+.section-more summary:hover,
+.project-card .project-category,
+.featured-card .tag,
+.achievement-feature .tag {
+  border-color: rgba(217,143,120,.26) !important;
+}
+.project-card .project-category,
+.featured-card .tag,
+.achievement-feature .tag {
+  background: rgba(255,225,204,.42) !important;
+  color: #896451 !important;
+}
+/* Warm, restrained emphasis for key links; ordinary body copy remains cool-toned. */
+.text-link:hover,
+.featured-action:hover,
+.contact-links a:hover {
+  color: #A86F58 !important;
+  border-color: rgba(217,143,120,.38) !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .button:not(.button-secondary),
+  .hero-actions .button:not(.button-secondary),
+  .resume-button,
+  .contact-primary-cta,
+  .honors-resume-button,
+  .follow-button { transition: none !important; }
+}
