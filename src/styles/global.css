@@ -904,3 +904,161 @@ footer .tag { color: #527FA2 !important; }
     line-height: 1.75;
   }
 }
+
+
+/* =========================================================
+   POWDER BLUE × LAVENDER WHITE — LIQUID / DYNAMIC ISLAND THEME
+   A complete site-wide visual layer; layout and content stay intact.
+   ========================================================= */
+:root {
+  color-scheme: light;
+  --ink-0: #f7f5fc;
+  --ink-1: #f0f4fb;
+  --ink-2: #e5eff9;
+  --line: rgba(123, 163, 198, .28);
+  --line-soft: rgba(156, 177, 211, .20);
+  --text-hi: #26364a;
+  --text-mid: #52647a;
+  --text-low: #73849a;
+  --amber: #8dbfe2;
+  --amber-dim: #729fc6;
+  --teal: #a9b9e8;
+  --liquid-blue: #b9dcf2;
+  --liquid-lavender: #f7f5fc;
+  --liquid-glass: rgba(247, 250, 255, .76);
+  --liquid-shadow: 0 18px 55px rgba(112, 145, 184, .14);
+}
+html { background: var(--liquid-lavender) !important; }
+body {
+  color: var(--text-hi) !important;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(185, 220, 242, .72), transparent 38%),
+    radial-gradient(ellipse at 88% 24%, rgba(220, 222, 246, .62), transparent 36%),
+    linear-gradient(145deg, #f7f5fc 0%, #edf5fc 48%, #f8f7fc 100%) !important;
+  background-attachment: fixed !important;
+  background-image:
+    radial-gradient(ellipse at 12% 8%, rgba(185, 220, 242, .72), transparent 38%),
+    radial-gradient(ellipse at 88% 24%, rgba(220, 222, 246, .62), transparent 36%),
+    linear-gradient(145deg, #f7f5fc 0%, #edf5fc 48%, #f8f7fc 100%) !important;
+}
+::selection { color: #26364a; background: #b9dcf2; }
+h1, h2, h3, h4, p, li, small, label, .muted { color: inherit; }
+h1, h2, h3, h4 { color: #29394f !important; }
+a { color: #547fa8; }
+.eyebrow, .tag, .section-note, .hero-intro,
+.about-copy > p:first-child, .contact-copy > p:not(.eyebrow) {
+  color: #526b87 !important;
+  text-shadow: 0 0 18px rgba(185, 220, 242, .38) !important;
+}
+.eyebrow::before { background: #91bfe1 !important; }
+header, .site-header, .nav-shell, .mobile-nav, #mobile-menu {
+  background: rgba(247, 249, 255, .78) !important;
+  border-color: rgba(133, 170, 207, .28) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+  backdrop-filter: blur(24px) saturate(150%);
+}
+.brand, .brand strong { color: #33465d !important; }
+.brand small { color: #70849b !important; }
+.brand-logo { border-color: #9fc9e8 !important; box-shadow: 0 0 0 3px rgba(247,245,252,.8), 0 5px 18px rgba(119,157,196,.18) !important; }
+.brand i, .pulse, .timeline-status-dot { background: #91bfe1 !important; }
+.button, .hero-actions .button, .resume-button, .follow-button,
+.contact-primary-cta, .honors-resume-button {
+  border: 1px solid rgba(125, 168, 207, .42) !important;
+  border-radius: 999px !important;
+  background: linear-gradient(135deg, #c4e3f5, #e8e8f8) !important;
+  color: #293d54 !important;
+  box-shadow: 0 8px 24px rgba(120, 157, 197, .16), inset 0 1px 0 rgba(255,255,255,.9) !important;
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease !important;
+}
+.button:hover, .hero-actions .button:hover, .resume-button:hover,
+.contact-primary-cta:hover, .honors-resume-button:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 13px 30px rgba(120,157,197,.23), inset 0 1px 0 rgba(255,255,255,.95) !important;
+}
+.button-secondary, .text-link, .social-button {
+  color: #425a75 !important;
+  background: rgba(247,249,255,.62) !important;
+  border: 1px solid rgba(135,171,208,.34) !important;
+  border-radius: 999px !important;
+}
+.button-secondary:hover { background: #e5f1fa !important; border-color: #a6cce9 !important; color: #304b68 !important; }
+.panel, .featured-card, .project-card, .skill-detail-card, .achievement-feature,
+.achievement-highlight-card, .contact-card, .contact-card-enhanced,
+.timeline-content, .skills-summary-item, .achievement, .follow-card,
+.honors-popup, .honors-slide-content, .portrait-caption, .section-more-content,
+.project-placeholder, .school-history, .cert-list li {
+  color: var(--text-hi) !important;
+  background: linear-gradient(145deg, rgba(255,255,255,.86), rgba(232,242,251,.82)) !important;
+  border: 1px solid rgba(132,170,208,.30) !important;
+  border-radius: 28px !important;
+  box-shadow: var(--liquid-shadow), inset 0 1px 0 rgba(255,255,255,.94) !important;
+}
+.featured-section, .about-section, .projects-section, .timeline-section,
+.skills-section, .achievements-section, .credentials-section, .contact-section,
+footer, .hero {
+  background: transparent !important;
+  color: var(--text-hi) !important;
+}
+.featured-card:hover, .project-card:hover, .skill-detail-card:hover,
+.achievement-feature:hover {
+  border-color: rgba(119,166,207,.52) !important;
+  box-shadow: 0 24px 65px rgba(112,145,184,.20) !important;
+}
+.featured-media, .project-image, .achievement-hero-image,
+.achievement-gallery-item, .honors-slide-image, .portrait-frame,
+.portrait-wrap, .portrait {
+  border-radius: 24px !important;
+  overflow: hidden;
+}
+.portrait-frame, .portrait-frame-full {
+  border: 1px solid rgba(133,174,211,.42) !important;
+  box-shadow: 0 24px 65px rgba(112,145,184,.20) !important;
+}
+.portrait-caption {
+  background: rgba(247,249,255,.82) !important;
+  color: #52647a !important;
+  border-radius: 999px !important;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+.project-category, .project-tools span, .timeline-tags span, .achievement-tags span,
+.tag, .featured-meta span, .skills-language-label, .project-status {
+  border-radius: 999px !important;
+  background: rgba(185,220,242,.36) !important;
+  border: 1px solid rgba(128,169,207,.25) !important;
+  color: #4b6582 !important;
+}
+.section-more > summary, .section-more summary, .mobile-nav-link,
+.contact-links a, .featured-action, .project-footer a {
+  border-radius: 999px !important;
+}
+.section-more > summary {
+  background: rgba(245,248,255,.78) !important;
+  border: 1px solid rgba(133,170,207,.30) !important;
+  color: #405873 !important;
+}
+.section-more-content { padding: 1.4rem !important; }
+.contact-links a {
+  background: rgba(247,249,255,.66) !important;
+  border: 1px solid rgba(133,170,207,.30) !important;
+  color: #405873 !important;
+}
+.contact-links a:hover { background: #e8f2fb !important; }
+.rule, hr { background: rgba(130,166,202,.28) !important; border-color: rgba(130,166,202,.28) !important; }
+.timeline-marker { background: #a9cce8 !important; border-color: #f7f5fc !important; box-shadow: 0 0 0 4px rgba(185,220,242,.35) !important; }
+.skill-detail-arrow { border-color: rgba(133,170,207,.34) !important; color: #658db4 !important; }
+.achievement-hero-image::after, .featured-media::after { opacity: .16 !important; }
+.honors-popup-backdrop { background: rgba(49,65,88,.32) !important; backdrop-filter: blur(16px); }
+.honors-popup { background: linear-gradient(145deg, #fbfaff, #eaf4fc) !important; }
+input, textarea, select { background: rgba(255,255,255,.82) !important; color: #29394f !important; border: 1px solid rgba(133,170,207,.38) !important; border-radius: 18px !important; }
+:focus-visible { outline: 3px solid #9cc9e8 !important; outline-offset: 3px !important; }
+.corner { display: none !important; }
+img, video { border-radius: inherit; }
+@media (max-width: 680px) {
+  .hero-actions .button { border-radius: 999px !important; }
+  .portrait-caption { border-radius: 999px !important; }
+  .contact-card { border-radius: 28px !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation-duration: .01ms !important; }
+}
