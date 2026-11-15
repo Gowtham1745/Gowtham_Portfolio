@@ -556,3 +556,59 @@ a, button { -webkit-tap-highlight-color: transparent; touch-action: manipulation
 @media (prefers-reduced-motion: reduce), (hover: none) {
   .hero-interactive [data-parallax] { transform: none !important; transition: none !important; }
 }
+
+
+/* Editorial copy polish: full-width descriptions with a restrained amber glow. */
+.section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: 1rem;
+}
+.section-head > div,
+.section-note {
+  width: 100%;
+  max-width: none;
+}
+.section-title {
+  max-width: 26ch;
+  text-wrap: balance;
+}
+.section-note,
+.about-copy > p:first-child,
+.contact-copy > p:not(.eyebrow) {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  color: #f0d18d;
+  font-size: clamp(.92rem, 1.08vw, 1.04rem);
+  line-height: 1.82;
+  letter-spacing: .005em;
+  text-shadow:
+    0 0 9px rgba(231, 184, 102, .28),
+    0 0 22px rgba(231, 184, 102, .13);
+}
+.hero-copy h1 {
+  max-width: 13ch;
+}
+.hero-copy h1 em {
+  color: var(--amber);
+  text-shadow:
+    0 0 12px rgba(231, 184, 102, .3),
+    0 0 28px rgba(231, 184, 102, .14);
+}
+.hero-intro {
+  max-width: 66ch;
+  color: #f0d18d;
+  text-shadow: 0 0 12px rgba(231, 184, 102, .18);
+}
+@media (max-width: 680px) {
+  .section-head { gap: .8rem; }
+  .section-title { max-width: 22ch; }
+  .section-note,
+  .about-copy > p:first-child,
+  .contact-copy > p:not(.eyebrow) {
+    font-size: .9rem;
+    line-height: 1.72;
+  }
+}
